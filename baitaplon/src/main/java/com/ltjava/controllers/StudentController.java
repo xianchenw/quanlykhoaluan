@@ -75,6 +75,15 @@ public class StudentController {
         }
         return "/";
     }
+    @GetMapping(value = "/student/class/remove/{classId}")
+    public String removeClass(@PathVariable(value = "classId") Integer id){
+        try{
+            classService.removeClass(classService.getClassById(id));
+        }catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+        return "redirect:/student/class";
+    }
     
     @RequestMapping("/student/major")
     public String studentMajor(Model model, 

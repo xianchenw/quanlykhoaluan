@@ -4,6 +4,7 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,11 +31,11 @@ public class Student implements Serializable{
     @Column(name = "phone_number")
     private String phoneNumber;
     private String birthday;
-    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "class_id", referencedColumnName = "id")
     private Class classId;
-    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "thesis_id", referencedColumnName = "id")
     private Thesis thesisId;

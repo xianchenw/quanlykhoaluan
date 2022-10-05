@@ -4,11 +4,17 @@
  */
 package com.ltjava.repository.impl;
 
+import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.User;
 import com.ltjava.repository.StudentRepository;
 import com.ltjava.service.ThesisService;
+import com.ltjava.service.UserService;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -30,8 +36,6 @@ public class StudentRepositoryImpl implements StudentRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
     
-    @Autowired
-    private ThesisService thesisService;
     
     @Override
     public List<Student> getStudents(String kw) {
@@ -90,6 +94,76 @@ public class StudentRepositoryImpl implements StudentRepository{
             System.out.println(ex.getStackTrace());
         }
         return false;
+    }
+
+    @Override
+    public Object[] getStudentAccount(String id) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        Object[] result = new Object[]{};
+        Map<String, String> msg = new HashMap<>();
+        msg.put("msg", "");
+        Map<String, Integer> status = new HashMap<>();
+        status.put("status", -1);
+        Map<String, Student> object = new HashMap<>();
+        object.put("value", new Student());
+        try{
+            Student student = s.get(Student.class,id);
+            User user = s.get(User.class, id);
+            if(student==null){
+                status.replace("status", 0);
+                msg.replace("msg", "Không tìm thấy sinh viên, vui lòng thêm sinh viên trước khi tạo tài khoản !!");
+            }
+            else{
+                if(user==null){
+                    status.replace("status", 1);
+                    object.replace("value", student);
+                }
+                else{
+                    status.replace("status",2);
+                    msg.replace("msg", "Sinh viên này đã có tài khoản đăng nhập");
+                }
+            }
+            result = new Object[]{status.get("status"), object.get("value"),msg.get("msg")};
+        }
+        catch(Exception e){
+            System.out.print("LỖI");
+        }
+        System.out.println(result[0]);
+        System.out.println(result[1]);
+        System.out.println(result[2]);
+        return result;
+    }
+
+    @Override
+    public List<Student> getListStudentAccount() {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        List<Student> listResult = new ArrayList<>();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Student> query = builder.createQuery(Student.class);
+        Root root = query.from(Student.class);
+        
+        query = query.select(root);
+        
+        Query q = s.createQuery(query);
+        
+        List<Student> listStudent = q.getResultList();
+        
+        User user = new User();
+        for (Student student : listStudent) {
+            System.out.println(student.getId());
+            user = s.get(User.class, student.getId());
+            System.out.println(user);
+            if(user==null){
+                System.out.println("KHÔNG CÓ TÀI KHOẢN");
+                listResult.add(student);
+            }
+            else{
+                System.out.println("CÓ TÀI KHOẢN");
+            }
+            user = new User();
+        }
+        System.out.println(listResult.size());
+        return listResult;
     }
     
 }

@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        <script src="<c:url value="/js/user.js"/>"></script>
         <script>
             window.onload = function load(){
                 fillId();
@@ -21,15 +22,25 @@
                 let a = document.getElementById('list-userrole');
                 let b = document.getElementById('id');
                 console.log(a.value)
-                if(a.value==3){
-                    b.value = "GV";
-                }
+                let area = document.getElementById('areaListStudent');
+                
                 if(a.value==4){
-                    b.value = "SV"
+                    b.value = "SV";
+                    area.innerHTML = `<label for="list-userrole">Danh sách sinh viên chưa có tài khoản: </label>
+                                        <select onchange="selectStudent(this.value)" class="form-control" id="listStudent" name="listStudent">
+                                        </select>`;
+                    loadListStudent();
                 }
-                if(a.value==1||a.value==2){
-                    b.value = ""
+                else{
+                    area.innerHTML = ``;
+                    if(a.value==3){
+                        b.value = "GV";
+                    }
+                    if(a.value==1||a.value==2){
+                        b.value = ""
+                    }
                 }
+                
             }
         </script>
         <div class="container-fluid col-xl-12 row content" >
@@ -81,9 +92,11 @@
                                             </c:forEach>
                                         </form:select>
                                     </div>
+                                    <div id="areaListStudent" class="form-group">
+                                    </div>
                                     <div class="form-group">
                                         <label for="id">Mã người dùng:</label>
-                                        <form:input onblur="loadStudent()" path="id" type="text" cssClass="form-control" placeholder="Example: 1951052052" id="id"></form:input>
+                                        <form:input onblur="loadStudent(this.value)" path="id" type="text" cssClass="form-control" placeholder="Example: 1951052052" id="id"></form:input>
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Tên người dùng:</label>

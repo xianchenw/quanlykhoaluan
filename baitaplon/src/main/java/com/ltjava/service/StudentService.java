@@ -4,6 +4,7 @@
  */
 package com.ltjava.service;
 
+import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface StudentService {
     Student getStudentById(String id);
     boolean addOrUpdate(Student s);
     boolean addThesis(Student studentId, Thesis thesisId);
+    Object[] getStudentAccount(String id);
+    List<Student> getListStudentAccount();
 }

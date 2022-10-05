@@ -5,6 +5,7 @@
 package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Class;
+import com.ltjava.pojo.Major;
 import com.ltjava.repository.ClassRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -72,6 +73,29 @@ public class ClassRepositoryImpl implements ClassRepository{
         try{
             s.save(c);
             System.out.println("THÊM THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
+
+    @Override
+    public Class getClassById(Integer intgr) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        Class u = s.get(Class.class,intgr);
+        return u;
+    }
+
+    @Override
+    public boolean removeClass(Class c) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            s.remove(c);
+            System.out.println("XÓA THÀNH CÔNGGG");
             return true;
         }
         catch(Exception ex){

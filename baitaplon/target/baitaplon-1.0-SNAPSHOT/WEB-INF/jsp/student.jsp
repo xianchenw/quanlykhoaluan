@@ -17,6 +17,7 @@
         <script>
             window.onload = function load(){
                 loadClass(document.getElementById('majorSelected'));
+                document.getElementById("id").value = "SV";
             }
         </script>
         <div class="col-xl-12 row container-fluid content ">
@@ -61,6 +62,7 @@
                                                     </c:forEach>
                                                 </select>
                                             </div>
+                                            <div id="note"></div>
                                             <div class="form-group" id="classArea">
                                                 <label for="classId">Lớp</label>
                                                 <select id="classSelected" class="form-control">

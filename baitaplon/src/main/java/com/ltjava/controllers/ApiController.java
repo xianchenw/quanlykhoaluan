@@ -9,6 +9,7 @@ import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.User;
 import com.ltjava.service.MajorService;
+import com.ltjava.service.StudentService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
 import java.util.List;
@@ -42,6 +43,9 @@ public class ApiController {
     @Autowired
     MajorService majorService;
     
+    @Autowired
+    StudentService studentService;
+    
     @GetMapping("/api/thesises")
     public ResponseEntity<List<Thesis>> listThesises(){
         List<Thesis> thesises = this.thesisService.getThesises("");
@@ -67,8 +71,40 @@ public class ApiController {
     @PostMapping(path = "/api/user/addStudent", produces = {
         MediaType.APPLICATION_JSON_VALUE
     })
-    public ResponseEntity<Student> loadStudent(@RequestBody Map<String, String> params){
-        
+    public ResponseEntity<Object[]> loadStudent(@RequestBody Map<String, String> params){
+        try{
+            Object[] result = studentService.getStudentAccount(params.get("studentId"));
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    @GetMapping(path = "/api/user/loadStudentAccount", produces = {
+        MediaType.APPLICATION_JSON_VALUE
+    })
+    public ResponseEntity<List<Student>> loadStudentAccount(){
+        try{
+            List<Student> kq = this.studentService.getListStudentAccount();
+            return new ResponseEntity<>(kq, HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    @PostMapping(path = "/api/user/selectStudent", produces = {
+        MediaType.APPLICATION_JSON_VALUE
+    })
+    public ResponseEntity<Student> selectStudent(@RequestBody Map<String, String> params){
+        try{
+            Student kq = this.studentService.getStudentById(params.get("studentId"));
+            return new ResponseEntity<>(kq, HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

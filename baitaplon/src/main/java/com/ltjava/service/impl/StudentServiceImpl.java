@@ -4,6 +4,7 @@
  */
 package com.ltjava.service.impl;
 
+import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.repository.StudentRepository;
@@ -41,5 +42,15 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public boolean addThesis(Student stdnt, Thesis thesis) {
         return this.studentRepository.addThesis(stdnt, thesis);
+    }
+
+    @Override
+    public Object[] getStudentAccount(String string) {
+        return this.studentRepository.getStudentAccount(string);
+    }
+
+    @Override
+    public List<Student> getListStudentAccount() {
+        return this.studentRepository.getListStudentAccount();
     }
 }

@@ -42,11 +42,12 @@
             <div class="col-xl-9">
                 <div class="d-flex flex-row-reverse">
                     <div class="p-2 ">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-success" type="submit">Tìm</button>
-                            </div>
+                        <div class="form-group">
+                            <select onchange="filterByMajor(this.value)" id="major-filter" class="form-control">
+                                <c:forEach var="u" items="${listMajor}" > 
+                                    <option id="${u.word}" value="${u.id}">${u.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="p-2">
@@ -97,13 +98,19 @@
                             <tr>
                                 <th>Tên lớp</th>
                                 <th>Khoa</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-body">
                         <c:forEach items="${listClass}" var="c">
                             <tr>
                                 <td>${c.name}</td>
                                 <td>${c.majorId}</td>
+                                <td>
+                                    <a href="<c:url value="/student/class/remove/${c.id}"/>">
+                                        <button onclick="" class="btn btn-danger btn-sm">Xóa</button>
+                                    </a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

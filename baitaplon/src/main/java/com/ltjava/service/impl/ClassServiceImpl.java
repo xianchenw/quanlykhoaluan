@@ -5,6 +5,7 @@
 package com.ltjava.service.impl;
 
 import com.ltjava.pojo.Class;
+import com.ltjava.pojo.Major;
 import com.ltjava.repository.ClassRepository;
 import com.ltjava.service.ClassService;
 import java.util.List;
@@ -34,6 +35,16 @@ public class ClassServiceImpl implements ClassService{
     @Override
     public boolean addClass(Class c) {
         return this.classRepository.addClass(c);
+    }
+
+    @Override
+    public Class getClassById(Integer intgr) {
+        return this.classRepository.getClassById(intgr);
+    }
+
+    @Override
+    public boolean removeClass(Class type) {
+        return this.classRepository.removeClass(type);
     }
     
 }

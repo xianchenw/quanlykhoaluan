@@ -1,0 +1,134 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.ltjava.controllers;
+
+import com.ltjava.pojo.Student;
+import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.User;
+import com.ltjava.service.StudentService;
+import com.ltjava.service.ThesisInstructorService;
+import com.ltjava.service.ThesisService;
+import com.ltjava.service.UserService;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ *
+ * @author HIEN
+ */
+@Controller
+@ControllerAdvice
+public class ThesisController {
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private StudentService studentService;
+    
+    @Autowired
+    private ThesisService thesisService;
+    
+    @Autowired
+    private ThesisInstructorService thesisInstructorService;
+    
+    public List<Student> thesisStudents = new ArrayList<>(); 
+    
+    public List<User> thesisTeachers = new ArrayList<>(); 
+    
+    @ModelAttribute
+    public void commonAttr(Model model){
+        model.addAttribute("listThesis", this.thesisService.getThesises(""));
+    }
+    
+    @RequestMapping("/thesis")
+    public String thesis(Model model){
+        return "thesis";
+    }
+    
+    @PostMapping(value = "/thesis/addThesis")
+    public String thesis(@ModelAttribute(value = "thesisInfo") Thesis thesisInfo){
+        if(thesisService.addThesis(thesisInfo)){
+            if(thesisStudents.size()>0){
+                for (Student thesisStudent : thesisStudents) {
+                    studentService.addThesis(thesisStudent, thesisInfo);
+                }
+            }
+            thesisStudents.clear();
+            if(thesisTeachers.size()>0){
+                for (User thesisTeacher : thesisTeachers) {
+                    thesisInstructorService.addThesisInstructor(thesisInfo, thesisTeacher);
+                }
+            }
+            thesisStudents.clear();
+            thesisTeachers.clear();
+            return "redirect:/thesis";
+        }
+        return "addThesis";
+    }
+    
+    @RequestMapping("/thesis/reviewer")
+    public String reviewer(Model model){
+        return "reviewer";
+    }
+    
+    @RequestMapping("/thesis/addThesis")
+    public String addThesis(Model model, @RequestParam(value="studentId", required = false, defaultValue = "") String studentId,
+            @RequestParam(value="removeId", required = false, defaultValue = "") String removeId,
+            @RequestParam(value="teacherId", required = false, defaultValue = "") String teacherId,
+            @RequestParam(value="removeTId", required = false, defaultValue = "") String removeTId){
+        model.addAttribute("thesisInfo", new Thesis());
+        if(studentService.getStudentById(studentId)!=null){
+            thesisStudents.add(studentService.getStudentById(studentId));
+            System.out.println(thesisStudents.size());
+        }
+        if(!removeId.isEmpty()&&removeId!=""&&thesisStudents.size()>0){
+            thesisStudents.remove(thesisStudents.indexOf(studentService.getStudentById(removeId))+1);
+            System.out.println(thesisStudents.size());
+        }
+        if(userService.getUserById(teacherId)!=null){
+            thesisTeachers.add(userService.getUserById(teacherId));
+            System.out.println(thesisTeachers.size());
+        }
+        if(!removeTId.isEmpty()&&removeTId!=""&&thesisTeachers.size()>0){
+            thesisTeachers.remove(thesisTeachers.indexOf(userService.getUserById(removeTId))+1);
+            System.out.println(thesisTeachers.size());
+        }
+        model.addAttribute("students", thesisStudents);
+        model.addAttribute("teachers", thesisTeachers);
+        return "addThesis";
+    }
+    
+    @RequestMapping("/thesis/{thesisId}")
+    public String thesisItem(Model model, @PathVariable(value = "thesisId") Integer thesisId){
+        model.addAttribute("thesisPage", thesisService.getThesisById(thesisId));
+        return "thesisItem";
+    }
+    
+    @RequestMapping("/thesis/remove/{thesisId}")
+    public String removeThesis(Model model, @PathVariable(value = "thesisId") Integer thesisId){
+        if(thesisService.getThesisById(thesisId)!=null){
+            thesisService.removeThesis(thesisService.getThesisById(thesisId));
+        }
+        return "redirect:/thesis";
+    }
+    
+    @RequestMapping("/thesis/score/{user}")
+    public String score(Model model, @PathVariable(value = "user") String u){
+        System.out.print(thesisService.getThesisesByUser(u));
+        model.addAttribute("thesisess", thesisService.getThesisesByUser(u));
+        return "score";
+    }
+}

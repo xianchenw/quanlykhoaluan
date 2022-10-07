@@ -107,4 +107,19 @@ public class ApiController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    
+    @PostMapping(path = "/api/student/edit", produces = {
+        MediaType.APPLICATION_JSON_VALUE
+    })
+    public ResponseEntity<Student> editStudent(@RequestBody Map<String, String> params){
+        try{
+            System.out.print(params.get("birthday"));
+            this.studentService.updateStudent(params);
+            Student student = studentService.getStudentById(params.get("studentId"));
+            return new ResponseEntity<>( student,HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

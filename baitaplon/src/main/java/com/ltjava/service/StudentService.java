@@ -8,6 +8,7 @@ import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,4 +21,5 @@ public interface StudentService {
     boolean addThesis(Student studentId, Thesis thesisId);
     Object[] getStudentAccount(String id);
     List<Student> getListStudentAccount();
+    boolean updateStudent(Map<String, String> params);
 }

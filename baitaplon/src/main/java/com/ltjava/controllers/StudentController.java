@@ -10,6 +10,7 @@ import com.ltjava.pojo.User;
 import com.ltjava.service.ClassService;
 import com.ltjava.service.MajorService;
 import com.ltjava.service.StudentService;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,7 +47,7 @@ public class StudentController {
     }
     
     @RequestMapping("/student")
-    public String student(Model model, 
+    public String student(Model model,
             @RequestParam(value = "kw", required = false, defaultValue ="") String kw){
         model.addAttribute("studentInfo", new Student());
         model.addAttribute("listStudent", studentService.getStudents(kw));
@@ -54,6 +56,8 @@ public class StudentController {
     
     @PostMapping(value = "/student")
     public String addStudent(@ModelAttribute(value = "studentInfo")Student studentInfo){
+        System.out.print("hiahidkfj");
+        System.out.println(studentInfo.getBirthday());
         if(this.studentService.addOrUpdate(studentInfo)){
             return "redirect:/student";
         }

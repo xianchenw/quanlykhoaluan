@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -45,34 +45,34 @@
                             </div>
 
                             <div class="modal-body">
-<!--                                <form:form modelAttribute="councilInfo" action="/baitaplon/council" method="post">
+                                <form action="/baitaplon/council" method="post">
                                     <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                                     <div class="form-group">
                                         <label for="id">Mã hội đồng:</label>
-                                        <form:input path="id" type="text" class="form-control" placeholder="Mã hội đồng" id="id"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã hội đồng" id="id"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="president">Chủ tịch:</label>
-                                        <form:input path="presidentId" type="text" class="form-control" placeholder="Mã tài khoản" id="president"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="president"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="secrectary">Thư ký:</label>
-                                        <form:input path="secretaryId" type="text" class="form-control" placeholder="Mã tài khoản" id="secretary"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="secretary"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="reviewer">Phản biện:</label>
-                                        <form:input path="reviewerId" type="text" class="form-control" placeholder="Mã tài khoản" id="reviewer"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="reviewer"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="member1">Thành viên 1:</label>
-                                        <form:input path="member1Id" type="text" class="form-control" placeholder="Mã tài khoản" id="member1"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="member1"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="member2">Thành viên 2:</label>
-                                        <form:input path="member2Id" type="text" class="form-control" placeholder="Mã tài khoản" id="member2"></form:input>
+                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="member2"></input>
                                     </div>
                                     <input type="submit" class="btn btn-success"  value="Thêm" />
-                                </form:form>-->
+                                </form>
                             </div>
 
                             <div class="modal-footer">
@@ -93,6 +93,7 @@
                             <th>Phản biện</th>
                             <th>Thành viên</th>
                             <th>Thành viên</th>
+                            <th></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -135,8 +136,14 @@
                                             <td><a href="<c:url value="/council/lock/${cM[0].id}"/>"><button class="btn btn-danger">Khóa hội đồng</button></a></td>
                                         </c:if>
                                         <c:if test="${cM[0].active == false}">
-                                            <td>Đã khóa</td>
+                                            <td>
+                                                <span class="badge badge-pill badge-danger">Đã khóa</span>
+                                                <a href="<c:url value="/council/unlock/${cM[0].id}"/>"><button class="btn btn-light">Mở khóa</button></a>
+                                            </td>
                                         </c:if>
+                                            <td>
+                                                <a href="<c:url value="/council/${cM[0].id}"/>"><button class="btn btn-info">Chi tiết</button></a>
+                                            </td>
                                     </tr>
                                 </c:forEach>
                             

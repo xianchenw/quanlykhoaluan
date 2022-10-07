@@ -9,6 +9,7 @@ import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.User;
 import com.ltjava.repository.StudentRepository;
+import com.ltjava.service.ClassService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
 import java.util.ArrayList;
@@ -35,6 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudentRepositoryImpl implements StudentRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    
+    @Autowired
+    private ClassService classService;
+    
     
     
     @Override
@@ -164,6 +169,31 @@ public class StudentRepositoryImpl implements StudentRepository{
         }
         System.out.println(listResult.size());
         return listResult;
+    }
+
+    @Override
+    public boolean updateStudent(Map<String,String> params) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        Student studentUpdate = getStudentById(params.get("studentId"));
+        try{
+            studentUpdate.setId(params.get("id"));
+            studentUpdate.setFirstName(params.get("firstName"));
+            studentUpdate.setLastName(params.get("lastName"));
+            studentUpdate.setEmail(params.get("email"));
+            studentUpdate.setPhoneNumber(params.get("phoneNumber"));
+            if(!params.get("birthday").isEmpty()&&params.get("birthday")!=null)
+                studentUpdate.setBirthday(params.get("birthday"));
+            studentUpdate.setClassId(this.classService.getClassById(Integer.parseInt(params.get("classId"))));
+            s.update(studentUpdate);
+            System.out.println("CẬP NHẬT THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
     }
     
 }

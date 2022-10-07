@@ -12,6 +12,7 @@ import com.ltjava.service.StudentService;
 import com.ltjava.service.UserRoleService;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +53,10 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Student> getListStudentAccount() {
         return this.studentRepository.getListStudentAccount();
+    }
+
+    @Override
+    public boolean updateStudent(Map<String, String> map) {
+        return this.studentRepository.updateStudent(map);
     }
 }

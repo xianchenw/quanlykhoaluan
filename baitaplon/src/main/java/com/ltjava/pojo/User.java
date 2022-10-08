@@ -4,6 +4,7 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -26,9 +27,13 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 public class User implements Serializable{
+    @JsonIgnore
     private static String ADMIN = "ADMIN";
+    @JsonIgnore
     private static String TEACHER = "TEACHER";
+    @JsonIgnore
     private static String MANAGER = "MANAGER";
+    @JsonIgnore
     private static String STUDENT = "STUDENT";
     
     @Id
@@ -44,14 +49,18 @@ public class User implements Serializable{
     @Column(name = "phone_number")
     private String phoneNumber;
     private String birthday;
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name= "user_role", referencedColumnName = "id")
     private UserRole userRole;
     private Boolean active;
+    @JsonIgnore
     @OneToMany(mappedBy = "reviewerId")
     private Set<Thesis> thesises;
+    @JsonIgnore
     @OneToMany(mappedBy = "instructorId")
     private Set<ThesisInstructor> thesisInstructors;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<CouncilMember> members;
 

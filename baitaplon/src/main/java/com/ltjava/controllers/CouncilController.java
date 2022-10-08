@@ -13,6 +13,7 @@ import com.ltjava.service.CouncilService;
 import com.ltjava.service.CriteriaService;
 import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.ThesisService;
+import com.ltjava.service.UserService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,12 +49,16 @@ public class CouncilController {
     @Autowired
     private ThesisService thesisService;
     
+    @Autowired
+    private UserService userService;
+    
     private Set<Thesis> thesises = new HashSet<>();
         
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listCouncil", councilMemberService.getListCouncilMember(councilService.getCouncils("")));
         model.addAttribute("listCriteria", criteriaService.getCriterias(""));
+        model.addAttribute("listTeacher", userService.getUsers("TEACHER"));
     }
     
     @RequestMapping("/council")

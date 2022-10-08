@@ -25,7 +25,12 @@
                     <div class="form-group">
                             <form method="put" action="/baitaplon/thesis/addThesis">
                                 <label for="studentId">Sinh viên thực hiện:</label>
-                                <input name="studentId" onkeydown="addStudent(document.getElementById('studentId').value)" type="text" cssClass="form-control" placeholder="Mã sinh viên" id="studentId"></input>
+                                <select id="studentId" name="studentId">
+                                    <option value=""></option>
+                                    <c:forEach items="${listStudent}" var="student">
+                                        <option value="${student.id}">${student.firstName} ${student.lastName}</option>
+                                    </c:forEach>
+                                </select>
                                 <input type="submit" class="btn btn-info" value="Thêm sinh viên"></input>
                             </form>
                             <br>
@@ -55,7 +60,12 @@
                     <div class="form-group">
                             <form method="put" action="/baitaplon/thesis/addThesis">
                                 <label for="teacherId">Giáo viên hướng dẫn:</label>
-                                <input name="teacherId" onkeydown="addStudent(document.getElementById('teacherId').value)" type="text" cssClass="form-control" placeholder="Mã giảng viên" id="teacherId"></input>
+                                <select id="teacherId" name="teacherId">
+                                    <option value=""></option>
+                                    <c:forEach items="${listTeacher}" var="teacher">
+                                        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+                                    </c:forEach>
+                                </select>
                                 <input type="submit" class="btn btn-info" value="Thêm giảng viên"></input>
                             </form>
                             <br>
@@ -85,10 +95,6 @@
                     <form:form modelAttribute="thesisInfo" action="/baitaplon/thesis/addThesis" method="post">
                         <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                         <div class="form-group">
-                            <label for="id">Mã khóa luận:</label>
-                            <form:input path="id" type="text" cssClass="form-control" placeholder="Mã khóa luận" id="id" ></form:input>
-                        </div>
-                        <div class="form-group">
                             <label for="topic">Chủ đề</label>
                             <form:input path="topic" type="text" class="form-control" placeholder="Chủ đề" id="topic"></form:input>
                         </div>
@@ -98,7 +104,12 @@
                         </div>
                         <div class="form-group">
                             <label for="reviewerId">Giảng viên phản biện</label>
-                            <form:input path="reviewerId" type="text" class="form-control" placeholder="Mã giảng viên" id="reviewerId"></form:input>
+                            <form:select path="reviewerId" class="form-control" id="reviewerId">
+                                <option value=""></option>
+                                <c:forEach items="${listTeacher}" var="t">
+                                    <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                </c:forEach>
+                            </form:select>
                         </div>
 
                         <input type="submit" class="btn btn-success"  value="Thêm" />

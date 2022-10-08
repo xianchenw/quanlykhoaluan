@@ -1,4 +1,5 @@
 com\ltjava\formatter\ClassFomatter.class
+com\ltjava\controllers\ApiController.class
 com\ltjava\pojo\CouncilMember.class
 com\ltjava\repository\CriteriaRepository.class
 com\ltjava\configs\SpringSecurityConfig.class
@@ -72,6 +73,7 @@ com\ltjava\controllers\ThesisController.class
 com\ltjava\repository\UserRepository.class
 com\ltjava\pojo\Council.class
 com\ltjava\configs\WebApplicationContextConfig.class
+com\ltjava\controllers\ApiThesisController.class
 com\ltjava\pojo\Student.class
 com\ltjava\pojo\Thesis.class
 com\ltjava\repository\UserRoleRepository.class

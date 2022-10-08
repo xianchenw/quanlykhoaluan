@@ -14,14 +14,14 @@
     </head>
     <body>
         <div class="col-xl-12 row container-fluid content ">
-            <div class="col-xl-3 border-right">
-                <h3 class="text-left">QUẢN LÝ HỘI ĐỒNG</h3>
+            <div class="col-xl-2 border-right">
+                <h3 class="text-center">QUẢN LÝ HỘI ĐỒNG</h3>
                 <div style="padding: 10px">
                     <a href="<c:url value="/council"/>"<p class="text-left text-dark">Danh sách hội đồng</p></a>
                     <a href="<c:url value="/council/criteria"/>"><p class="text-left text-dark">Điểm khóa luận</p></a>
                 </div>
             </div>
-            <div class="col-xl-9">
+            <div class="col-xl-10">
                 <div class="d-flex flex-row-reverse">
                     <div class="p-2 ">
                         <div class="input-group mb-3">
@@ -45,33 +45,58 @@
                             </div>
 
                             <div class="modal-body">
-                                <form action="/baitaplon/council" method="post">
+                                <form action="" method="post">
                                     <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                                     <div class="form-group">
-                                        <label for="id">Mã hội đồng:</label>
-                                        <input type="text" class="form-control" placeholder="Mã hội đồng" id="id"></input>
+                                        <label for="id">Tên hội đồng:</label>
+                                        <input type="text" class="form-control" placeholder="Tên hội đồng" id="id"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="president">Chủ tịch:</label>
-                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="president"></input>
+                                        <select class="form-control" id="president" >
+                                            <option value=""></option>
+                                            <c:forEach items="${listTeacher}" var="t">
+                                                <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="secrectary">Thư ký:</label>
-                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="secretary"></input>
+                                        <select class="form-control" id="secretary" >
+                                            <option value=""></option>
+                                            <c:forEach items="${listTeacher}" var="t">
+                                                <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="reviewer">Phản biện:</label>
-                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="reviewer"></input>
+                                        <select class="form-control" id="reviewer" >
+                                            <option value=""></option>
+                                            <c:forEach items="${listTeacher}" var="t">
+                                                <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="member1">Thành viên 1:</label>
-                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="member1"></input>
+                                        <select class="form-control" id="member1" >
+                                            <option value=""></option>
+                                            <c:forEach items="${listTeacher}" var="t">
+                                                <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="member2">Thành viên 2:</label>
-                                        <input type="text" class="form-control" placeholder="Mã tài khoản" id="member2"></input>
+                                        <select class="form-control" id="member2" >
+                                            <option value=""></option>
+                                            <c:forEach items="${listTeacher}" var="t">
+                                                <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
-                                    <input type="submit" class="btn btn-success"  value="Thêm" />
+                                    <input onclick="addCouncil()" type="submit" class="btn btn-success"  value="Thêm" />
                                 </form>
                             </div>
 
@@ -87,7 +112,7 @@
                     <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th>Mã hội đồng</th>
+                            <th>Hội đồng</th>
                             <th>Chủ tịch</th>
                             <th>Thư ký</th>
                             <th>Phản biện</th>
@@ -101,7 +126,7 @@
                             <c:if test="${listCouncil !=null}" >
                                 <c:forEach items="${listCouncil}" var="cM">
                                     <tr>
-                                        <td>${cM[0].id}</td>
+                                        <td>${cM[0].name}</td>
                                         <c:if test="${cM[1][0] !=null}">
                                             <td>${cM[1][0].userId}</td>
                                         </c:if>
@@ -137,8 +162,7 @@
                                         </c:if>
                                         <c:if test="${cM[0].active == false}">
                                             <td>
-                                                <span class="badge badge-pill badge-danger">Đã khóa</span>
-                                                <a href="<c:url value="/council/unlock/${cM[0].id}"/>"><button class="btn btn-light">Mở khóa</button></a>
+                                                <small class="badge badge-pill badge-danger">Đã khóa</small>
                                             </td>
                                         </c:if>
                                             <td>

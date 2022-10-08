@@ -6,8 +6,11 @@ package com.ltjava.pojo;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,8 +25,12 @@ import javax.persistence.Table;
 @Table(name = "council")
 public class Council implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean active;
+    private String name;
+    @Column(name = "created_date")
+    private String createdDate;
     @OneToMany(mappedBy = "councilId", fetch = FetchType.EAGER)
     private Set<CouncilMember> members;
     @OneToMany(mappedBy = "councilId", fetch = FetchType.EAGER)
@@ -85,6 +92,34 @@ public class Council implements Serializable{
      */
     public void setMembers(Set<CouncilMember> members) {
         this.members = members;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     

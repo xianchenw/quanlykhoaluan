@@ -51,6 +51,8 @@ public class ThesisController {
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listThesis", this.thesisService.getThesises(""));
+        model.addAttribute("listTeacher", this.userService.getUsers("TEACHER"));
+        model.addAttribute("listStudent", this.studentService.getStudents(""));
     }
     
     @RequestMapping("/thesis")
@@ -95,7 +97,11 @@ public class ThesisController {
             System.out.println(thesisStudents.size());
         }
         if(!removeId.isEmpty()&&removeId!=""&&thesisStudents.size()>0){
-            thesisStudents.remove(thesisStudents.indexOf(studentService.getStudentById(removeId))+1);
+            for (int i =0; i<thesisStudents.size();i++){
+                if(thesisStudents.get(i).getId().equals(removeId)){
+                    thesisStudents.remove(i);
+                }
+            }
             System.out.println(thesisStudents.size());
         }
         if(userService.getUserById(teacherId)!=null){
@@ -103,7 +109,11 @@ public class ThesisController {
             System.out.println(thesisTeachers.size());
         }
         if(!removeTId.isEmpty()&&removeTId!=""&&thesisTeachers.size()>0){
-            thesisTeachers.remove(thesisTeachers.indexOf(userService.getUserById(removeTId))+1);
+            for (int i =0; i<thesisTeachers.size();i++){
+                if(thesisTeachers.get(i).getId().equals(removeTId)){
+                    thesisTeachers.remove(i);
+                }
+            }
             System.out.println(thesisTeachers.size());
         }
         model.addAttribute("students", thesisStudents);

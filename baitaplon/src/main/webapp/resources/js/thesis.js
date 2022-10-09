@@ -116,11 +116,16 @@ function editThesis(thesisId, topic, description, reviewer, students, instructor
             'Content-Type':'application/json'
         }
     }).then(res => {
-        console.log(res.json());
         return res.json();
     }).then(data=>{
         console.log(data);
+        location.reload();
     })
+}
+
+function refr(a, b){
+    a.innerHTML = "";
+    b.innerHTML = "";
 }
 
 

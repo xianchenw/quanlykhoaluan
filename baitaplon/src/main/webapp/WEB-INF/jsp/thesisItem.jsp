@@ -37,7 +37,7 @@
                         </div>
                         <br>
                         <div class="body">
-                            <form action="" method="">
+                            <div>
                                 <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                                 <div class="form-group">
                                     <label for="topic">Chủ đề</label>
@@ -86,30 +86,61 @@
                                                     <th>Mã sinh viên</th>
                                                     <th>Tên sinh viên</th>
                                                     <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${thesisPage.students}" var="st">
-                                                    <tr>
-                                                        <td id="cellStudentId${st.id}">${st.id}</td>
-                                                        <td id="cellStudentName${st.id}">${st.firstName} ${st.lastName}</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                                                   Chọn sinh viên
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <c:forEach items="${listStudent}" var="s">
-                                                                        <a onclick="changeStudent(this.innerText, document.getElementById('cellStudentId${st.id}'), 
-                                                                                    document.getElementById('cellStudentName${st.id}'))" class="dropdown-item" 
-                                                                                    href="javascript:;">${s.id}</a>
-                                                                    </c:forEach>
+                                                <c:if test="${thesisPage.students.size()==2}">
+                                                    <c:forEach items="${thesisPage.students}" var="st">
+                                                        <tr>
+                                                            <td id="cellStudentId${st.id}">${st.id}</td>
+                                                            <td id="cellStudentName${st.id}">${st.firstName} ${st.lastName}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                                       Chọn sinh viên
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <c:forEach items="${listStudent}" var="s">
+                                                                            <a onclick="changeStudent(this.innerText, document.getElementById('cellStudentId${st.id}'), 
+                                                                                        document.getElementById('cellStudentName${st.id}'))" class="dropdown-item" 
+                                                                                        href="javascript:;">${s.id}</a>
+                                                                        </c:forEach>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                                <c:if test="${thesisPage.students.size()<=1}">
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="refr(document.getElementById('cellStudentId${st.id}'), 
+                                                                    document.getElementById('cellStudentName${st.id}'))" class="btn btn-light">Xóa</button>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${thesisPage.students.size()==1}">
+                                                    <c:forEach items="${thesisPage.students}" var="st">
+                                                        <tr>
+                                                            <td id="cellStudentId${st.id}">${st.id}</td>
+                                                            <td id="cellStudentName${st.id}">${st.firstName} ${st.lastName}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                                       Chọn sinh viên
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <c:forEach items="${listStudent}" var="s">
+                                                                            <a onclick="changeStudent(this.innerText, document.getElementById('cellStudentId${st.id}'), 
+                                                                                        document.getElementById('cellStudentName${st.id}'))" class="dropdown-item" 
+                                                                                        href="javascript:;">${s.id}</a>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="refr(document.getElementById('cellStudentId${st.id}'), 
+                                                                    document.getElementById('cellStudentName${st.id}'))" class="btn btn-secondary">Xóa</button>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
                                                     <tr>
                                                         <td id="cellStudentId"></td>
                                                         <td id="cellStudentName"></td>
@@ -125,6 +156,54 @@
                                                                     </c:forEach>
                                                                 </div>
                                                             </div>
+                                                        </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellStudentId'), 
+                                                                    document.getElementById('cellStudentName'))" class="btn btn-secondary">Xóa</button>
+                                                        </td>
+                                                    </tr>
+                                                </c:if>
+                                                <c:if test="${thesisPage.students.size()==0}">
+                                                    <tr>
+                                                        <td id="cellStudentId1"></td>
+                                                        <td id="cellStudentName1"></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                                   Thêm sinh viên
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <c:forEach items="${listStudent}" var="st">
+                                                                        <a onclick="addStudent(this.innerText, document.getElementById('cellStudentId1'), 
+                                                                            document.getElementById('cellStudentName1'))" class="dropdown-item" href="javascript:;">${st.id}</a>
+                                                                    </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellStudentId1'), 
+                                                                    document.getElementById('cellStudentName1'))" class="btn btn-secondary">Xóa</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="cellStudentId2"></td>
+                                                        <td id="cellStudentName2"></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                                   Thêm sinh viên
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <c:forEach items="${listStudent}" var="st">
+                                                                        <a onclick="addStudent(this.innerText, document.getElementById('cellStudentId2'), 
+                                                                            document.getElementById('cellStudentName2'))" class="dropdown-item" href="javascript:;">${st.id}</a>
+                                                                    </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellStudentId2'), 
+                                                                    document.getElementById('cellStudentName2'))" class="btn btn-secondary">Xóa</button>
                                                         </td>
                                                     </tr>
                                                 </c:if>
@@ -146,27 +225,58 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${thesisPage.thesisInstructors}" var="ins">
-                                                    <tr>
-                                                        <td id="cellInstructorId${ins.instructorId.id}">${ins.instructorId.id}</td>
-                                                        <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.firstName} ${ins.instructorId.lastName}</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                                                   Chọn giảng viên
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <c:forEach items="${listTeacher}" var="te">
-                                                                        <a onclick="changeInstructor(this.innerText, document.getElementById('cellInstructorId${ins.instructorId.id}'), 
-                                                                                    document.getElementById('cellInstructorName${ins.instructorId.id}'))" class="dropdown-item" 
-                                                                                    href="javascript:;">${te.id}</a>
-                                                                    </c:forEach>
+                                                <c:if test="${thesisPage.thesisInstructors.size()==2}">
+                                                    <c:forEach items="${thesisPage.thesisInstructors}" var="ins">
+                                                        <tr>
+                                                            <td id="cellInstructorId${ins.instructorId.id}">${ins.instructorId.id}</td>
+                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.firstName} ${ins.instructorId.lastName}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                                       Chọn giảng viên
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <c:forEach items="${listTeacher}" var="te">
+                                                                            <a onclick="changeInstructor(this.innerText, document.getElementById('cellInstructorId${ins.instructorId.id}'), 
+                                                                                        document.getElementById('cellInstructorName${ins.instructorId.id}'))" class="dropdown-item" 
+                                                                                        href="javascript:;">${te.id}</a>
+                                                                        </c:forEach>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                                <c:if test="${thesisPage.thesisInstructors.size()<=1}">
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="refr(document.getElementById('cellInstructorId${ins.instructorId.id}'), 
+                                                                    document.getElementById('cellInstructorName${ins.instructorId.id}'))" class="btn btn-light">Xóa</button>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </c:if>
+                                                
+                                                <c:if test="${thesisPage.thesisInstructors.size()==1}">
+                                                    <c:forEach items="${thesisPage.thesisInstructors}" var="ins">
+                                                        <tr>
+                                                            <td id="cellInstructorId${ins.instructorId.id}">${ins.instructorId.id}</td>
+                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.firstName} ${ins.instructorId.lastName}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                                       Chọn giảng viên
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <c:forEach items="${listTeacher}" var="te">
+                                                                            <a onclick="changeInstructor(this.innerText, document.getElementById('cellInstructorId${ins.instructorId.id}'), 
+                                                                                        document.getElementById('cellInstructorName${ins.instructorId.id}'))" class="dropdown-item" 
+                                                                                        href="javascript:;">${te.id}</a>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="refr(document.getElementById('cellInstructorId${ins.instructorId.id}'), 
+                                                                    document.getElementById('cellInstructorName${ins.instructorId.id}'))" class="btn btn-light">Xóa</button>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
                                                     <tr>
                                                         <td id="cellInstructorId"></td>
                                                         <td id="cellInstructorName"></td>
@@ -184,6 +294,56 @@
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellInstructorId'), 
+                                                                document.getElementById('cellInstructorName'))" class="btn btn-light">Xóa</button>
+                                                        </td>
+                                                    </tr>
+                                                </c:if>
+                                                <c:if test="${thesisPage.thesisInstructors.size()==0}">
+                                                    <tr>
+                                                        <td id="cellInstructorId1"></td>
+                                                        <td id="cellInstructorName1"></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                                   Thêm giảng viên
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <c:forEach items="${listTeacher}" var="te">
+                                                                        <a onclick="addInstructor(this.innerText, document.getElementById('cellInstructorId1'), 
+                                                                                    document.getElementById('cellInstructorName1'))" class="dropdown-item" 
+                                                                                    href="javascript:;">${te.id}</a>
+                                                                    </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellInstructorId1'), 
+                                                                document.getElementById('cellInstructorName1'))" class="btn btn-light">Xóa</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="cellInstructorId2"></td>
+                                                        <td id="cellInstructorName2"></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                                   Thêm giảng viên
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <c:forEach items="${listTeacher}" var="te">
+                                                                        <a onclick="addInstructor(this.innerText, document.getElementById('cellInstructorId2'), 
+                                                                                    document.getElementById('cellInstructorName2'))" class="dropdown-item" 
+                                                                                    href="javascript:;">${te.id}</a>
+                                                                    </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button onclick="refr(document.getElementById('cellInstructorId2'), 
+                                                                document.getElementById('cellInstructorName2'))" class="btn btn-light">Xóa</button>
+                                                        </td>
                                                     </tr>
                                                 </c:if>
                                             </tbody>
@@ -194,9 +354,9 @@
                                 
                                 <button class="btn btn-danger" >Xóa khóa luận</button>
                                 <input onclick="editThesis(${thesisPage.id}, document.getElementById('topic').value, document.getElementById('description').value,
-                                    document.getElementById('reviewerIdLabel').innerText, document.getElementById('tableStudent'), document.getElementById('tableInstructor'))" type="button" class="btn btn-success"  value="Lưu thay đỗi" />
+                                    document.getElementById('reviewerIdLabel').innerText, document.getElementById('tableStudent'), document.getElementById('tableInstructor'))" type="submit" class="btn btn-success"  value="Lưu thay đỗi" />
 
-                            </form>
+                            </div>
                         </div>
                         <br>
                     </div>

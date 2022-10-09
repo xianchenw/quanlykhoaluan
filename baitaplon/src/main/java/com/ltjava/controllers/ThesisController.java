@@ -135,10 +135,10 @@ public class ThesisController {
         return "redirect:/thesis";
     }
     
-    @RequestMapping("/thesis/score/{user}")
-    public String score(Model model, @PathVariable(value = "user") String u){
-        System.out.print(thesisService.getThesisesByUser(u));
-        model.addAttribute("thesisess", thesisService.getThesisesByUser(u));
-        return "score";
-    }
+//    @RequestMapping("/thesis/score/{user}")
+//    public String score(Model model, @PathVariable(value = "user") String u){
+//        System.out.print(thesisService.getThesisesByUser(u));
+//        model.addAttribute("thesisess", thesisService.getThesisesByUser(u));
+//        return "score";
+//    }
 }

@@ -193,7 +193,8 @@
                                 </div>
                                 
                                 <button class="btn btn-danger" >Xóa khóa luận</button>
-                                <input type="submit" class="btn btn-success"  value="Lưu thay đỗi" />
+                                <input onclick="editThesis(${thesisPage.id}, document.getElementById('topic').value, document.getElementById('description').value,
+                                    document.getElementById('reviewerIdLabel').innerText, document.getElementById('tableStudent'), document.getElementById('tableInstructor'))" type="button" class="btn btn-success"  value="Lưu thay đỗi" />
 
                             </form>
                         </div>

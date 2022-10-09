@@ -5,9 +5,12 @@
 package com.ltjava.repository;
 
 import com.ltjava.pojo.Council;
+import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.ThesisInstructor;
 import com.ltjava.pojo.User;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -19,5 +22,5 @@ public interface ThesisRepository {
     Thesis getThesisById(Integer id);
     boolean addThesis(Thesis thesis);
     boolean removeThesis(Thesis thesisId);
-    List<Thesis> getThesisesByUser(String userId);
+    boolean updateThesis(Integer id, String topic, String description, User reviewer, Set<Student> students);
 }

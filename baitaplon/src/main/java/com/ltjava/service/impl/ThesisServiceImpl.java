@@ -5,11 +5,14 @@
 package com.ltjava.service.impl;
 
 import com.ltjava.pojo.Council;
+import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.ThesisInstructor;
 import com.ltjava.pojo.User;
 import com.ltjava.repository.ThesisRepository;
 import com.ltjava.service.ThesisService;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +51,8 @@ public class ThesisServiceImpl implements ThesisService{
     }
 
     @Override
-    public List<Thesis> getThesisesByUser(String user) {
-        return this.thesisRepository.getThesisesByUser(user);
+    public boolean updateThesis(Integer intgr, String string, String string1, User user, Set<Student> set) {
+        return this.thesisRepository.updateThesis(intgr, string, string1, user, set);
     }
     
 }

@@ -71,5 +71,36 @@ public class ThesisInstructorRepositoryImpl implements ThesisInstructorRepositor
         }
         return false;
     }
+
+    @Override
+    public boolean removeThesisInstructors(Thesis thesis) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<ThesisInstructor> query = builder.createQuery(ThesisInstructor.class);
+        Root root = query.from(ThesisInstructor.class);
+        
+        try{
+            query = query.select(root);
+        
+            if(thesis!=null){
+                Predicate p1 = builder.equal(root.get("thesisId").get("id").as(Integer.class),thesis.getId());
+                query = query.where(p1);
+            }
+
+            Query q = s.createQuery(query);
+
+            List<ThesisInstructor> list = q.getResultList();
+            
+            for(ThesisInstructor ti : list){
+                s.remove(ti);
+            }
+            System.out.println("Xóa danh sách người hướng dẫn thành công!");
+            return true;
+        }catch(Exception e){
+            System.out.println("SOMETHING WRONG !!");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
     
 }

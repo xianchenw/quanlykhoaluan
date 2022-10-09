@@ -29,6 +29,15 @@ public class ThesisInstructor implements Serializable{
     @JoinColumn(name ="instructor_id", referencedColumnName = "id")
     private User instructorId;
 
+    public ThesisInstructor(){
+        
+    }
+    
+    public ThesisInstructor(Thesis thesis, User user){
+        this.thesisId = thesis;
+        this.instructorId = user;
+    }
+    
     /**
      * @return the thesisId
      */

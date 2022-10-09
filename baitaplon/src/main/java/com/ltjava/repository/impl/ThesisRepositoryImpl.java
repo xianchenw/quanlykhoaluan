@@ -5,12 +5,15 @@
 package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Council;
+import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.ThesisInstructor;
 import com.ltjava.pojo.User;
 import com.ltjava.repository.ThesisRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -117,35 +120,65 @@ public class ThesisRepositoryImpl implements ThesisRepository{
         return false;
     }
 
+//    @Override
+//    public List<Thesis> getThesisesByUser(String u) {
+//        List<Thesis> list  = new ArrayList<>();
+//        Session s = sessionFactory.getObject().getCurrentSession();
+//        CriteriaBuilder builder = s.getCriteriaBuilder();
+//        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+//        Root thesisRoot = query.from(Thesis.class);
+//        Root councilRoot = query.from(Council.class);
+//        
+//        Predicate p1 = builder.equal(councilRoot.get("presidentId").get("id"),u);
+//        Predicate p2 = builder.equal(councilRoot.get("secretaryId").get("id"),u);
+//        Predicate p3 = builder.equal(councilRoot.get("reviewerId").get("id"),u);
+//        Predicate p4 = builder.equal(councilRoot.get("member1Id").get("id"),u);
+//        Predicate p5 = builder.equal(councilRoot.get("member2Id").get("id"),u);
+//        
+//        Predicate p6 = builder.equal(thesisRoot.get("councilId"),councilRoot.get("id"));
+//        Predicate p7 = builder.equal(councilRoot.get("active"),true);
+//        
+//        query  = query.where(builder.and(builder.or(p1,p2,p3,p4,p5),p6,p7));
+//        query.multiselect(thesisRoot.get("id"), councilRoot.get("id"));
+//        
+//        Query q = s.createQuery(query);
+//        
+//        List<Object[]> listO = q.getResultList();
+//        
+//        for (Object[] objects : listO) {
+//            list.add(getThesisById((Integer) objects[0]));
+//        }
+//        return list;
+//    }
+
     @Override
-    public List<Thesis> getThesisesByUser(String u) {
-        List<Thesis> list  = new ArrayList<>();
+    public boolean updateThesis(Integer id, String topic, String description, User reviewer, Set<Student> students) {
         Session s = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        Root thesisRoot = query.from(Thesis.class);
-        Root councilRoot = query.from(Council.class);
-        
-        Predicate p1 = builder.equal(councilRoot.get("presidentId").get("id"),u);
-        Predicate p2 = builder.equal(councilRoot.get("secretaryId").get("id"),u);
-        Predicate p3 = builder.equal(councilRoot.get("reviewerId").get("id"),u);
-        Predicate p4 = builder.equal(councilRoot.get("member1Id").get("id"),u);
-        Predicate p5 = builder.equal(councilRoot.get("member2Id").get("id"),u);
-        
-        Predicate p6 = builder.equal(thesisRoot.get("councilId"),councilRoot.get("id"));
-        Predicate p7 = builder.equal(councilRoot.get("active"),true);
-        
-        query  = query.where(builder.and(builder.or(p1,p2,p3,p4,p5),p6,p7));
-        query.multiselect(thesisRoot.get("id"), councilRoot.get("id"));
-        
-        Query q = s.createQuery(query);
-        
-        List<Object[]> listO = q.getResultList();
-        
-        for (Object[] objects : listO) {
-            list.add(getThesisById((Integer) objects[0]));
+        Thesis thesis = getThesisById(id);
+        try{
+            if(thesis.getStudents().size()>0){
+                for(Student student:thesis.getStudents()){
+                    student.setThesisId(null);
+                    s.update(student);
+                }
+            }
+            thesis.setTopic(topic);
+            thesis.setDescription(description);
+            thesis.setReviewerId(reviewer);
+            for(Student st : students){
+                st.setThesisId(thesis);
+                s.update(st);
+            }
+            s.update(thesis);
+            System.out.println("CẬP NHẬT THÀNH CÔNGGG");
+            return true;
         }
-        return list;
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
     }
     
 }

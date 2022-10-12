@@ -8,6 +8,7 @@ import com.ltjava.pojo.Council;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisInstructor;
+import com.ltjava.pojo.ThesisScore;
 import com.ltjava.pojo.User;
 import com.ltjava.repository.ThesisRepository;
 import java.util.ArrayList;
@@ -156,12 +157,7 @@ public class ThesisRepositoryImpl implements ThesisRepository{
         Session s = sessionFactory.getObject().getCurrentSession();
         Thesis thesis = getThesisById(id);
         try{
-            if(thesis.getStudents().size()>0){
-                for(Student student:thesis.getStudents()){
-                    student.setThesisId(null);
-                    s.update(student);
-                }
-            }
+            System.out.println("KHSGOJMGLKDG");
             thesis.setTopic(topic);
             thesis.setDescription(description);
             thesis.setReviewerId(reviewer);
@@ -169,6 +165,7 @@ public class ThesisRepositoryImpl implements ThesisRepository{
                 st.setThesisId(thesis);
                 s.update(st);
             }
+            
             s.update(thesis);
             System.out.println("CẬP NHẬT THÀNH CÔNGGG");
             return true;
@@ -177,6 +174,78 @@ public class ThesisRepositoryImpl implements ThesisRepository{
             System.out.println("LỖI RỒIIIII");
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeStudents(Thesis thesis) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            if(thesis.getStudents().size()>0){
+                System.out.println("COS HOC SINH");
+                System.out.println(thesis.getStudents().size());
+                for(Student student:thesis.getStudents()){
+                    student.setThesisId(null);
+                    s.update(student);
+                    System.out.println(student.getThesisId());
+                    System.out.println(thesis.getStudents().size());
+                }
+                s.update(thesis);
+                System.out.println(thesis.getStudents().size());
+                System.out.println("XÓA DS HỌC SINH CŨ THÀNH CÔNG");
+            }
+            System.out.print("DANH SÁCH RỖNG");
+            return true;
+        }catch(Exception e){
+            System.out.println("XÓA DS HỌC SINH CŨ THẤT BẠII");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeThesisScores(Thesis thesis) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            if(thesis.getThesisScores().size()>0){
+                System.out.println("CÓ ĐIỂM");
+                for(ThesisScore thesissc : thesis.getThesisScores()){
+                    s.remove(thesissc);
+                    System.out.println(thesis.getThesisScores().size());
+                }
+                s.update(thesis);
+                System.out.println(thesis.getThesisScores().size());
+                System.out.println("XÓA DS ĐIỂM CŨ THÀNH CÔNG");
+            }
+            System.out.print("DANH SÁCH RỖNG");
+            return true;
+        }catch(Exception e){
+            System.out.println("XÓA DS ĐIỂM THẤT BẠII");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeThesisInstructors(Thesis thesis) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            if(thesis.getThesisInstructors().size()>0){
+                System.out.println("CÓ NGƯỜI HƯỚNG DẪN");
+                for(ThesisInstructor thesisin: thesis.getThesisInstructors()){
+                    s.remove(thesisin);
+                    System.out.println(thesis.getThesisInstructors().size());
+                }
+                s.update(thesis);
+                System.out.println(thesis.getThesisInstructors().size());
+                System.out.println("XÓA DS NGƯỜI HƯỜNG DẪN THÀNH CÔNG");
+            }
+            System.out.print("DANH SÁCH RỖNG");
+            return true;
+        }catch(Exception e){
+            System.out.println("XÓA DS NGƯỜI HƯỚNG DẪN THẤT BẠI");
+            System.out.println(e.getMessage());
         }
         return false;
     }

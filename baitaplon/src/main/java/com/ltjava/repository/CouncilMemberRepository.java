@@ -16,6 +16,5 @@ import java.util.List;
 public interface CouncilMemberRepository {
     List<CouncilMember> getMemberByCouncil(Council c);
     List<CouncilMember> getCouncilByMember(User u);
-    List<Object[]> getListMember();
     List<Object[]> getListCouncilMember(List<Council> list);
 }

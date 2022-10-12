@@ -51,11 +51,11 @@
                                 <div class="input-group">
                                     <c:if test="${thesisPage.reviewerId.id!=null}">
                                         <div style="margin-right: 30px">
-                                            <label for="reviewerId">Giảng viên phản biện: <strong><span id="reviewerIdLabel">${thesisPage.reviewerId.id}</span> - <span id="reviewerNameLabel">${thesisPage.reviewerId.firstName} ${thesisPage.reviewerId.lastName}</span></strong></label>
+                                            <label for="reviewerId">Giảng viên phản biện: <strong><span id="reviewerIdLabel">${thesisPage.reviewerId.id}</span> - <span id="reviewerNameLabel">${thesisPage.reviewerId.teacherId.firstName} ${thesisPage.reviewerId.teacherId.lastName}</span></strong></label>
                                         </div>
                                         <select onchange="changeReviewer(this.value)" class="form-control" id="reviewerId">
                                             <c:forEach items="${listTeacher}" var="t">
-                                                <option value="${t.id}">${t.id} - ${t.firstName} ${t.lastName}</option>
+                                                <option value="${t.id}">${t.id} - ${t.teacherId.firstName} ${t.teacherId.lastName}</option>
                                             </c:forEach>
                                         </select>
                                     </c:if>
@@ -229,7 +229,7 @@
                                                     <c:forEach items="${thesisPage.thesisInstructors}" var="ins">
                                                         <tr>
                                                             <td id="cellInstructorId${ins.instructorId.id}">${ins.instructorId.id}</td>
-                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.firstName} ${ins.instructorId.lastName}</td>
+                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.teacherId.firstName} ${ins.instructorId.teacherId.lastName}</td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -256,7 +256,7 @@
                                                     <c:forEach items="${thesisPage.thesisInstructors}" var="ins">
                                                         <tr>
                                                             <td id="cellInstructorId${ins.instructorId.id}">${ins.instructorId.id}</td>
-                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.firstName} ${ins.instructorId.lastName}</td>
+                                                            <td id="cellInstructorName${ins.instructorId.id}">${ins.instructorId.teacherId.firstName} ${ins.instructorId.teacherId.lastName}</td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -352,9 +352,10 @@
                                     <br>
                                 </div>
                                 
-                                <button class="btn btn-danger" >Xóa khóa luận</button>
+                                <a href="<c:url value="/thesis/remove/${thesisPage.id}" />" ><button class="btn btn-danger" >Xóa khóa luận</button></a>
                                 <input onclick="editThesis(${thesisPage.id}, document.getElementById('topic').value, document.getElementById('description').value,
-                                    document.getElementById('reviewerIdLabel').innerText, document.getElementById('tableStudent'), document.getElementById('tableInstructor'))" type="submit" class="btn btn-success"  value="Lưu thay đỗi" />
+                                    document.getElementById('reviewerIdLabel').innerText, document.getElementById('tableStudent'), 
+                                    document.getElementById('tableInstructor'))" type="submit" class="btn btn-success"  value="Lưu thay đổi" />
 
                             </div>
                         </div>

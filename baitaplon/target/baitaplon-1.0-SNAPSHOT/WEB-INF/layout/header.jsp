@@ -23,7 +23,7 @@
             </c:if>
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <div class="dropdown p-2 ml-auto">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">${currentUser.firstName} ${currentUser.lastName}</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">${currentUser.username}</button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<c:url value="/user/account"/>">Tài khoản</a>
                         <a class="dropdown-item" href="<c:url value="/user/${currentUser.id}/password"/>">Đổi mật khẩu</a>

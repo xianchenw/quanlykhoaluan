@@ -128,31 +128,31 @@
                                     <tr>
                                         <td>${cM[0].name}</td>
                                         <c:if test="${cM[1][0] !=null}">
-                                            <td>${cM[1][0].userId}</td>
+                                            <td>${cM[1][0].userId.teacherId}</td>
                                         </c:if>
                                         <c:if test="${cM[1][0] ==null}">
                                             <td></td>
                                         </c:if>
                                         <c:if test="${cM[1][1] !=null}">
-                                            <td>${cM[1][1].userId}</td>
+                                            <td>${cM[1][1].userId.teacherId}</td>
                                         </c:if>
                                         <c:if test="${cM[1][1] ==null}">
                                             <td></td>
                                         </c:if>
                                         <c:if test="${cM[1][2] !=null}">
-                                            <td>${cM[1][2].userId}</td>
+                                            <td>${cM[1][2].userId.teacherId}</td>
                                         </c:if>
                                         <c:if test="${cM[1][2] ==null}">
                                             <td></td>
                                         </c:if>
                                         <c:if test="${cM[1][3] !=null}">
-                                            <td>${cM[1][3].userId}</td>
+                                            <td>${cM[1][3].userId.teacherId}</td>
                                         </c:if>
                                         <c:if test="${cM[1][3] ==null}">
                                             <td></td>
                                         </c:if>
                                         <c:if test="${cM[1][4] !=null}">
-                                            <td>${cM[1][4].userId}</td>
+                                            <td>${cM[1][4].userId.teacherId}</td>
                                         </c:if>
                                         <c:if test="${cM[1][4] ==null}">
                                             <td></td>

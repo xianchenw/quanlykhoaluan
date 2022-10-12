@@ -107,7 +107,6 @@ public class UserController {
         try{
             System.out.println(u.getId());
             System.out.println(u.getUserRole());
-            System.out.print(u.getFirstName());
             userService.updateUser(userService.getUserById(id), u);
         }catch(Exception e){
             System.out.print(e.getMessage());

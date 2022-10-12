@@ -23,4 +23,7 @@ public interface ThesisService {
     boolean addThesis(Thesis thesis);
     boolean removeThesis(Thesis thesisId);
     boolean updateThesis(Integer id, String topic, String description, User reviewer, Set<Student> students);
+    boolean removeStudents(Thesis thesis);
+    boolean removeThesisScores(Thesis thesis);
+    boolean removeThesisInstructors(Thesis thesis);
 }

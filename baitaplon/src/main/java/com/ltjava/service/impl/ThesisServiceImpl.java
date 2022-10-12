@@ -47,12 +47,39 @@ public class ThesisServiceImpl implements ThesisService{
 
     @Override
     public boolean removeThesis(Thesis thesis) {
-        return this.thesisRepository.removeThesis(thesis);
+        try{
+            this.thesisRepository.removeStudents(thesis);
+            this.thesisRepository.removeThesisScores(thesis);
+            this.thesisRepository.removeThesisInstructors(thesis);
+            
+            return this.thesisRepository.removeThesis(thesis);
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+        return false;
     }
 
     @Override
     public boolean updateThesis(Integer intgr, String string, String string1, User user, Set<Student> set) {
+        Thesis thesis = this.thesisRepository.getThesisById(intgr);
+        this.thesisRepository.removeStudents(thesis);
         return this.thesisRepository.updateThesis(intgr, string, string1, user, set);
+    }
+
+    @Override
+    public boolean removeStudents(Thesis thesis) {
+        return this.thesisRepository.removeStudents(thesis);
+    }
+
+    @Override
+    public boolean removeThesisScores(Thesis thesis) {
+        return this.thesisRepository.removeThesisScores(thesis);
+    }
+
+    @Override
+    public boolean removeThesisInstructors(Thesis thesis) {
+        return this.thesisRepository.removeThesisScores(thesis);
     }
     
 }

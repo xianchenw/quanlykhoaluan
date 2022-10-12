@@ -103,7 +103,7 @@ function editThesis(thesisId, topic, description, reviewer, students, instructor
     fetch('/baitaplon/api/thesis/edit',{
         method:'post',
         body: JSON.stringify({
-            "thesisId": thesisId,
+            "thesisId": thesisId.toString(),
             "topic": topic,
             "description": description,
             "reviewerId": reviewer,

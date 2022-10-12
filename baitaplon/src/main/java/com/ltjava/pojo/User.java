@@ -4,7 +4,9 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -40,15 +43,6 @@ public class User implements Serializable{
     private String id;
     private String username;
     private String password;
-    @Column(name = "first_name")
-    @NotNull(message = "user.firstName.nullMsg")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    private String email;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    private String birthday;
     @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name= "user_role", referencedColumnName = "id")
@@ -63,19 +57,21 @@ public class User implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<CouncilMember> members;
+    @JsonIgnore
+    @OneToOne(mappedBy = "userId")
+    private Student studentId;
+    @JsonIgnore
+    @OneToOne(mappedBy = "userId")
+    private Teacher teacherId;
 
     public User(){
         
     }
     
-    public User(String id, String username, String password,String firstName, String lastName, String email, String phoneNumber, UserRole userRole){
+    public User(String id, String username, String password, UserRole userRole){
         this.id = id;
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
         this.userRole = userRole;
     }
     
@@ -120,77 +116,7 @@ public class User implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the phoneNumber
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * @param phoneNumber the phoneNumber to set
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    /**
-     * @return the birthday
-     */
-    public String getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * @param birthday the birthday to set
-     */
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
+    
     /**
      * @return the userRole
      */
@@ -236,7 +162,7 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return String.format("%s %s", this.firstName, this.lastName);
+        return this.username;
     }
 
     /**
@@ -321,6 +247,34 @@ public class User implements Serializable{
      */
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    /**
+     * @return the studentId
+     */
+    public Student getStudentId() {
+        return studentId;
+    }
+
+    /**
+     * @param studentId the studentId to set
+     */
+    public void setStudentId(Student studentId) {
+        this.studentId = studentId;
+    }
+
+    /**
+     * @return the teacherId
+     */
+    public Teacher getTeacherId() {
+        return teacherId;
+    }
+
+    /**
+     * @param teacherId the teacherId to set
+     */
+    public void setTeacherId(Teacher teacherId) {
+        this.teacherId = teacherId;
     }
 
 

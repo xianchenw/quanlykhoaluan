@@ -61,7 +61,7 @@
                                     <td>${l.description}</td>
                                     <td>
                                         <c:forEach items="${l.thesisInstructors}" var="c">
-                                            ${c.instructorId.firstName} ${c.instructorId.lastName}, 
+                                            ${c.instructorId.teacherId.firstName} ${c.instructorId.teacherId.lastName}, 
                                         </c:forEach>
                                     </td>
                                     <td>
@@ -69,7 +69,7 @@
                                             ${st.firstName} ${st.lastName}
                                         </c:forEach>
                                     </td>
-                                    <td>${l.reviewerId}</td>
+                                    <td>${l.reviewerId.teacherId}</td>
                                     <td><a href="<c:url value="/thesis/remove/${l.id}"/>"><button class="btn btn-danger">Xóa</button></a></td>
                                     <td><a href="<c:url value="/thesis/${l.id}"/>"><button class="btn btn-info">Chi tiết</button></a></td>
                                 </tr>

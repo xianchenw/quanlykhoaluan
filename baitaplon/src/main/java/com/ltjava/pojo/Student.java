@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,7 +45,10 @@ public class Student implements Serializable{
     @ManyToOne
     @JoinColumn(name = "thesis_id", referencedColumnName = "id")
     private Thesis thesisId;
-
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User userId;
+    
     /**
      * @return the classId
      */
@@ -158,6 +162,20 @@ public class Student implements Serializable{
      */
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    /**
+     * @return the userId
+     */
+    public User getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
 }

@@ -129,10 +129,18 @@ public class ThesisController {
     
     @RequestMapping("/thesis/remove/{thesisId}")
     public String removeThesis(Model model, @PathVariable(value = "thesisId") Integer thesisId){
-        if(thesisService.getThesisById(thesisId)!=null){
-            thesisService.removeThesis(thesisService.getThesisById(thesisId));
+        try{
+            Thesis thesis = thesisService.getThesisById(thesisId);
+            if(thesis!=null){
+                if(thesisInstructorService.removeThesisInstructors(thesis))
+                    thesisService.removeThesis(thesisService.getThesisById(thesisId));
+            }
+            return "redirect:/thesis";
         }
-        return "redirect:/thesis";
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/";
     }
     
 //    @RequestMapping("/thesis/score/{user}")

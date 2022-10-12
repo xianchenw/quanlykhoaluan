@@ -33,11 +33,6 @@ public class CouncilMemberServiceImpl implements CouncilMemberService{
     }
 
     @Override
-    public List<Object[]> getListMember() {
-        return this.councilMemberRepository.getListMember();
-    }
-
-    @Override
     public List<Object[]> getListCouncilMember(List<Council> list) {
         return this.councilMemberRepository.getListCouncilMember(list);
     }

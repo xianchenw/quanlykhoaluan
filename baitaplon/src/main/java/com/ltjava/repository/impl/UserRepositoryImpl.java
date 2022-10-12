@@ -108,10 +108,10 @@ public class UserRepositoryImpl implements UserRepository{
     public boolean updateUser(User oldUser, User newUser) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
-            oldUser.setFirstName(newUser.getFirstName());
-            oldUser.setLastName(newUser.getLastName());
+//            oldUser.setFirstName(newUser.getFirstName());
+//            oldUser.setLastName(newUser.getLastName());
             oldUser.setUserRole(newUser.getUserRole());
-            oldUser.setPhoneNumber(newUser.getPhoneNumber());
+//            oldUser.setPhoneNumber(newUser.getPhoneNumber());
             oldUser.setUsername(newUser.getUsername());
             oldUser.setPassword(newUser.getPassword());
             s.update(oldUser);

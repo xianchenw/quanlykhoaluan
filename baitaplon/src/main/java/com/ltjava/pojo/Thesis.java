@@ -4,6 +4,7 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -31,13 +32,17 @@ public class Thesis implements Serializable{
     @ManyToOne
     @JoinColumn(name = "reviewer_id", referencedColumnName = "id")
     private User reviewerId;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "council_id", referencedColumnName = "id")
     private Council councilId;
+    @JsonIgnore
     @OneToMany(mappedBy = "thesisId", fetch = FetchType.EAGER)
     private Set<Student> students;
+    @JsonIgnore
     @OneToMany(mappedBy = "thesisId", fetch = FetchType.EAGER)
     private Set<ThesisScore> thesisScores;
+    @JsonIgnore
     @OneToMany(mappedBy = "thesisId", fetch = FetchType.EAGER)
     private Set<ThesisInstructor> thesisInstructors;
 

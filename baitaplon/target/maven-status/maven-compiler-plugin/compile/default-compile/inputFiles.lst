@@ -1,8 +1,10 @@
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\TeacherRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\StudentController.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Criteria.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\CouncilService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\MajorService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\StatsRepositoryImpl.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Teacher.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\ClassServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\StudentServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\ClassRepository.java
@@ -51,6 +53,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\Thesis
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\ThesisRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\WebApplicationContextConfig.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\CouncilRepositoryImpl.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\TeacherServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Council.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\UserRoleRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\ClassRepositoryImpl.java
@@ -58,6 +61,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\ClassServ
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\ThesisServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Word.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\DispatcherServletInitializer.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\TeacherRepository.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\CriteriaService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\CouncilMemberServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\CriteriaRepositoryImpl.java
@@ -75,6 +79,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\Stats
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\UserRoleServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\CouncilMember.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\ThesisScoreService.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\TeacherService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\SpringSecurityConfig.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\TilesConfig.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\MajorServiceImpl.java

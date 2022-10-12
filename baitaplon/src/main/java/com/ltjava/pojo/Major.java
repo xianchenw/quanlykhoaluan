@@ -30,6 +30,9 @@ public class Major implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "majorId", fetch = FetchType.EAGER )
     private Set<Class> classes; 
+    @JsonIgnore
+    @OneToMany(mappedBy = "majorId", fetch = FetchType.EAGER)
+    private Set<Teacher> teachers;
     
     /**
      * @return the id
@@ -90,6 +93,20 @@ public class Major implements Serializable{
     @Override
     public String toString() {
         return this.name; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    /**
+     * @return the teachers
+     */
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    /**
+     * @param teachers the teachers to set
+     */
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
     }
     
     

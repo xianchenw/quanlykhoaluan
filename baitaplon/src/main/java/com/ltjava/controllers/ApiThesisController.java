@@ -6,10 +6,12 @@ package com.ltjava.controllers;
 
 import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
+import com.ltjava.pojo.Teacher;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisInstructor;
 import com.ltjava.pojo.User;
 import com.ltjava.service.StudentService;
+import com.ltjava.service.TeacherService;
 import com.ltjava.service.ThesisInstructorService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
@@ -43,13 +45,16 @@ public class ApiThesisController {
     @Autowired
     ThesisInstructorService thesisInstructorService;
     
+    @Autowired
+    TeacherService teacherService;
+    
     @PutMapping(path = "/api/thesis/user", produces = {
         MediaType.APPLICATION_JSON_VALUE
     })
-    public ResponseEntity<User> getUser(@RequestBody Map<String,String> params){
+    public ResponseEntity<Teacher> getUser(@RequestBody Map<String,String> params){
         try{
-            User user = userService.getUserById(params.get("userId"));
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            Teacher teacher = teacherService.getTeacherById(params.get("userId"));
+            return new ResponseEntity<>(teacher, HttpStatus.OK);
         }
         catch(Exception e){
             System.out.print(e.getMessage());
@@ -98,6 +103,8 @@ public class ApiThesisController {
                 this.thesisInstructorService.addThesisInstructor(thesis, user);
             }
             Thesis newThesis = this.thesisService.getThesisById(Integer.parseInt(params.get("thesisId")));
+            System.out.println("IUHKGHJNKNUG");
+            System.out.println(newThesis.getTopic());
             return new ResponseEntity<>(newThesis, HttpStatus.OK);
         }
         catch(Exception e){

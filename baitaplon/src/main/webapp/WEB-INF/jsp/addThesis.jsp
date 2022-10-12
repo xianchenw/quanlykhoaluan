@@ -63,7 +63,7 @@
                                 <select id="teacherId" name="teacherId">
                                     <option value=""></option>
                                     <c:forEach items="${listTeacher}" var="teacher">
-                                        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+                                        <option value="${teacher.teacherId.id}">${teacher.teacherId.firstName} ${teacher.teacherId.lastName}</option>
                                     </c:forEach>
                                 </select>
                                 <input type="submit" class="btn btn-info" value="Thêm giảng viên"></input>
@@ -82,8 +82,8 @@
                                     <c:if test="${teachers != null}">
                                         <c:forEach items="${teachers}" var="t">
                                             <tr>
-                                                <td>${t.id}</td>
-                                                <td>${t.firstName} ${t.lastName}</td>
+                                                <td>${t.teacherId.id}</td>
+                                                <td>${t.teacherId.firstName} ${t.teacherId.lastName}</td>
                                                 <td><a href="<c:url value="/thesis/addThesis/"/>?removeTId=${t.id}"><button class="btn btn-danger">Xóa</button></a></td>
                                             </tr>
                                         </c:forEach>
@@ -107,7 +107,7 @@
                             <form:select path="reviewerId" class="form-control" id="reviewerId">
                                 <option value=""></option>
                                 <c:forEach items="${listTeacher}" var="t">
-                                    <option value="${t.id}">${t.firstName} ${t.lastName}</option>
+                                    <option value="${t.teacherId.id}">${t.teacherId.firstName} ${t.teacherId.lastName}</option>
                                 </c:forEach>
                             </form:select>
                         </div>

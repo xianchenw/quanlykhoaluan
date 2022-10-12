@@ -6,11 +6,13 @@ package com.ltjava.controllers;
 
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.Criteria;
+import com.ltjava.pojo.Teacher;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisScore;
 import com.ltjava.service.CouncilMemberService;
 import com.ltjava.service.CouncilService;
 import com.ltjava.service.CriteriaService;
+import com.ltjava.service.TeacherService;
 import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
@@ -52,19 +54,25 @@ public class CouncilController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    private TeacherService teacherService;
+    
     private Set<Thesis> thesises = new HashSet<>();
         
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listCouncil", councilMemberService.getListCouncilMember(councilService.getCouncils("")));
         model.addAttribute("listCriteria", criteriaService.getCriterias(""));
-        model.addAttribute("listTeacher", userService.getUsers("TEACHER"));
+        model.addAttribute("listTeacher", teacherService.getTeachers("GV"));
     }
     
     @RequestMapping("/council")
     public String council(Model model){
         model.addAttribute("councilInfo", new Council());
-        System.out.print(councilMemberService.getListMember());
+        System.out.println("dfnsjkhdfsfgHJFFHF");
+        for(Teacher t : teacherService.getTeachers("GV")){
+            System.out.println(t.getId());
+        }
         return "council";
     }
     

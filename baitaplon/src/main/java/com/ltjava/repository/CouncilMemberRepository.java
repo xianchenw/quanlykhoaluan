@@ -6,6 +6,7 @@ package com.ltjava.repository;
 
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.CouncilMember;
+import com.ltjava.pojo.MemberRole;
 import com.ltjava.pojo.User;
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface CouncilMemberRepository {
     List<CouncilMember> getMemberByCouncil(Council c);
     List<CouncilMember> getCouncilByMember(User u);
     List<Object[]> getListCouncilMember(List<Council> list);
+    boolean addCouncilMember(CouncilMember cm);
 }

@@ -146,5 +146,21 @@ public class CouncilMemberRepositoryImpl implements CouncilMemberRepository{
         
         return listResult;
     }
+
+    @Override
+    public boolean addCouncilMember(CouncilMember cm) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            s.save(cm);
+            System.out.println("THÊM THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
     
 }

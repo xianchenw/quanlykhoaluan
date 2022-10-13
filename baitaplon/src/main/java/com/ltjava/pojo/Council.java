@@ -4,7 +4,9 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import jdk.jfr.Timestamp;
 
 /**
  *
@@ -29,13 +32,24 @@ public class Council implements Serializable{
     private Integer id;
     private Boolean active;
     private String name;
+    @JsonIgnore
     @Column(name = "created_date")
-    private String createdDate;
+    private Date createdDate;
+    @JsonIgnore
     @OneToMany(mappedBy = "councilId", fetch = FetchType.EAGER)
     private Set<CouncilMember> members;
+    @JsonIgnore
     @OneToMany(mappedBy = "councilId", fetch = FetchType.EAGER)
     private Set<Thesis> thesises;
     
+    
+    public Council(){
+        
+    }
+    
+    public Council(String name){
+        this.name = name;
+    }
 
     /**
      * @return the id
@@ -111,14 +125,14 @@ public class Council implements Serializable{
     /**
      * @return the createdDate
      */
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
     /**
      * @param createdDate the createdDate to set
      */
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

@@ -36,5 +36,10 @@ public class CouncilMemberServiceImpl implements CouncilMemberService{
     public List<Object[]> getListCouncilMember(List<Council> list) {
         return this.councilMemberRepository.getListCouncilMember(list);
     }
+
+    @Override
+    public boolean addCouncilMember(CouncilMember cm) {
+        return this.councilMemberRepository.addCouncilMember(cm);
+    }
     
 }

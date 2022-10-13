@@ -5,6 +5,7 @@
 package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Council;
+import com.ltjava.pojo.CouncilMember;
 import com.ltjava.repository.CouncilRepository;
 import java.util.List;
 import javax.persistence.Query;
@@ -83,6 +84,45 @@ public class CouncilRepositoryImpl implements CouncilRepository{
             System.out.println("LỖI RỒIIIII");
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeCouncil(Council c) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            s.remove(c);
+            System.out.println("XÓA THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeCouncilMember(Council c) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            if(c.getMembers().size()>0){
+                System.out.println("CÓ THÀNH VIÊN");
+                for(CouncilMember cmb : c.getMembers()){
+                    s.remove(cmb);
+                    System.out.println(c.getMembers().size());
+                }
+                s.update(c);
+                System.out.println(c.getMembers().size());
+                System.out.println("XÓA DS THÀNH VIÊN THÀNH CÔNG");
+            }
+            System.out.print("DANH SÁCH RỖNG");
+            return true;
+        }catch(Exception e){
+            System.out.println("XÓA DS THÀNH VIÊN THẤT BẠII");
+            System.out.println(e.getMessage());
         }
         return false;
     }

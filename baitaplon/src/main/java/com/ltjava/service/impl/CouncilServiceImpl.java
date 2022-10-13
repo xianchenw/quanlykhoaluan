@@ -40,5 +40,16 @@ public class CouncilServiceImpl implements CouncilService{
     public boolean lockCouncil(Council cncl) {
         return this.councilRepository.lockCouncil(cncl);
     }
+
+    @Override
+    public boolean removeCouncil(Council cncl) {
+        this.councilRepository.removeCouncilMember(cncl);
+        return this.councilRepository.removeCouncil(cncl);
+    }
+
+    @Override
+    public boolean removeCouncilMember(Council cncl) {
+        return this.councilRepository.removeCouncilMember(cncl);
+    }
     
 }

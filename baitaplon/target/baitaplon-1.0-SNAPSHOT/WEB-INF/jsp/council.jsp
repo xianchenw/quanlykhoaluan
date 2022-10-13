@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        <script src="<c:url value="/js/council.js" />"></script>
         <div class="col-xl-12 row container-fluid content ">
             <div class="col-xl-2 border-right">
                 <h3 class="text-center">QUẢN LÝ HỘI ĐỒNG</h3>
@@ -45,11 +46,11 @@
                             </div>
 
                             <div class="modal-body">
-                                <form action="" method="post">
+                                <div>
                                     <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                                     <div class="form-group">
-                                        <label for="id">Tên hội đồng:</label>
-                                        <input type="text" class="form-control" placeholder="Tên hội đồng" id="id"></input>
+                                        <label for="name">Tên hội đồng:</label>
+                                        <input type="text" class="form-control" placeholder="Tên hội đồng" id="name"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="president">Chủ tịch:</label>
@@ -96,8 +97,11 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    <input onclick="addCouncil()" type="submit" class="btn btn-success"  value="Thêm" />
-                                </form>
+                                    <input onclick="addCouncil(document.getElementById('name'), 
+                                                document.getElementById('president'), document.getElementById('secretary'), 
+                                                document.getElementById('reviewer'), document.getElementById('member1'), 
+                                                document.getElementById('member2'))" type="submit" class="btn btn-success"  value="Thêm" />
+                                </div>
                             </div>
 
                             <div class="modal-footer">

@@ -17,4 +17,5 @@ public interface CouncilMemberService {
     List<CouncilMember> getMemberByCouncil(Council c);
     List<CouncilMember> getCouncilByMember(User u);
     List<Object[]> getListCouncilMember(List<Council> list);
+    boolean addCouncilMember(CouncilMember cm);
 }

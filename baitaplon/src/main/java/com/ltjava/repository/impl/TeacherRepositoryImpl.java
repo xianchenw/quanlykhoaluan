@@ -31,7 +31,7 @@ public class TeacherRepositoryImpl implements TeacherRepository{
     
     @Override
     public List<Teacher> getTeachers(String kw) {
-         Session s = sessionFactory.getObject().getCurrentSession();
+        Session s = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
         CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
         Root root = query.from(Teacher.class);
@@ -39,7 +39,7 @@ public class TeacherRepositoryImpl implements TeacherRepository{
         query = query.select(root);
         
         if(!kw.isEmpty() && kw!=null){
-            Predicate p1 = builder.like(root.get("id").as(String.class),kw);
+            Predicate p1 = builder.like(root.get("id"),"%"+kw+"%");
             query = query.where(p1);
         }
         

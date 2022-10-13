@@ -23,6 +23,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,8 +70,8 @@ public class CouncilController {
     @RequestMapping("/council")
     public String council(Model model){
         model.addAttribute("councilInfo", new Council());
-        System.out.println("dfnsjkhdfsfgHJFFHF");
         for(Teacher t : teacherService.getTeachers("GV")){
+            
             System.out.println(t.getId());
         }
         return "council";
@@ -83,6 +84,12 @@ public class CouncilController {
         }
         return "council";
     }
+    
+    @GetMapping(value = "/council/{councilId}")
+    public String councilItem(@PathVariable(value = "councilId") Integer Id){
+        return "councilitem";
+    }
+    
     
     @RequestMapping("/council/criteria")
     public String criteria(Model model, @RequestParam(value = "councilId", required = false, defaultValue = "") Integer councilId){

@@ -82,5 +82,9 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="tittle" value="Tài khoản" />
         <put-attribute name="content" value="/WEB-INF/jsp/useritem.jsp" />
     </definition>
+    <definition name="councilitem" extends="baseLayout">
+        <put-attribute name="tittle" value="Chi tiết hội đồng" />
+        <put-attribute name="content" value="/WEB-INF/jsp/councilitem.jsp" />
+    </definition>
 </tiles-definitions>
 

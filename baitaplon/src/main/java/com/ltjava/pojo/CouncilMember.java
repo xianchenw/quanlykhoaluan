@@ -29,6 +29,16 @@ public class CouncilMember implements Serializable{
     @ManyToOne
     @JoinColumn(name= "member_role", referencedColumnName = "id")
     private MemberRole memberRole;
+    
+    public CouncilMember(){
+        
+    }
+    
+    public CouncilMember(Council c, User u, MemberRole mr){
+        this.councilId = c;
+        this.userId = u;
+        this.memberRole = mr;
+    }
 
     /**
      * @return the councilId

@@ -6,6 +6,7 @@ package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.CouncilMember;
+import com.ltjava.pojo.Thesis;
 import com.ltjava.repository.CouncilRepository;
 import java.util.List;
 import javax.persistence.Query;
@@ -105,7 +106,7 @@ public class CouncilRepositoryImpl implements CouncilRepository{
     }
 
     @Override
-    public boolean removeCouncilMember(Council c) {
+    public boolean removeCouncilMembers(Council c) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
             if(c.getMembers().size()>0){
@@ -123,6 +124,48 @@ public class CouncilRepositoryImpl implements CouncilRepository{
         }catch(Exception e){
             System.out.println("XÓA DS THÀNH VIÊN THẤT BẠII");
             System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeThesises(Council c) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        try{
+            if(c.getThesises().size()>0){
+                System.out.println("CÓ KHOÁ LUẬN");
+                System.out.println(c.getThesises().size());
+                for(Thesis thesis:c.getThesises()){
+                    thesis.setCouncilId(null);
+                    s.update(thesis);
+                    System.out.println(c.getThesises().size());
+                }
+                s.update(c);
+                System.out.println(c.getThesises().size());
+                System.out.println("XÓA DS KHÓA LUẬN THÀNH CÔNG");
+            }
+            System.out.print("DANH SÁCH RỖNG");
+            return true;
+        }catch(Exception e){
+            System.out.println("XÓA DS KHÓA LUẬN THẤT BẠII");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean unlockCouncil(Council c) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        c.setActive(true);
+        try{
+            s.update(c);
+            System.out.println("MỞ KHÓA THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
         }
         return false;
     }

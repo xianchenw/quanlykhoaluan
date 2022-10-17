@@ -10,6 +10,7 @@ import com.ltjava.pojo.User;
 import com.ltjava.service.ClassService;
 import com.ltjava.service.MajorService;
 import com.ltjava.service.StudentService;
+import com.ltjava.service.UserService;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,13 @@ public class StudentController {
     @Autowired
     private MajorService majorService;
     
+    @Autowired
+    private UserService userService;
+    
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listMajor", this.majorService.getMajors(""));
+        model.addAttribute("newStudentId", this.studentService.loadNewStudentId());
     }
     
     @RequestMapping("/student")

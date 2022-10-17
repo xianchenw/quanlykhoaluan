@@ -25,6 +25,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         User u = this.userService.getUserByUsername(authentication.getName());
+        System.out.println("HISFDI"+ u.getUsername());
         request.getSession().setAttribute("currentUser", u);
         
         response.sendRedirect("/baitaplon/");

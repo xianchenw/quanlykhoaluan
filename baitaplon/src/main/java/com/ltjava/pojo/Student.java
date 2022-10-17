@@ -178,4 +178,10 @@ public class Student implements Serializable{
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    
 }

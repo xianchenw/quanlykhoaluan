@@ -59,4 +59,9 @@ public class StudentServiceImpl implements StudentService{
     public boolean updateStudent(Map<String, String> map) {
         return this.studentRepository.updateStudent(map);
     }
+
+    @Override
+    public String loadNewStudentId() {
+        return this.studentRepository.loadNewStudentId();
+    }
 }

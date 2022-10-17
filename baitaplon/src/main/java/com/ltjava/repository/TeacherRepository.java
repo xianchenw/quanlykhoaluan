@@ -14,4 +14,5 @@ import java.util.List;
 public interface TeacherRepository {
     List<Teacher> getTeachers(String kw);
     Teacher getTeacherById(String id);
+    boolean addTeacher(Teacher t);
 }

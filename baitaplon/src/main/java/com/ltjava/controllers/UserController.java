@@ -7,6 +7,7 @@ package com.ltjava.controllers;
 import com.ltjava.pojo.User;
 import com.ltjava.pojo.UserRole;
 import com.ltjava.pojo.Word;
+import com.ltjava.service.MajorService;
 import com.ltjava.service.UserRoleService;
 import com.ltjava.service.UserService;
 import java.util.List;
@@ -39,11 +40,16 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     
+    @Autowired
+    private MajorService majorService;
+    
+    
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listUserRole", this.userRoleService.getUserRoles());
+        model.addAttribute("listMajor", this.majorService.getMajors(""));
+        
     }
-    
     
     @GetMapping("/login")
     public String login(){
@@ -58,15 +64,15 @@ public class UserController {
         return "user";
     }
     
-    @PostMapping(value = "/user")
-    public String addUser(@ModelAttribute(value = "userInfo") @Valid User userInfo, 
-            BindingResult result){
-        if(!result.hasErrors()){
-            this.userService.addOrUpdate(userInfo);
-            return "redirect:/user";
-        }
-        return "user";
-    }
+//    @PostMapping(value = "/user")
+//    public String addUser(@ModelAttribute(value = "userInfo") @Valid User userInfo, 
+//            BindingResult result){
+//        if(!result.hasErrors()){
+//            this.userService.addOrUpdate(userInfo);
+//            return "redirect:/user";
+//        }
+//        return "user";
+//    }
     
     @RequestMapping("/user/{userId}/password")
     public String password(Model model, 

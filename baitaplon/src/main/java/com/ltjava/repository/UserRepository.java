@@ -5,6 +5,7 @@
 package com.ltjava.repository;
 
 import com.ltjava.pojo.User;
+import com.ltjava.pojo.UserRole;
 import java.util.List;
 
 /**
@@ -15,8 +16,10 @@ public interface UserRepository {
     List<User> getUsers(String kw);
     User getUserById(String id);
     User getUserByUsername(String name);
-    boolean addOrUpdate(User user);
+    boolean addUser(User user);
     boolean changePassword(User user, String pass);
     boolean updateUser(User oldUser, User newUser);
     boolean removeUser(User u);
+    String loadNewUserId(Integer userRoleId);
+    boolean updateUserId(User u);
 }

@@ -195,5 +195,26 @@ public class StudentRepositoryImpl implements StudentRepository{
         }
         return false;
     }
+
+    @Override
+    public String loadNewStudentId() {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Student> query = builder.createQuery(Student.class);
+        Root root = query.from(Student.class);
+        
+        query = query.select(root).orderBy(builder.asc(root.get("id")));
+        
+        Query q = s.createQuery(query);
+        
+        Student lastStudent = (Student)q.getResultList().get(q.getResultList().size()-1);
+        System.out.println(lastStudent.getId());
+        String lastId = lastStudent.getId();
+        String word = "SV";
+        String number = String.valueOf(Integer.parseInt(lastId.replace(word, ""))+1);
+        String kq = word + number;
+        System.out.println(kq);
+        return kq;
+    }
     
 }

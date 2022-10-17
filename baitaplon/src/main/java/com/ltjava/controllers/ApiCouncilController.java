@@ -53,16 +53,48 @@ public class ApiCouncilController {
                 this.councilMemberService.addCouncilMember(new CouncilMember(council, president, memberRoleService.getMemberRoleById(1)));
                 this.councilMemberService.addCouncilMember(new CouncilMember(council, secretary, memberRoleService.getMemberRoleById(2)));
                 this.councilMemberService.addCouncilMember(new CouncilMember(council, reviewer, memberRoleService.getMemberRoleById(3)));
-                if(userService.getUserById(params.get("member1"))!=null){
-                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member1")) , memberRoleService.getMemberRoleById(4)));
+                if(userService.getUserById(params.get("member1Id"))!=null){
+                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member1Id")) , memberRoleService.getMemberRoleById(4)));
                 }
-                if(userService.getUserById(params.get("member2"))!=null){
-                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member2")) , memberRoleService.getMemberRoleById(5)));
+                if(userService.getUserById(params.get("member2Id"))!=null){
+                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member2Id")) , memberRoleService.getMemberRoleById(4)));
                 }
                 System.out.println("THÊM DANH SÁCH THÀNH VIÊN THÀNH CÔNG");
             }
             else{
                 System.out.println("THÊM HỘI ĐỒNG THẤT BẠI");
+            }
+            return new ResponseEntity<>(council, HttpStatus.OK);
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    @PostMapping(path = "/api/council/edit", produces = {
+        MediaType.APPLICATION_JSON_VALUE
+    })
+    public ResponseEntity<Council> editCouncil(@RequestBody Map<String,String> params){
+        try{
+            Council council = councilService.getCouncilById(Integer.parseInt(params.get("councilId")));
+            User president = userService.getUserById(params.get("presidentId"));
+            User secretary = userService.getUserById(params.get("secretaryId"));
+            User reviewer = userService.getUserById(params.get("reviewerId"));
+            if(councilService.removeCouncilMembers(council)){
+                this.councilMemberService.addCouncilMember(new CouncilMember(council, president, memberRoleService.getMemberRoleById(1)));
+                this.councilMemberService.addCouncilMember(new CouncilMember(council, secretary, memberRoleService.getMemberRoleById(2)));
+                this.councilMemberService.addCouncilMember(new CouncilMember(council, reviewer, memberRoleService.getMemberRoleById(3)));
+                if(userService.getUserById(params.get("member1Id"))!=null){
+                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member1")) , memberRoleService.getMemberRoleById(4)));
+                }
+                if(userService.getUserById(params.get("member2Id"))!=null){
+                    this.councilMemberService.addCouncilMember(new CouncilMember(council,userService.getUserById(params.get("member2")) , memberRoleService.getMemberRoleById(4)));
+                }
+                System.out.println("SỬA DANH SÁCH THÀNH VIÊN THÀNH CÔNG");
+            }
+            else{
+                System.out.println("SỬA DANH SÁCH THÀNH VIÊN THẤT BẠI");
             }
             return new ResponseEntity<>(council, HttpStatus.OK);
         }

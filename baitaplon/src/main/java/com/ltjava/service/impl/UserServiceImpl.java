@@ -6,6 +6,7 @@ package com.ltjava.service.impl;
 
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.User;
+import com.ltjava.pojo.UserRole;
 import com.ltjava.repository.StudentRepository;
 import com.ltjava.repository.UserRepository;
 import com.ltjava.service.UserService;
@@ -50,8 +51,12 @@ public class UserServiceImpl implements UserService{
     public boolean addOrUpdate(User user) {
         String pass = user.getPassword();
         user.setPassword(this.passwordEncoder.encode(pass));
-        
-        return this.userRepository.addOrUpdate(user);
+        if(this.userRepository.addUser(user)){
+            return this.userRepository.updateUserId(user);
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
@@ -59,9 +64,10 @@ public class UserServiceImpl implements UserService{
         List<User> users = this.getUsers(username);
         
         if(users.isEmpty()){
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("Không tìm thấy username");
         }
         User u = users.get(0);
+        System.out.println(u.getUsername());
         
         Set<GrantedAuthority> auth = new HashSet<>();
         auth.add(new SimpleGrantedAuthority(u.getUserRole().getName()));
@@ -88,6 +94,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean removeUser(User user) {
         return this.userRepository.removeUser(user);
+    }
+
+    @Override
+    public String loadNewUserId(Integer ur) {
+        return this.userRepository.loadNewUserId(ur);
     }
     
 }

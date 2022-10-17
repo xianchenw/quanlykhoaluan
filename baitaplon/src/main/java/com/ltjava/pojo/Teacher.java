@@ -6,6 +6,7 @@ package com.ltjava.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -40,7 +41,22 @@ public class Teacher implements Serializable{
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
-
+    
+    public Teacher(){
+        
+    }
+    
+    public Teacher(String id, String firstName, String lastName, String email, String phoneNumber, String birthday, Major majorId){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.majorId = majorId;
+    }
+    
+    
     /**
      * @return the id
      */

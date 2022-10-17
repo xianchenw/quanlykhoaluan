@@ -6,7 +6,7 @@ function loadClass(e, classSelected, note){
     console.log(e.value);
     const id = e.value.toString();
     console.log(id);
-    fetch('/baitaplon/api/student',{
+    fetch('/baitaplon/api/student/class',{
         method:'post',
         body: JSON.stringify({
             'majorId':id

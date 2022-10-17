@@ -10,12 +10,16 @@ import com.ltjava.pojo.Student;
 import com.ltjava.service.CouncilMemberService;
 import com.ltjava.service.CouncilService;
 import com.ltjava.service.StudentService;
+import com.ltjava.service.UserService;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -23,9 +27,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author HIEN
  */
 @Controller
+@ControllerAdvice
 public class HomeController {
     @Autowired
-    StudentService studentService;
+    private UserService userService;
+    
+    @ModelAttribute
+    public void commonAttr(Model model, HttpSession Session){
+        model.addAttribute("currentUser", Session.getAttribute("currentUser"));
+    }
     
     @RequestMapping("/")
     public String index(){

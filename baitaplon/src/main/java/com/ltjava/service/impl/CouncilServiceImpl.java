@@ -43,13 +43,25 @@ public class CouncilServiceImpl implements CouncilService{
 
     @Override
     public boolean removeCouncil(Council cncl) {
-        this.councilRepository.removeCouncilMember(cncl);
+        this.councilRepository.removeThesises(cncl);
+        this.councilRepository.removeCouncilMembers(cncl);
         return this.councilRepository.removeCouncil(cncl);
     }
 
     @Override
-    public boolean removeCouncilMember(Council cncl) {
-        return this.councilRepository.removeCouncilMember(cncl);
+    public boolean removeCouncilMembers(Council cncl) {
+        return this.councilRepository.removeCouncilMembers(cncl);
+    }
+
+
+    @Override
+    public boolean removeThesises(Council cncl) {
+        return this.councilRepository.removeThesises(cncl);
+    }
+
+    @Override
+    public boolean unlockCouncil(Council cncl) {
+        return this.councilRepository.unlockCouncil(cncl);
     }
     
 }

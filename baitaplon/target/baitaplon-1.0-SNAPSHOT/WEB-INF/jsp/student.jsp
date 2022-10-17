@@ -17,7 +17,6 @@
         <script>
             window.onload = function load(){
                 loadClass(document.getElementById('majorSelected'),document.getElementById('classSelected'), document.getElementById('note'));
-                document.getElementById("id").value = "SV";
             }
         </script>
         <div class="col-xl-12 row container-fluid content ">
@@ -70,7 +69,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="id">Mã sinh viên:</label>
-                                                <form:input path="id" type="text" class="form-control" placeholder="Mã sinh viên" id="id"></form:input>
+                                                <form:input path="id" type="text" class="form-control" placeholder="Mã sinh viên" id="id" value="${newStudentId}"></form:input>
                                             </div>
                                             <div class="form-group">
                                                 <label for="name">Tên sinh viên:</label>

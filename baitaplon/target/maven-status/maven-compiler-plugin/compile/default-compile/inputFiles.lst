@@ -3,6 +3,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\Stude
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Criteria.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\CouncilService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\MajorService.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\ApiStudentController.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\StatsRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Teacher.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\ClassServiceImpl.java
@@ -11,6 +12,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\ClassR
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\StatsService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\UserServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\MemberRole.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\MemberRoleRepository.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\baitaplon\LoginSuccessHandler.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\formatter\ClassFomatter.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\UserService.java
@@ -24,6 +26,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\ApiTh
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Student.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Class.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\StudentRepositoryImpl.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\MemberRoleService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\UserRoleService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\ApiCouncilController.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\User.java
@@ -38,6 +41,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\Thes
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\formatter\MajorFomatter.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\Thesis.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\ThesisRepository.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\ApiUserController.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\formatter\UserRoleFomatter.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\UserRepository.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\ThesisService.java
@@ -52,6 +56,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\CouncilMe
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\CouncilMemberRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\ThesisScoreRepository.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\ThesisRepositoryImpl.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\MemberRoleServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\WebApplicationContextConfig.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\CouncilRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\TeacherServiceImpl.java
@@ -69,6 +74,7 @@ D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\C
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\impl\ThesisScoreServiceImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\configs\SecurityWebAppInitializer.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\pojo\ThesisScore.java
+D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\impl\MemberRoleRepositoryImpl.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\controllers\CouncilController.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\service\ThesisInstructorService.java
 D:\BT\LTJava\quanlykhoaluan\baitaplon\src\main\java\com\ltjava\repository\ThesisInstructorRepository.java

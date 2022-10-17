@@ -21,6 +21,7 @@ public class MemberRole implements Serializable{
     @Id
     private Integer id;
     private String role;
+    private String rolev;
     @OneToMany(mappedBy = "memberRole")
     private Set<CouncilMember> members;
 
@@ -64,6 +65,20 @@ public class MemberRole implements Serializable{
      */
     public void setMembers(Set<CouncilMember> members) {
         this.members = members;
+    }
+
+    /**
+     * @return the rolev
+     */
+    public String getRolev() {
+        return rolev;
+    }
+
+    /**
+     * @param rolev the rolev to set
+     */
+    public void setRolev(String rolev) {
+        this.rolev = rolev;
     }
     
 }

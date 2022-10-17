@@ -15,33 +15,10 @@
     <body>
         <script src="<c:url value="/js/user.js"/>"></script>
         <script>
-            window.onload = function load(){
-                fillId();
-            }
-            function fillId(){
-                let a = document.getElementById('list-userrole');
-                let b = document.getElementById('id');
-                console.log(a.value)
-                let area = document.getElementById('areaListStudent');
-                
-                if(a.value==4){
-                    b.value = "SV";
-                    area.innerHTML = `<label for="list-userrole">Danh sách sinh viên chưa có tài khoản: </label>
-                                        <select onchange="selectStudent(this.value)" class="form-control" id="listStudent" name="listStudent">
-                                        </select>`;
-                    loadListStudent();
-                }
-                else{
-                    area.innerHTML = ``;
-                    if(a.value==3){
-                        b.value = "GV";
-                    }
-                    if(a.value==1||a.value==2){
-                        b.value = ""
-                    }
-                }
-                
-            }
+//            window.onload = function load(){
+//                fillId();
+//            }
+            
         </script>
         <div class="container-fluid col-xl-12 row content" >
             <!-- LEFT -->
@@ -82,60 +59,69 @@
                             </div>
 
                             <div class="modal-body">
-                                <form:form modelAttribute="userInfo" action="/baitaplon/user" method="post">
+                                <div>
                                     <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
                                     <div class = "form-group">
                                         <label for="list-userrole">Phân quyền: </label>
-                                        <form:select onchange="fillId()" path="userRole" cssClass="form-control" id="list-userrole" name="list-userrole">
-                                            <c:forEach var="u" items="${listUserRole}" >
-                                                <option id="${u.name}" value="${u.id}">${u.name}</option>
+                                        <select onchange="fillId(this.value)" class="form-control" id="list-userrole" name="list-userrole">
+                                            <c:forEach items="${listUserRole}" var="u">
+                                                <option value="${u.id}" >${u.name}</option>
                                             </c:forEach>
-                                        </form:select>
+                                        </select>
+                                    </div>
+                                    <div id="majorArea" class="form-group">
+                                        <label for="list-major">Khoa: </label>
+                                        <select class="form-control" id="list-major" name="list-major">
+                                            <option value=""></option>
+                                            <c:forEach items="${listMajor}" var="major">
+                                                <option value="${major.id}">${major.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div id="areaListStudent" class="form-group">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Mã người dùng:</label>
-                                        <form:input onblur="loadStudent(this.value)" path="id" type="text" cssClass="form-control" placeholder="Example: 1951052052" id="id"></form:input>
+                                        <input disabled="true" onblur="loadStudent(this.value)" type="text" class="form-control" id="id"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Tên người dùng:</label>
                                         <div class="row" id="name">
                                             <div class="col">
-                                                <form:input path="firstName" type="text" class="form-control" id="first-name" placeholder="Trần Thị Thu" name="first-name"></form:input>
+                                                <input type="text" class="form-control" id="first-name" placeholder="Họ và tên lót" name="first-name"/>
                                             </div>
                                             <div class="col">
-                                                <form:input path="lastName" type="text" class="form-control" id="last-name"  placeholder="Hiền" name="last-name"></form:input>
+                                                <input type="text" class="form-control" id="last-name" placeholder="Tên"  name="last-name"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email:</label>
-                                        <form:input path="email" type="email" class="form-control" placeholder="thuhien.tran060801@gmail.com" id="email"></form:input>
+                                        <input type="email" class="form-control" id="email"/>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
                                             <label for="phone-number">Số điện thoại: <label/>
-                                            <form:input path="phoneNumber" type="text" class="form-control" placeholder="0964345626" id="phone-number"></form:input>
+                                            <input type="text" class="form-control" id="phone-number"/>
                                         </div>
                                         <div class="col">
                                             <label for="birthday">Ngày sinh: <label/>
-                                            <form:input path="birthday" type="date" class="form-control" id="birthday" name="birthday"></form:input>
+                                            <input type="date" class="form-control" id="birthday" name="birthday"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="account">Tài khoản:</label>
+                                        <label for="account">Tài khoản người dùng</label>
                                         <div class="row" id="account">
                                             <div class="col">
-                                                <form:input path="username" type="text" class="form-control" id="username" placeholder="Username" name="username"></form:input>
+                                                <input type="text" class="form-control" id="username" name="username" placeholder="Username"/>
                                             </div>
                                             <div class="col">
-                                                <form:input path="password" type="password" class="form-control" id="password"  placeholder="Password" name="password"></form:input>
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" class="btn btn-success"  value="Thêm" />
-                                </form:form>
+                                    <button onclick="addUser(document.getElementById('list-userrole').value)" class="btn btn-success" >Thêm</button>
+                                </div>
                             </div>
 
                             <div class="modal-footer">
@@ -147,6 +133,7 @@
                     </div>
                 </div>
                 <div>
+                    <div id="message" ></div>
                     <table class="table table-hover">
                         <thead>
                           <tr>
@@ -160,22 +147,42 @@
                         </thead>
                         <tbody>
                             <c:forEach var="u" items="${user}">
-                            <tr>
-                                <td>${u.id}</td>
-                                <td>${u.firstName} ${u.lastName}</td>
-                                <td>${u.email}</td>
-                                <td>${u.userRole}</td>
-                                <td>
-                                    <a href="<c:url value="/user/account/edit/${u.id}"/>">
-                                        <button class="btn btn-secondary btn-sm">Chỉnh sửa</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="<c:url value="/user/account/remove/${u.id}"/>">
-                                        <button onclick="" class="btn btn-danger btn-sm">Xóa</button>
-                                    </a>
-                                </td>
-                            </tr>
+                                <c:if test="${u.userRole.id != 4}">
+                                    <tr>
+                                        <td>${u.id}</td>
+                                        <td>${u.teacherId}</td>
+                                        <td>${u.teacherId.email}</td>
+                                        <td>${u.userRole}</td>
+                                        <td>
+                                            <a href="<c:url value="/user/account/edit/${u.id}"/>">
+                                                <button class="btn btn-secondary btn-sm">Chỉnh sửa</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="<c:url value="/user/account/remove/${u.id}"/>">
+                                                <button onclick="" class="btn btn-danger btn-sm">Xóa</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${u.userRole.id == 4}">
+                                    <tr>
+                                        <td>${u.id}</td>
+                                        <td>${u.studentId}</td>
+                                        <td>${u.studentId.email}</td>
+                                        <td>${u.userRole}</td>
+                                        <td>
+                                            <a href="<c:url value="/user/account/edit/${u.id}"/>">
+                                                <button class="btn btn-secondary btn-sm">Chỉnh sửa</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="<c:url value="/user/account/remove/${u.id}"/>">
+                                                <button onclick="" class="btn btn-danger btn-sm">Xóa</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                         </tbody>
                     </table>

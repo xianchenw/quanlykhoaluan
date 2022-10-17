@@ -16,7 +16,9 @@ public interface CouncilRepository {
     Council getCouncilById(Integer id);
     boolean addCouncil(Council c);
     boolean lockCouncil(Council c);
+    boolean unlockCouncil(Council c);
     boolean removeCouncil(Council c);
-    boolean removeCouncilMember(Council c);
+    boolean removeCouncilMembers(Council c);
+    boolean removeThesises(Council c);
     
 }

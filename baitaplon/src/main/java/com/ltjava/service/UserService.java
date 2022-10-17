@@ -5,6 +5,7 @@
 package com.ltjava.service;
 
 import com.ltjava.pojo.User;
+import com.ltjava.pojo.UserRole;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -20,4 +21,5 @@ public interface UserService extends UserDetailsService{
     boolean changePassword(User user, String pass);
     boolean updateUser(User oldUser, User newUser);
     boolean removeUser(User u);
+    String loadNewUserId(Integer u);
 }

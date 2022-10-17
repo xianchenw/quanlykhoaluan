@@ -32,6 +32,8 @@ public class Council implements Serializable{
     private Integer id;
     private Boolean active;
     private String name;
+    @Column(name = "max_member_quantity")
+    private Integer maxMemberQuantity;
     @JsonIgnore
     @Column(name = "created_date")
     private Date createdDate;
@@ -134,6 +136,20 @@ public class Council implements Serializable{
      */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    /**
+     * @return the maxMemberQuantity
+     */
+    public Integer getMaxMemberQuantity() {
+        return maxMemberQuantity;
+    }
+
+    /**
+     * @param maxMemberQuantity the maxMemberQuantity to set
+     */
+    public void setMaxMemberQuantity(Integer maxMemberQuantity) {
+        this.maxMemberQuantity = maxMemberQuantity;
     }
 
     

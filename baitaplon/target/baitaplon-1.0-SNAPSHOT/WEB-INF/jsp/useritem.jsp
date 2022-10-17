@@ -37,49 +37,49 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Tài khoản</h4>
                         </div>
-                        <form:form modelAttribute="userInfo" action="/baitaplon/user/account/edit/${userEdit.id}" method="post">
+                        <form  action="/baitaplon/user/account/edit/${userEdit.id}" method="post">
                         <div class="row mt-3">
                             <div class="col-md-3">
                                 <label class="labels">Mã người dùng</label>
-                                <form:input path="id" disabled="true" type="text" class="form-control" value="${userEdit.id}"></form:input>
+                                <input  disabled="true" type="text" class="form-control" value="${userEdit.id}"></input>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label class="labels">Phân quyền</label>
-                                <form:select path="userRole" class="form-control">
+                                <select  class="form-control">
                                     <c:forEach var="u" items="${listUserRole}">
                                         <option id="${u.name}" value="${u.id}">${u.name}</option>
                                     </c:forEach>
-                                </form:select>
+                                </select>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <label  class="labels">Họ và tên lót</label>
-                                <form:input path="firstName" type="text" class="form-control" value="${userEdit.firstName}"></form:input>
+                                <label class="labels">Họ và tên lót</label>
+                                <input type="text" class="form-control"></input>
                             </div>
                             <div class="col-md-6">
                                 <label class="labels">Tên</label>
-                                <form:input path="lastName" type="text" class="form-control" value="${userEdit.lastName}"></form:input>
+                                <input type="text" class="form-control"></input>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label class="labels">Số điện thoại</label>
-                                <form:input path="phoneNumber" type="text" class="form-control" value="${userEdit.phoneNumber}"></form:input>
+                                <input type="text" class="form-control"></input>
                             </div>
                             <div class="col-md-12">
                                 <label class="labels">Email</label>
-                                <form:input path="email" type="text" class="form-control" value="${userEdit.email}"></form:input>
+                                <input type="text" class="form-control" value=""></input>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label class="labels">Tên đăng nhập</label>
-                                <form:input path="username" type="text" class="form-control" value="${userEdit.username}"></form:input>
+                                <input type="text" class="form-control" value="${userEdit.username}"></input>
                             </div>
                             <div class="col-md-6">
                                 <label class="labels">Mật khẩu</label>
-                                <form:input path="password" type="text" class="form-control" value="${userEdit.password}"></form:input>
+                                <input type="text" class="form-control" value="${userEdit.password}"></input>
                             </div>
                         </div>
                         <div class="mt-5 text-center">
@@ -100,7 +100,7 @@
                                 <button class="btn btn-danger profile-button" type="button">Thoát</button>
                             </a>
                         </div>
-                        </form:form>
+                        </form>
                     </div>
                     </c:if>
                 </div>

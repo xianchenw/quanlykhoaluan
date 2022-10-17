@@ -22,4 +22,5 @@ public interface StudentRepository {
     Object[] getStudentAccount(String id);
     List<Student> getListStudentAccount();
     boolean updateStudent(Map<String, String> params);
+    String loadNewStudentId();
 }

@@ -12,6 +12,7 @@ import com.ltjava.pojo.ThesisScore;
 import com.ltjava.service.CouncilMemberService;
 import com.ltjava.service.CouncilService;
 import com.ltjava.service.CriteriaService;
+import com.ltjava.service.MemberRoleService;
 import com.ltjava.service.TeacherService;
 import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.ThesisService;
@@ -58,6 +59,9 @@ public class CouncilController {
     @Autowired
     private TeacherService teacherService;
     
+    @Autowired
+    private MemberRoleService memberRoleService;
+    
     private Set<Thesis> thesises = new HashSet<>();
         
     @ModelAttribute
@@ -65,6 +69,7 @@ public class CouncilController {
         model.addAttribute("listCouncil", councilMemberService.getListCouncilMember(councilService.getCouncils("")));
         model.addAttribute("listCriteria", criteriaService.getCriterias(""));
         model.addAttribute("listTeacher", teacherService.getTeachers("GV"));
+        model.addAttribute("listMemberRole", memberRoleService.getMemberRoles());
     }
     
     @RequestMapping("/council")
@@ -86,7 +91,8 @@ public class CouncilController {
     }
     
     @GetMapping(value = "/council/{councilId}")
-    public String councilItem(@PathVariable(value = "councilId") Integer Id){
+    public String councilItem(Model model, @PathVariable(value = "councilId") Integer Id){
+        model.addAttribute("councilPage", councilService.getCouncilById(Id));
         return "councilitem";
     }
     
@@ -142,6 +148,14 @@ public class CouncilController {
     public String lock(Model model, @PathVariable("councilId") Integer councilId){
         if(councilService.getCouncilById(councilId)!=null){
             councilService.lockCouncil(councilService.getCouncilById(councilId));
+        }
+        return "redirect:/council";
+    }
+    
+    @RequestMapping("/council/unlock/{councilId}")
+    public String unlock(Model model, @PathVariable("councilId") Integer councilId){
+        if(councilService.getCouncilById(councilId)!=null){
+            councilService.unlockCouncil(councilService.getCouncilById(councilId));
         }
         return "redirect:/council";
     }

@@ -29,7 +29,7 @@
                 </div>
             </div> 
             <div class="col-xl-9">
-                <div class="container border round-xlarge">
+                <div style="padding: 10px" class="border round-xlarge">
                     <div class="">
                         <br>
                         <div class="header">

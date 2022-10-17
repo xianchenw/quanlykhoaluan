@@ -29,5 +29,10 @@ public class TeacherServiceImpl implements TeacherService{
     public Teacher getTeacherById(String id) {
         return this.teacherRepository.getTeacherById(id);
     }
+
+    @Override
+    public boolean addTeacher(Teacher t) {
+        return this.teacherRepository.addTeacher(t);
+    }
     
 }

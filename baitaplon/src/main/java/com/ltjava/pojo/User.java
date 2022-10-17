@@ -30,13 +30,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 public class User implements Serializable{
-    @JsonIgnore
     private static String ADMIN = "ADMIN";
-    @JsonIgnore
     private static String TEACHER = "TEACHER";
-    @JsonIgnore
     private static String MANAGER = "MANAGER";
-    @JsonIgnore
     private static String STUDENT = "STUDENT";
     
     @Id
@@ -73,6 +69,7 @@ public class User implements Serializable{
         this.username = username;
         this.password = password;
         this.userRole = userRole;
+        this.active = true;
     }
     
     /**

@@ -54,5 +54,22 @@ public class TeacherRepositoryImpl implements TeacherRepository{
         Teacher u = s.get(Teacher.class,id);
         return u;
     }
+
+    @Override
+    public boolean addTeacher(Teacher t) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        t.setUserId(null);
+        try{
+            s.save(t);
+            System.out.println("THÊM GIÁO VIÊN THÀNH CÔNGGG");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("LỖI RỒIIIII");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return false;
+    }
     
 }

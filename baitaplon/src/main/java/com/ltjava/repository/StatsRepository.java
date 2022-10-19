@@ -13,4 +13,5 @@ import java.util.List;
 public interface StatsRepository {
     List<Object[]> scoreStats();
     List<Object[]> thesisStats();
+    List<Object[]> countUserByUserRole();
 }

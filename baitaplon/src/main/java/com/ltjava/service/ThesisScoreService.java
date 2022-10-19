@@ -16,4 +16,5 @@ public interface ThesisScoreService {
     List<Object[]> getThesisScores(Integer councilId);
     ThesisScore getThesisScoreById(Integer id);
     boolean addOrUpdate(ThesisScore c);
+    ThesisScore getThesisScoreByUTC(Integer thesisCriteriaId, String userId);
 }

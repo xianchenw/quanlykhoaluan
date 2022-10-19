@@ -18,7 +18,7 @@
 //            window.onload = function load(){
 //                fillId();
 //            }
-            
+
         </script>
         <div class="container-fluid col-xl-12 row content" >
             <!-- LEFT -->
@@ -31,7 +31,7 @@
                     <a href="<c:url value="/user/"/>?kw=ADMIN"><p class="text-left text-dark">Quản trị</p></a>
                 </div>
             </div>
-            
+
             <!-- RIGHT -->
             <div class="col-xl-9 right">
                 <div class="d-flex flex-row-reverse">
@@ -40,7 +40,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="kw" placeholder="Search">
                                 <div class="input-group-append">
-                                  <button class="btn btn-success" type="submit">Tìm</button>
+                                    <button class="btn btn-success" type="submit">Tìm</button>
                                 </div>
                             </div>
                         </form>
@@ -48,102 +48,104 @@
                     <div class="p-2">
                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#addUserModal">Thêm tài khoản</button>
                     </div>
-<!--                     Modal thêm tài khoản -->
+                    <!--                     Modal thêm tài khoản -->
                     <div class="modal" id="addUserModal">
                         <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
+                            <div class="modal-content">
 
-                            <div class="modal-header">
-                              <h4 class="modal-title">Thêm tài khoản người dùng</h4>
-                              <button type="button" class="close" data-dismiss="modal"></button>
-                            </div>
-
-                            <div class="modal-body">
-                                <div>
-                                    <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
-                                    <div class = "form-group">
-                                        <label for="list-userrole">Phân quyền: </label>
-                                        <select onchange="fillId(this.value)" class="form-control" id="list-userrole" name="list-userrole">
-                                            <c:forEach items="${listUserRole}" var="u">
-                                                <option value="${u.id}" >${u.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div id="majorArea" class="form-group">
-                                        <label for="list-major">Khoa: </label>
-                                        <select class="form-control" id="list-major" name="list-major">
-                                            <option value=""></option>
-                                            <c:forEach items="${listMajor}" var="major">
-                                                <option value="${major.id}">${major.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div id="areaListStudent" class="form-group">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="id">Mã người dùng:</label>
-                                        <input disabled="true" onblur="loadStudent(this.value)" type="text" class="form-control" id="id"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Tên người dùng:</label>
-                                        <div class="row" id="name">
-                                            <div class="col">
-                                                <input type="text" class="form-control" id="first-name" placeholder="Họ và tên lót" name="first-name"/>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" id="last-name" placeholder="Tên"  name="last-name"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email"/>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col">
-                                            <label for="phone-number">Số điện thoại: <label/>
-                                            <input type="text" class="form-control" id="phone-number"/>
-                                        </div>
-                                        <div class="col">
-                                            <label for="birthday">Ngày sinh: <label/>
-                                            <input type="date" class="form-control" id="birthday" name="birthday"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="account">Tài khoản người dùng</label>
-                                        <div class="row" id="account">
-                                            <div class="col">
-                                                <input type="text" class="form-control" id="username" name="username" placeholder="Username"/>
-                                            </div>
-                                            <div class="col">
-                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button onclick="addUser(document.getElementById('list-userrole').value)" class="btn btn-success" >Thêm</button>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Thêm tài khoản người dùng</h4>
+                                    <button type="button" class="close" data-dismiss="modal"></button>
                                 </div>
-                            </div>
 
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                            </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
+                                        <div class = "form-group">
+                                            <label for="list-userrole">Phân quyền: </label>
+                                            <select onchange="fillId(this.value)" class="form-control" id="list-userrole" name="list-userrole">
+                                                <c:forEach items="${listUserRole}" var="u">
+                                                    <option value="${u.id}" >${u.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="majorArea" class="form-group">
+                                            <label for="list-major">Khoa: </label>
+                                            <select class="form-control" id="list-major" name="list-major">
+                                                <option value=""></option>
+                                                <c:forEach items="${listMajor}" var="major">
+                                                    <option value="${major.id}">${major.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="areaListStudent" class="form-group">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id">Mã người dùng:</label>
+                                            <input disabled="true" onblur="loadStudent(this.value)" type="text" class="form-control" id="id"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Tên người dùng:</label>
+                                            <div class="row" id="name">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" id="first-name" placeholder="Họ và tên lót" name="first-name"/>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" id="last-name" placeholder="Tên"  name="last-name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" class="form-control" id="email"/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <label for="phone-number">Số điện thoại: <label/>
+                                                    <input type="text" class="form-control" id="phone-number"/>
+                                            </div>
+                                            <div class="col">
+                                                <label for="birthday">Ngày sinh: <label/>
+                                                    <input type="date" class="form-control" id="birthday" name="birthday"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="account">Tài khoản người dùng</label>
+                                            <div class="row" id="account">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username"/>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button onclick="addUser(document.getElementById('list-userrole').value)" class="btn btn-success" >Thêm</button>
+                                    </div>
+                                </div>
 
-                          </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div>
+                    
+
                     <div id="message" ></div>
                     <table class="table table-hover">
                         <thead>
-                          <tr>
-                            <th>Mã người dùng</th>
-                            <th>Tên người dùng</th>
-                            <th>Email</th>
-                            <th>Chức vụ</th>
-                            <th></th>
-                            <th></th>
-                          </tr>
+                            <tr>
+                                <th>Mã người dùng</th>
+                                <th>Tên người dùng</th>
+                                <th>Email</th>
+                                <th>Chức vụ</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="u" items="${user}">
@@ -189,6 +191,6 @@
                 </div>
             </div>
         </div>
-        
+
     </body>
 </html>

@@ -6,9 +6,13 @@ package com.ltjava.controllers;
 
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.ThesisCriteria;
+import com.ltjava.pojo.ThesisScore;
 import com.ltjava.pojo.User;
 import com.ltjava.service.StudentService;
+import com.ltjava.service.ThesisCriteriaService;
 import com.ltjava.service.ThesisInstructorService;
+import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
 import java.util.ArrayList;
@@ -19,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +48,12 @@ public class ThesisController {
     
     @Autowired
     private ThesisInstructorService thesisInstructorService;
+    
+    @Autowired
+    private ThesisScoreService thesisScoreService;
+    
+    @Autowired
+    private ThesisCriteriaService thesisCriteriaService;
     
     public List<Student> thesisStudents = new ArrayList<>(); 
     
@@ -143,10 +154,45 @@ public class ThesisController {
         return "redirect:/";
     }
     
-//    @RequestMapping("/thesis/score/{user}")
-//    public String score(Model model, @PathVariable(value = "user") String u){
-//        System.out.print(thesisService.getThesisesByUser(u));
-//        model.addAttribute("thesisess", thesisService.getThesisesByUser(u));
-//        return "score";
-//    }
+    
+    @RequestMapping("/thesis/score/{user}")
+    public String score(Model model, @PathVariable(value = "user") String u){
+        model.addAttribute("user", this.userService.getUserById(u));
+        return "score";
+    }
+    
+    @PostMapping("/thesis/score/{user}/addScore/{thesisCriteriaId}")
+    public String addScore(Model model,@PathVariable(value = "user") String userId,
+            @PathVariable(value = "thesisCriteriaId") Integer thesisCriteriaId,
+            @RequestParam(value="score") Integer score){
+        try{
+            ThesisCriteria thesisC = this.thesisCriteriaService.getThesisCriteriaById(thesisCriteriaId);
+            User user = this.userService.getUserById(userId);
+            ThesisScore ts = new ThesisScore(score, thesisC, user);
+            if(thesisScoreService.addOrUpdate(ts)){
+                return "redirect:/thesis/score/"+userId;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "reditect:/";
+    }
+    
+    @PostMapping("/thesis/score/{user}/editScore/{thesisCriteriaId}")
+    public String editScore(Model model,@PathVariable(value = "user") String userId,
+            @PathVariable(value = "thesisCriteriaId") Integer thesisCriteriaId,
+            @RequestParam(value="score") Integer score){
+        try{
+            ThesisScore ts = this.thesisScoreService.getThesisScoreByUTC(thesisCriteriaId, userId);
+            ts.setScore(score);
+            if(thesisScoreService.addOrUpdate(ts)){
+                return "score";
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "reditect:/";
+    }
 }

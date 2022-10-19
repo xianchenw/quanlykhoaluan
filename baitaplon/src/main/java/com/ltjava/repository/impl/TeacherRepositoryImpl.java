@@ -58,7 +58,6 @@ public class TeacherRepositoryImpl implements TeacherRepository{
     @Override
     public boolean addTeacher(Teacher t) {
         Session s = sessionFactory.getObject().getCurrentSession();
-        t.setUserId(null);
         try{
             s.save(t);
             System.out.println("THÊM GIÁO VIÊN THÀNH CÔNGGG");

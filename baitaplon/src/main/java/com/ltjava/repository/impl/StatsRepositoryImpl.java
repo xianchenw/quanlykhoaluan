@@ -8,6 +8,7 @@ import com.ltjava.pojo.Major;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisScore;
+import com.ltjava.pojo.User;
 import com.ltjava.repository.StatsRepository;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,6 +70,21 @@ public class StatsRepositoryImpl implements StatsRepository{
         
         query.where(predicates.toArray(new Predicate[]{}));
         query.groupBy(majorRoot.get("id"));
+        
+        Query q = s.createQuery(query);
+        
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> countUserByUserRole() {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root root = query.from(User.class);
+        Predicate p1 = builder.equal(root.get("active"), true);
+        query.multiselect(root.get("userRole").get("name"), builder.count(root.get("id")));
+        query.groupBy(root.get("userRole"));
         
         Query q = s.createQuery(query);
         

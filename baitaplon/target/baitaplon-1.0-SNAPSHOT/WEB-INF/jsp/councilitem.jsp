@@ -171,6 +171,43 @@
                         <button onclick="editCouncil('${councilPage.id}', document.getElementById('PRESIDENT'), document.getElementById('SECRETARY'), document.getElementById('REVIEWER'), document.getElementsByName('MEMBER'))" class="btn btn-success" >Cập nhật</button>
                     </div>
                 </div>
+                <br>
+                <div style="width: 100%; padding: 10px" class="border round-xxlarge">
+                    <div class="header">
+                        <span>
+                            <h5 class="title">Danh sách khóa luận</h5>
+                        </span>
+                    </div>
+                    <div name="thesisesArea" >
+                        <c:forEach items="${councilPage.thesises}" var="thes">
+                            <div style="border: 1px solid gray; border-radius: 10px;padding: 10px;" name="thesisItem" >
+                                <h7 style="margin:10px">Khóa luận: ${thes.topic}</h7>
+                                <br>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tiêu chí</th>
+                                            <th>Điểm</th>
+                                            <th>Người chấm</th>
+                                            <th>Thòi gian chấm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${thes.thesisScores}" var="theScore" >
+                                            <tr>
+                                                <td>${theScore.criteriaId}</td>
+                                                <td>${theScore.score}</td>
+                                                <td>${theScore.userId.teacherId.firstName} ${theScore.userId.teacherId.lastName}</td>
+                                                <td>${theScore.createdDate}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

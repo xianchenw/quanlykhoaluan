@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,7 +52,7 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "instructorId")
     private Set<ThesisInstructor> thesisInstructors;
     @JsonIgnore
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
     private Set<CouncilMember> members;
     @JsonIgnore
     @OneToOne(mappedBy = "userId")

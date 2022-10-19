@@ -35,4 +35,10 @@ public class ThesisScoreServiceImpl implements ThesisScoreService{
     public boolean addOrUpdate(ThesisScore c) {
         return this.thesisScoreRepository.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    //Get ThesisScore by ThesisCriteria and User
+    @Override
+    public ThesisScore getThesisScoreByUTC(Integer intgr, String string) {
+        return this.thesisScoreRepository.getThesisScoreByUTC(intgr, string);
+    }
 }

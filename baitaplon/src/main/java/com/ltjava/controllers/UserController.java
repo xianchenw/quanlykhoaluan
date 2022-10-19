@@ -8,6 +8,7 @@ import com.ltjava.pojo.User;
 import com.ltjava.pojo.UserRole;
 import com.ltjava.pojo.Word;
 import com.ltjava.service.MajorService;
+import com.ltjava.service.StatsService;
 import com.ltjava.service.UserRoleService;
 import com.ltjava.service.UserService;
 import java.util.List;
@@ -43,11 +44,15 @@ public class UserController {
     @Autowired
     private MajorService majorService;
     
+    @Autowired
+    private StatsService statsService;
+    
     
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listUserRole", this.userRoleService.getUserRoles());
         model.addAttribute("listMajor", this.majorService.getMajors(""));
+        model.addAttribute("userStats", this.statsService.countUserByUserRole());
         
     }
     

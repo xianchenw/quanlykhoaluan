@@ -25,7 +25,7 @@ public class Criteria implements Serializable{
     private Integer id;
     private String name;
     @OneToMany(mappedBy = "criteriaId")
-    private Set<ThesisScore> thesisScores;
+    private Set<ThesisCriteria> thesisCriterias;
 
     /**
      * @return the id
@@ -66,16 +66,22 @@ public class Criteria implements Serializable{
     /**
      * @return the thesisScores
      */
-    public Set<ThesisScore> getThesisScores() {
-        return thesisScores;
+    public Set<ThesisCriteria> getThesisCriterias() {
+        return thesisCriterias;
     }
 
     /**
      * @param thesisScores the thesisScores to set
      */
-    public void setThesisScores(Set<ThesisScore> thesisScores) {
-        this.thesisScores = thesisScores;
+    public void setThesisScores(Set<ThesisCriteria> thesisCriterias) {
+        this.thesisCriterias = thesisCriterias;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
     
     
 }

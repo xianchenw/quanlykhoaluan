@@ -41,7 +41,7 @@ public class Thesis implements Serializable{
     private Set<Student> students;
     @JsonIgnore
     @OneToMany(mappedBy = "thesisId", fetch = FetchType.EAGER)
-    private Set<ThesisScore> thesisScores;
+    private Set<ThesisCriteria> thesisCriterias;
     @JsonIgnore
     @OneToMany(mappedBy = "thesisId", fetch = FetchType.EAGER)
     private Set<ThesisInstructor> thesisInstructors;
@@ -133,15 +133,15 @@ public class Thesis implements Serializable{
     /**
      * @return the thesisScores
      */
-    public Set<ThesisScore> getThesisScores() {
-        return thesisScores;
+    public Set<ThesisCriteria> getThesisCriterias() {
+        return thesisCriterias;
     }
 
     /**
      * @param thesisScores the thesisScores to set
      */
-    public void setThesisScores(Set<ThesisScore> thesisScores) {
-        this.thesisScores = thesisScores;
+    public void setThesisScores(Set<ThesisCriteria> thesisCriterias) {
+        this.thesisCriterias = thesisCriterias;
     }
 
     /**

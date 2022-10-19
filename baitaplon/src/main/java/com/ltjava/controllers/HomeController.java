@@ -9,7 +9,9 @@ import com.ltjava.pojo.CouncilMember;
 import com.ltjava.pojo.Student;
 import com.ltjava.service.CouncilMemberService;
 import com.ltjava.service.CouncilService;
+import com.ltjava.service.StatsService;
 import com.ltjava.service.StudentService;
+import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.UserService;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @ControllerAdvice
 public class HomeController {
     @Autowired
-    private UserService userService;
+    private StatsService statsService;
     
     @ModelAttribute
     public void commonAttr(Model model, HttpSession Session){
@@ -39,6 +41,12 @@ public class HomeController {
     
     @RequestMapping("/")
     public String index(){
+        List<Object[]> kq = this.statsService.countUserByUserRole();
+        for (Object[] objects : kq) {
+            System.out.println("AHAHAAHAH");
+            System.out.println(objects[0]);
+            System.out.println(objects[1]);
+        }
         return "thesis";
     }
 }

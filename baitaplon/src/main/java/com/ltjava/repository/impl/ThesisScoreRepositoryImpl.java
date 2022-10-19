@@ -7,6 +7,7 @@ package com.ltjava.repository.impl;
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisScore;
+import com.ltjava.pojo.User;
 import com.ltjava.repository.ThesisScoreRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -84,4 +85,24 @@ public class ThesisScoreRepositoryImpl implements ThesisScoreRepository{
         }
         return false;
     }
+
+    @Override
+    public ThesisScore getThesisScoreByUTC(Integer thesisCriteriaId, String userId) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<ThesisScore> query = builder.createQuery(ThesisScore.class);
+        Root scoreRoot = query.from(ThesisScore.class);
+        
+        query = query.select(scoreRoot);
+        
+        Predicate p1 = builder.equal(scoreRoot.get("thesisCriteriaId"), thesisCriteriaId);
+        Predicate p2 = builder.equal(scoreRoot.get("userId").get("id"), userId);
+        query = query.where(builder.and(p1,p2));
+        
+        
+        Query q = s.createQuery(query);
+        
+        return (ThesisScore) q.getSingleResult();
+    }
+
 }

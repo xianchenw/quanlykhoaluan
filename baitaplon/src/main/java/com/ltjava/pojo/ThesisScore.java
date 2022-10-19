@@ -5,6 +5,7 @@
 package com.ltjava.pojo;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,33 +26,27 @@ public class ThesisScore implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "thesis_id", referencedColumnName = "id")
-    private Thesis thesisId;
     private Integer score;
     @Column(name = "created_date")
     private Date createdDate;
     @ManyToOne
-    @JoinColumn(name = "criteria_id", referencedColumnName = "id")
-    private Criteria criteriaId;
+    @JoinColumn(name = "thesis_criteria_id", referencedColumnName = "id")
+    private ThesisCriteria thesisCriteriaId;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
-    /**
-     * @return the thesisId
-     */
-    public Thesis getThesisId() {
-        return thesisId;
+    public ThesisScore(){
+        
     }
-
-    /**
-     * @param thesisId the thesisId to set
-     */
-    public void setThesisId(Thesis thesisId) {
-        this.thesisId = thesisId;
+    
+    public ThesisScore(Integer score, ThesisCriteria thesisCriteria, User user){
+        this.score = score;
+        this.createdDate = Date.from(Instant.now());
+        this.thesisCriteriaId = thesisCriteria;
+        this.userId = user;
     }
-
+    
     /**
      * @return the score
      */
@@ -81,20 +76,6 @@ public class ThesisScore implements Serializable{
     }
 
     /**
-     * @return the criteriaId
-     */
-    public Criteria getCriteriaId() {
-        return criteriaId;
-    }
-
-    /**
-     * @param criteriaId the criteriaId to set
-     */
-    public void setCriteriaId(Criteria criteriaId) {
-        this.criteriaId = criteriaId;
-    }
-
-    /**
      * @return the userId
      */
     public User getUserId() {
@@ -120,6 +101,20 @@ public class ThesisScore implements Serializable{
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @return the thesisCriteriaId
+     */
+    public ThesisCriteria getThesisCriteriaId() {
+        return thesisCriteriaId;
+    }
+
+    /**
+     * @param thesisCriteriaId the thesisCriteriaId to set
+     */
+    public void setThesisCriteriaId(ThesisCriteria thesisCriteriaId) {
+        this.thesisCriteriaId = thesisCriteriaId;
     }
     
 }

@@ -6,6 +6,7 @@ package com.ltjava.repository;
 
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisScore;
+import com.ltjava.pojo.User;
 import java.util.List;
 
 /**
@@ -16,5 +17,6 @@ public interface ThesisScoreRepository {
     List<Object[]> getThesisScores(Integer councilId);
     ThesisScore getThesisScoreById(Integer id);
     boolean addOrUpdate(ThesisScore c);
+    ThesisScore getThesisScoreByUTC(Integer thesisCriteriaId, String userId);
     
 }

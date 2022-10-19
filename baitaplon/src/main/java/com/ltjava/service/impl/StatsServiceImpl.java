@@ -28,5 +28,10 @@ public class StatsServiceImpl implements StatsService{
     public List<Object[]> thesisStats() {
         return this.statsRepository.thesisStats();
     }
+
+    @Override
+    public List<Object[]> countUserByUserRole() {
+        return this.statsRepository.countUserByUserRole();
+    }
     
 }

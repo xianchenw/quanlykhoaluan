@@ -206,24 +206,24 @@ public class ThesisRepositoryImpl implements ThesisRepository{
 
     @Override
     public boolean removeThesisScores(Thesis thesis) {
-        Session s = sessionFactory.getObject().getCurrentSession();
-        try{
-            if(thesis.getThesisScores().size()>0){
-                System.out.println("CÓ ĐIỂM");
-                for(ThesisScore thesissc : thesis.getThesisScores()){
-                    s.remove(thesissc);
-                    System.out.println(thesis.getThesisScores().size());
-                }
-                s.update(thesis);
-                System.out.println(thesis.getThesisScores().size());
-                System.out.println("XÓA DS ĐIỂM CŨ THÀNH CÔNG");
-            }
-            System.out.print("DANH SÁCH RỖNG");
-            return true;
-        }catch(Exception e){
-            System.out.println("XÓA DS ĐIỂM THẤT BẠII");
-            System.out.println(e.getMessage());
-        }
+//        Session s = sessionFactory.getObject().getCurrentSession();
+//        try{
+//            if(thesis.getThesisCriterias().size()>0){
+//                System.out.println("CÓ ĐIỂM");
+//                for(ThesisScore thesissc : thesis.getThesisScores()){
+//                    s.remove(thesissc);
+//                    System.out.println(thesis.getThesisScores().size());
+//                }
+//                s.update(thesis);
+//                System.out.println(thesis.getThesisScores().size());
+//                System.out.println("XÓA DS ĐIỂM CŨ THÀNH CÔNG");
+//            }
+//            System.out.print("DANH SÁCH RỖNG");
+//            return true;
+//        }catch(Exception e){
+//            System.out.println("XÓA DS ĐIỂM THẤT BẠII");
+//            System.out.println(e.getMessage());
+//        }
         return false;
     }
 

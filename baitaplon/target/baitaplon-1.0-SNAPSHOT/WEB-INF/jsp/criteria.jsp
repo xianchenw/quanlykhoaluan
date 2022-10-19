@@ -85,13 +85,55 @@
                                         <tr>
                                             <th>Tiêu chí</th>
                                             <th>Điểm</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${thesis.thesisScores}" var="s">
                                         <tr>
                                             <td>${s.criteriaId.name}</td>
-                                            <td>${s.score}</td>
+                                            <c:if test="${s.score!=null}">
+                                                <td>${s.score}</td>
+                                                <td><button class="btn btn-secondary" data-toggle="modal" data-target="#editScore">Sửa</button></td>
+                                                 <!--                     Modal sửa điểm -->
+                                                <div class="modal" id="editScore">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <form action="/baitaplon/thesis/addScore${s.id}" method="post">
+                                                                    <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
+                                                                    <div class="form-group">
+                                                                        <label for="name">Điểm:</label>
+                                                                        <input name="score" type="text" class="form-control" value="${s.score}" id="scoreEdit${s.id}"/>
+                                                                    </div>
+                                                                        <input type="submit" class="btn btn-success"  value="Cập nhật" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${s.score==null}">
+                                                <td></td>
+                                                <td><button class="btn btn-success" data-toggle="modal" data-target="#addScore">Thêm điểm</button></td>
+                                                <!--                     Modal thêm điểm -->
+                                                <div class="modal" id="addScore">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <form action="/baitaplon/thesis/addScore${s.id}" method="post">
+                                                                    <form:errors path="*" element="div"  cssClass=" alert alert-danger" />
+                                                                    <div class="form-group">
+                                                                        <label for="name">Điểm:</label>
+                                                                        <input name="score" type="text" class="form-control"  id="score${s.id}"/>
+                                                                        </div>
+                                                                        <input type="submit" class="btn btn-success"  value="Thêm" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:if>
                                         </tr>
                                         </c:forEach>
                                     </tbody>

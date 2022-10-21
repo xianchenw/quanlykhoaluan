@@ -32,6 +32,5 @@
             <!-- FOOTER -->
             <tiles:insertAttribute name="footer" />
         </div>
-            <script src="<c:url value="/js/main.js" />"></script>
     </body>
 </html>

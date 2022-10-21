@@ -62,7 +62,7 @@ public class ThesisController {
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listThesis", this.thesisService.getThesises(""));
-        model.addAttribute("listTeacher", this.userService.getUsers("TEACHER"));
+        model.addAttribute("listTeacher", this.userService.getUsers("", "TEACHER"));
         model.addAttribute("listStudent", this.studentService.getStudents(""));
     }
     
@@ -73,7 +73,7 @@ public class ThesisController {
     
     @PostMapping(value = "/thesis/addThesis")
     public String thesis(@ModelAttribute(value = "thesisInfo") Thesis thesisInfo){
-        if(thesisService.addThesis(thesisInfo)){
+        if(thesisService.addOrUpdateThesis(thesisInfo)){
             if(thesisStudents.size()>0){
                 for (Student thesisStudent : thesisStudents) {
                     studentService.addThesis(thesisStudent, thesisInfo);

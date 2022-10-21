@@ -19,6 +19,7 @@
             }
         </script>
         <script src="<c:url value="/js/thesis.js"/>"></script>
+        <script src="<c:url value="/js/main.js"/>"></script>
         <div class="col-xl-12 row container-fluid content ">
             <div class="col-xl-3 border-right">
                 <h3 class="text-left">QUẢN LÝ KHÓA LUẬN</h3>

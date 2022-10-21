@@ -63,7 +63,7 @@ public class StudentController {
     public String addStudent(@ModelAttribute(value = "studentInfo")Student studentInfo){
         System.out.print("hiahidkfj");
         System.out.println(studentInfo.getBirthday());
-        if(this.studentService.addOrUpdate(studentInfo)){
+        if(this.studentService.addOrUpdateStudent(studentInfo)){
             return "redirect:/student";
         }
         return "/";

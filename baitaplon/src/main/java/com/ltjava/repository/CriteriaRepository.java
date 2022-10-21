@@ -15,4 +15,5 @@ public interface CriteriaRepository {
     List<Criteria> getCriterias(String kw);
     Criteria getCriteriaById(Integer id);
     boolean addCriteria(Criteria criteria);
+    Criteria getCriteriaByName(String name);
 }

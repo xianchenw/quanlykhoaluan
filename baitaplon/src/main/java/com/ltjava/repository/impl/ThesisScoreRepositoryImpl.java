@@ -6,6 +6,7 @@ package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.Thesis;
+import com.ltjava.pojo.ThesisCriteria;
 import com.ltjava.pojo.ThesisScore;
 import com.ltjava.pojo.User;
 import com.ltjava.repository.ThesisScoreRepository;
@@ -103,6 +104,27 @@ public class ThesisScoreRepositoryImpl implements ThesisScoreRepository{
         Query q = s.createQuery(query);
         
         return (ThesisScore) q.getSingleResult();
+    }
+
+    @Override
+    public List<Object[]> getListAvgScoreOfCriteria(Integer councilId) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root scoreRoot = query.from(ThesisScore.class);
+        Root criteriaRoot = query.from(ThesisCriteria.class);
+        Root thesisRoot = query.from(Thesis.class);
+        
+        Predicate p1 = builder.equal(thesisRoot.get("councilId"), councilId);
+        Predicate p2 = builder.equal(criteriaRoot.get("thesisId").get("id"), thesisRoot.get("id"));
+        Predicate p3 = builder.equal(scoreRoot.get("thesisCriteriaId"), criteriaRoot.get("id"));
+        query = query.where(builder.and(p1,p2,p3));
+        
+        query.multiselect(thesisRoot.get("id"),criteriaRoot.get("criteriaId").get("name"), builder.avg(scoreRoot.get("score")));
+        query.groupBy(thesisRoot.get("id"),criteriaRoot.get("criteriaId").get("name")).orderBy(builder.asc(thesisRoot.get("id")));
+        
+        Query q = s.createQuery(query);
+        return q.getResultList();
     }
 
 }

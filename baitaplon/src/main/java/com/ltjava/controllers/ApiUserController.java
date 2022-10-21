@@ -141,7 +141,7 @@ public class ApiUserController {
                     params.get("username"), 
                     params.get("password"), 
                     userRoleService.getUserRole(Integer.parseInt(params.get("userRoleId"))));
-            if(teacherService.addTeacher(teacher)){
+            if(teacherService.addOrUpdateTeacher(teacher)){
                 userService.addOrUpdate(user);
                 return new ResponseEntity<>(user, HttpStatus.OK);
             }

@@ -18,5 +18,6 @@ public interface ThesisScoreRepository {
     ThesisScore getThesisScoreById(Integer id);
     boolean addOrUpdate(ThesisScore c);
     ThesisScore getThesisScoreByUTC(Integer thesisCriteriaId, String userId);
+    List<Object[]> getListAvgScoreOfCriteria(Integer councilId);
     
 }

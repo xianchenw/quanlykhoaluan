@@ -7,8 +7,10 @@ package com.ltjava.controllers;
 import com.ltjava.pojo.Council;
 import com.ltjava.pojo.CouncilMember;
 import com.ltjava.pojo.Student;
+import com.ltjava.pojo.User;
 import com.ltjava.service.CouncilMemberService;
 import com.ltjava.service.CouncilService;
+import com.ltjava.service.CriteriaService;
 import com.ltjava.service.StatsService;
 import com.ltjava.service.StudentService;
 import com.ltjava.service.ThesisScoreService;
@@ -34,19 +36,27 @@ public class HomeController {
     @Autowired
     private StatsService statsService;
     
+    @Autowired
+    private ThesisScoreService thesisScoreService;
+    
+    @Autowired
+    private CriteriaService criteriaService;
+    
+    @Autowired
+    private UserService userService;
+    
+    public User user;
+    
     @ModelAttribute
     public void commonAttr(Model model, HttpSession Session){
-        model.addAttribute("currentUser", Session.getAttribute("currentUser"));
+        if(Session.getAttribute("currentUser")!=null){
+            user = (User) Session.getAttribute("currentUser");
+            model.addAttribute("currentUser", this.userService.getUserById(user.getId()));
+        }
     }
     
     @RequestMapping("/")
-    public String index(){
-        List<Object[]> kq = this.statsService.countUserByUserRole();
-        for (Object[] objects : kq) {
-            System.out.println("AHAHAAHAH");
-            System.out.println(objects[0]);
-            System.out.println(objects[1]);
-        }
+    public String index(HttpSession Session){
         return "thesis";
     }
 }

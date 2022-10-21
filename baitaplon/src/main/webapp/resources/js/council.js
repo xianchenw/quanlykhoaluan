@@ -93,15 +93,13 @@ function editCouncil(id, president, secretary, reviewer, members){
 }
 
 
-function showFilter() {
-    document.getElementById("myFilter").classList.toggle("show");
+function showFilter(myFilter) {
+    myFilter.classList.toggle("show");
 }
 
-function findTeacher() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
+function findValue(input, div) {
+  var filter, ul, li, a, i;
   filter = input.value.toUpperCase();
-  div = document.getElementById("myFilter");
   a = div.getElementsByTagName("a");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;
@@ -120,6 +118,75 @@ function checkQuantityMember(table, quantity, divAdd){
     else{
         divAdd.style.display = "block";
     }
+}
+
+function addThesisInput(id,name){
+    document.getElementById('thesisLoading').style.display = "block";
+    fetch('/baitaplon/api/council/thesis',{
+        method:'put',
+        body: JSON.stringify({
+            "thesisId": id
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }).then(res=>{
+        return res.json();
+    }).then(data =>{
+        console.log(data.councilId);
+        if(data.councilId ==null){
+            document.getElementById('myInputThesisId').value = id;
+            document.getElementById('myInputThesis'). value =name;
+            showFilter(document.getElementById('myFilterThesis'));
+        }
+        else{
+            alert("Khóa luận này đã có hội đồng bảo vệ")
+        }
+        document.getElementById('thesisLoading').style.display = "none";
+    })
+}
+
+function addCriteriaInput(name, input, filter, table){
+    var isValid = checkCriteria(name, table);
+    if(isValid==true){
+        alert("Tiêu chí đã tồn tại");
+    }
+    else{
+        input.value = name;
+        showFilter(filter);
+    }
+}
+
+function checkCriteria(name, table){
+    var isValid = false;
+    if(table.rows.length>0){
+        for(let i=1; i<table.rows.length;i++){
+            console.log(name,table.rows[i].cells.item(0).innerText)
+            if(name.toString()==table.rows[i].cells.item(0).innerText.toString()){
+                isValid = true;
+            }
+        }
+    }
+    return isValid;
+}
+
+function addCriteria(thesisId, inputCriteria){
+    console.log(thesisId, inputCriteria.value);
+    fetch('/baitaplon/api/council/addThesisCriteria',{
+        method:'post',
+        body: JSON.stringify({
+            "thesisId": thesisId,
+            "criteriaName": inputCriteria.value
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }).then(res =>{
+        return res.json();
+    }).then(data=>{
+        console.log(data);
+        location.reload();
+    })
 }
 
 

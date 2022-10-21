@@ -57,10 +57,10 @@ public class ThesisRepositoryImpl implements ThesisRepository{
     }
 
     @Override
-    public boolean addThesis(Thesis thesis) {
+    public boolean addOrUpdateThesis(Thesis thesis) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
-            s.save(thesis);
+            s.saveOrUpdate(thesis);
             System.out.println("THÊM THÀNH CÔNGGG");
             return true;
         }

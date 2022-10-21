@@ -35,5 +35,10 @@ public class CriteriaServiceImpl implements CriteriaService{
     public boolean addCriteria(Criteria crtr) {
         return this.criteriaRepository.addCriteria(crtr);
     }
+
+    @Override
+    public Criteria getCriteriaByName(String name) {
+        return this.criteriaRepository.getCriteriaByName(name);
+    }
     
 }

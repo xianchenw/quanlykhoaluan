@@ -4,6 +4,7 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class Criteria implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "criteriaId")
     private Set<ThesisCriteria> thesisCriterias;
 

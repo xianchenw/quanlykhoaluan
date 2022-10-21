@@ -36,8 +36,8 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public boolean addOrUpdate(Student s) {
-        return this.studentRepository.addOrUpdate(s);
+    public boolean addOrUpdateStudent(Student s) {
+        return this.studentRepository.addOrUpdateStudent(s);
     }
 
     @Override

@@ -90,11 +90,6 @@ public class Major implements Serializable{
         this.word = word;
     }
 
-    @Override
-    public String toString() {
-        return this.name; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
     /**
      * @return the teachers
      */
@@ -108,6 +103,12 @@ public class Major implements Serializable{
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
     
     
 }

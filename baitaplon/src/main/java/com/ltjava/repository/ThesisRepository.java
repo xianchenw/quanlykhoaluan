@@ -20,7 +20,7 @@ public interface ThesisRepository {
     List<Thesis> getThesises(String kw);
     List<Thesis> getThesisesByCouncil(Integer councilId);
     Thesis getThesisById(Integer id);
-    boolean addThesis(Thesis thesis);
+    boolean addOrUpdateThesis(Thesis thesis);
     boolean removeThesis(Thesis thesisId);
     boolean updateThesis(Integer id, String topic, String description, User reviewer, Set<Student> students);
     boolean removeStudents(Thesis thesis);

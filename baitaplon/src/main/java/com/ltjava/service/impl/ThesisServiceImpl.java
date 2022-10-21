@@ -31,8 +31,8 @@ public class ThesisServiceImpl implements ThesisService{
     }
 
     @Override
-    public boolean addThesis(Thesis thesis) {
-        return this.thesisRepository.addThesis(thesis);
+    public boolean addOrUpdateThesis(Thesis thesis) {
+        return this.thesisRepository.addOrUpdateThesis(thesis);
     }
 
     @Override

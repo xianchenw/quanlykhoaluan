@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <script src="<c:url value="/js/user.js"/>"></script>
@@ -25,10 +26,10 @@
             <div class="col-xl-3 border-right left" style="padding-left: 30px">
                 <h3 class="text-left">QUẢN LÝ NGƯỜI DÙNG</h3>
                 <div style="padding: 10px">
-                    <a href="<c:url value="/user/"/>?kw=TEACHER"><p class="text-left text-dark">Giảng viên</p></a>
-                    <a href="<c:url value="/user/"/>?kw=STUDENT"><p class="text-left text-dark">Sinh viên</p></a>
-                    <a href="<c:url value="/user/"/>?kw=MANAGER"><p class="text-left text-dark">Giáo vụ khoa</p></a>
-                    <a href="<c:url value="/user/"/>?kw=ADMIN"><p class="text-left text-dark">Quản trị</p></a>
+                    <a href="<c:url value="/user/"/>?userRoleName=TEACHER"><p class="text-left text-dark">Giảng viên</p></a>
+                    <a href="<c:url value="/user/"/>?userRoleName=STUDENT"><p class="text-left text-dark">Sinh viên</p></a>
+                    <a href="<c:url value="/user/"/>?userRoleName=MANAGER"><p class="text-left text-dark">Giáo vụ khoa</p></a>
+                    <a href="<c:url value="/user/"/>?userRoleName=ADMIN"><p class="text-left text-dark">Quản trị</p></a>
                 </div>
             </div>
 
@@ -38,7 +39,12 @@
                     <div class="p-2 ">
                         <form action="" method="">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="kw" placeholder="Search">
+                                <input type="text" class="form-control" name="kw" placeholder="Search by username">
+                                <select class="form-control" name="userRoleName">
+                                    <c:forEach items="${listUserRole}" var="ur">
+                                        <option value="${ur.name}">${ur.name}</option>
+                                    </c:forEach>
+                                </select>
                                 <div class="input-group-append">
                                     <button class="btn btn-success" type="submit">Tìm</button>
                                 </div>
@@ -133,8 +139,32 @@
                     </div>
                 </div>
                 <div>
-                    
-
+                    <div class="row col-md-12" style="border: 1px solid gray; border-radius: 10px;padding: 10px;margin: 10px;">
+                        <div class="col-md-6 ">
+                            <h5>THỐNG KÊ TÀI KHOẢN NGƯỜI DÙNG</h5>
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Phân quyền</th>
+                                        <th>Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach  items="${userStats}" var="i">
+                                    <tr>
+                                        <td>${i[0]}</td>
+                                        <td>${i[1]}</td>
+                                    </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <canvas id="myUserChart" ></canvas>
+                            </div>
+                        </div>
+                    </div>
                     <div id="message" ></div>
                     <table class="table table-hover">
                         <thead>
@@ -191,6 +221,16 @@
                 </div>
             </div>
         </div>
-
     </body>
+    <script>
+        let labels =[], datas =[], labels2 =[], datas2 =[];
+        <c:forEach  items="${userStats}" var="i">
+            labels.push('${i[0]}')
+            datas.push(${i[1]})
+        </c:forEach>
+        
+        window.onload = function() {
+            userChart("myUserChart", labels, datas)
+        }
+    </script>
 </html>

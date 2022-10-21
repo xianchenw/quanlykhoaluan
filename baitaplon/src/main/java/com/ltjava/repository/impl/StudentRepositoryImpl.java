@@ -70,10 +70,10 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public boolean addOrUpdate(Student student) {
+    public boolean addOrUpdateStudent(Student student) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
-            s.save(student);
+            s.saveOrUpdate(student);
             System.out.println("THÊM THÀNH CÔNGGG");
             return true;
         }
@@ -142,33 +142,46 @@ public class StudentRepositoryImpl implements StudentRepository{
     @Override
     public List<Student> getListStudentAccount() {
         Session s = sessionFactory.getObject().getCurrentSession();
-        List<Student> listResult = new ArrayList<>();
         CriteriaBuilder builder = s.getCriteriaBuilder();
         CriteriaQuery<Student> query = builder.createQuery(Student.class);
         Root root = query.from(Student.class);
         
         query = query.select(root);
         
+        query.where(builder.isNull(root.get("userId")));
+        
         Query q = s.createQuery(query);
         
-        List<Student> listStudent = q.getResultList();
+        System.out.println(q.getResultList().size());
         
-        User user = new User();
-        for (Student student : listStudent) {
-            System.out.println(student.getId());
-            user = s.get(User.class, student.getId());
-            System.out.println(user);
-            if(user==null){
-                System.out.println("KHÔNG CÓ TÀI KHOẢN");
-                listResult.add(student);
-            }
-            else{
-                System.out.println("CÓ TÀI KHOẢN");
-            }
-            user = new User();
-        }
-        System.out.println(listResult.size());
-        return listResult;
+        return q.getResultList();
+//        List<Student> listResult = new ArrayList<>();
+//        CriteriaBuilder builder = s.getCriteriaBuilder();
+//        CriteriaQuery<Student> query = builder.createQuery(Student.class);
+//        Root root = query.from(Student.class);
+//        
+//        query = query.select(root);
+//        
+//        Query q = s.createQuery(query);
+//        
+//        List<Student> listStudent = q.getResultList();
+//        
+//        User user = new User();
+//        for (Student student : listStudent) {
+//            System.out.println(student.getId());
+//            user = s.get(User.class, student.getId());
+//            System.out.println(user);
+//            if(user==null){
+//                System.out.println("KHÔNG CÓ TÀI KHOẢN");
+//                listResult.add(student);
+//            }
+//            else{
+//                System.out.println("CÓ TÀI KHOẢN");
+//            }
+//            user = new User();
+//        }
+//        System.out.println(listResult.size());
+//        return listResult;
     }
 
     @Override

@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder passwordEncoder;
     
     @Override
-    public List<User> getUsers(String kw) {
-        return this.userRepository.getUsers(kw);
+    public List<User> getUsers(String kw, String userRole) {
+        return this.userRepository.getUsers(kw, userRole);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
     public boolean addOrUpdate(User user) {
         String pass = user.getPassword();
         user.setPassword(this.passwordEncoder.encode(pass));
-        if(this.userRepository.addUser(user)){
+        if(this.userRepository.addOrUpdateUser(user)){
             return this.userRepository.updateUserId(user);
         }
         else{
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<User> users = this.getUsers(username);
+        List<User> users = this.getUsers(username, "");
         
         if(users.isEmpty()){
             throw new UsernameNotFoundException("Không tìm thấy username");

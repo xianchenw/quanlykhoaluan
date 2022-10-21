@@ -17,7 +17,7 @@ import java.util.Map;
 public interface StudentService {
     List<Student> getStudents(String kw);
     Student getStudentById(String id);
-    boolean addOrUpdate(Student s);
+    boolean addOrUpdateStudent(Student s);
     boolean addThesis(Student studentId, Thesis thesisId);
     Object[] getStudentAccount(String id);
     List<Student> getListStudentAccount();

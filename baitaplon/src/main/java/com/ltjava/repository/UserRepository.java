@@ -13,10 +13,10 @@ import java.util.List;
  * @author HIEN
  */
 public interface UserRepository {
-    List<User> getUsers(String kw);
+    List<User> getUsers(String kw, String userRole);
     User getUserById(String id);
     User getUserByUsername(String name);
-    boolean addUser(User user);
+    boolean addOrUpdateUser(User user);
     boolean changePassword(User user, String pass);
     boolean updateUser(User oldUser, User newUser);
     boolean removeUser(User u);

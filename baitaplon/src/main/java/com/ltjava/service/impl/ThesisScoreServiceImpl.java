@@ -41,4 +41,9 @@ public class ThesisScoreServiceImpl implements ThesisScoreService{
     public ThesisScore getThesisScoreByUTC(Integer intgr, String string) {
         return this.thesisScoreRepository.getThesisScoreByUTC(intgr, string);
     }
+
+    @Override
+    public List<Object[]> getListAvgScoreOfCriteria(Integer councilId) {
+        return this.thesisScoreRepository.getListAvgScoreOfCriteria(councilId);
+    }
 }

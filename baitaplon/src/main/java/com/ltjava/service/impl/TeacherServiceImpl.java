@@ -31,8 +31,8 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public boolean addTeacher(Teacher t) {
-        return this.teacherRepository.addTeacher(t);
+    public boolean addOrUpdateTeacher(Teacher t) {
+        return this.teacherRepository.addOrUpdateTeacher(t);
     }
     
 }

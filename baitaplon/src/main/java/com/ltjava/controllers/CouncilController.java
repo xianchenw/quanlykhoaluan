@@ -93,9 +93,26 @@ public class CouncilController {
     @GetMapping(value = "/council/{councilId}")
     public String councilItem(Model model, @PathVariable(value = "councilId") Integer Id){
         model.addAttribute("councilPage", councilService.getCouncilById(Id));
+        model.addAttribute("listThesises", this.thesisService.getThesises(""));
         return "councilitem";
     }
     
+    @PostMapping(value = "/council/{councilId}")
+    public String councilItemAddThesis(Model model, @PathVariable(value = "councilId") Integer councilId, @RequestParam(value = "addThesisId") Integer thesisId){
+        try{
+            Thesis thes = this.thesisService.getThesisById(thesisId);
+            thes.setCouncilId(this.councilService.getCouncilById(councilId));
+            if(this.thesisService.addOrUpdateThesis(thes)){
+                model.addAttribute("msg", "Thêm khóa luận thành công");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            model.addAttribute("msg", "Đã xảy ra lỗii");
+        }
+        model.addAttribute("councilPage", councilService.getCouncilById(councilId));
+        model.addAttribute("listThesises", this.thesisService.getThesises(""));
+        return "councilitem";
+    }
     
     @RequestMapping("/council/criteria")
     public String criteria(Model model, @RequestParam(value = "councilId", required = false, defaultValue = "") Integer councilId){

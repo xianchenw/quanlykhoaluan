@@ -190,3 +190,26 @@ function addUser(userRole){
     }
 }
 
+function userChart(id, labels = [], datas = []){
+    const data = {
+        labels: labels,
+        datasets: [{
+                label: 'Thống kê tài khoản người dùng',
+                data: datas,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(255, 100, 65)'
+                ],
+                hoverOffset: 4
+            }]
+    };
+    const config = {
+        type: 'bar',
+        data: data,
+    };
+    let ctx = document.getElementById(id).getContext("2d")
+    new Chart(ctx, config)
+}
+

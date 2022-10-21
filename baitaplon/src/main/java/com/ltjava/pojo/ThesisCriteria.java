@@ -4,6 +4,7 @@
  */
 package com.ltjava.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,15 +27,25 @@ public class ThesisCriteria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="thesis_id", referencedColumnName = "id")
     private Thesis thesisId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="criteria_id", referencedColumnName = "id")
     private Criteria criteriaId;
+    @JsonIgnore
     @OneToMany(mappedBy = "thesisCriteriaId", fetch = FetchType.EAGER)
     private Set<ThesisScore> thesisScores;
 
+    public ThesisCriteria(){
+        
+    }
+    
+    public ThesisCriteria(Thesis thesis, Criteria criteria){
+        this.thesisId = thesis;
+        this.criteriaId = criteria;
+    }
+    
     /**
      * @return the id
      */

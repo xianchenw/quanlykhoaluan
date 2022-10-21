@@ -9,6 +9,7 @@ import com.ltjava.pojo.Teacher;
 import com.ltjava.pojo.User;
 import com.ltjava.pojo.UserRole;
 import com.ltjava.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -32,23 +33,30 @@ public class UserRepositoryImpl implements UserRepository{
     private LocalSessionFactoryBean sessionFactory;
     
     @Override
-    public List<User> getUsers(String kw) {
+    public List<User> getUsers(String kw, String userRoleName) {
         Session s = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root root = query.from(User.class);
-        
-        query = query.select(root);
-        
-        if(!kw.isEmpty() && kw!=null){
-            Predicate p1 = builder.like(root.get("userRole").get("name").as(String.class),kw);
-            Predicate p2 = builder.like(root.get("username").as(String.class),kw);
-            query = query.where(builder.or(p1,p2));
+        try{
+            CriteriaBuilder builder = s.getCriteriaBuilder();
+            CriteriaQuery<User> query = builder.createQuery(User.class);
+            Root root = query.from(User.class);
+
+            query = query.select(root);
+            List<Predicate> predicates = new ArrayList<>();
+            if(!kw.isEmpty() && kw!=null){
+                predicates.add(builder.like(root.get("username").as(String.class),kw));
+            }
+            if(userRoleName!=null && !userRoleName.isEmpty()){
+                predicates.add(builder.like(root.get("userRole").get("name").as(String.class),userRoleName));
+            }
+            query.where(predicates.toArray(new Predicate[]{}));
+
+            Query q = s.createQuery(query);
+
+            return q.getResultList();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        
-        Query q = s.createQuery(query);
-        
-        return q.getResultList();
+        return null;
     }
 
     @Override
@@ -59,10 +67,10 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addOrUpdateUser(User user) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
-            s.save(user);
+            s.saveOrUpdate(user);
             System.out.println("THÊM THÀNH CÔNGGG");
             return true;
         }

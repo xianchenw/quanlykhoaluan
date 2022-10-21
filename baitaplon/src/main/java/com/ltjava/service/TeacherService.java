@@ -14,6 +14,6 @@ import java.util.List;
 public interface TeacherService {
     List<Teacher> getTeachers(String kw);
     Teacher getTeacherById(String id);
-    boolean addTeacher(Teacher t);
+    boolean addOrUpdateTeacher(Teacher t);
     
 }

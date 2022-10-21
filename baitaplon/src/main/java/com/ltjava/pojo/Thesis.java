@@ -7,6 +7,7 @@ package com.ltjava.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,10 +30,13 @@ public class Thesis implements Serializable{
     private Integer id;
     private String topic;
     private String description;
+    @Column(name = "file_url")
+    private String fileUrl;
+    @Column(name = "created_date")
+    private String createdDate;
     @ManyToOne
     @JoinColumn(name = "reviewer_id", referencedColumnName = "id")
     private User reviewerId;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "council_id", referencedColumnName = "id")
     private Council councilId;
@@ -141,7 +145,7 @@ public class Thesis implements Serializable{
      * @param thesisScores the thesisScores to set
      */
     public void setThesisScores(Set<ThesisCriteria> thesisCriterias) {
-        this.thesisCriterias = thesisCriterias;
+        this.setThesisCriterias(thesisCriterias);
     }
 
     /**
@@ -156,6 +160,27 @@ public class Thesis implements Serializable{
      */
     public void setThesisInstructors(Set<ThesisInstructor> thesisInstructors) {
         this.thesisInstructors = thesisInstructors;
+    }
+
+    /**
+     * @return the fileUrl
+     */
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    /**
+     * @param fileUrl the fileUrl to set
+     */
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    /**
+     * @param thesisCriterias the thesisCriterias to set
+     */
+    public void setThesisCriterias(Set<ThesisCriteria> thesisCriterias) {
+        this.thesisCriterias = thesisCriterias;
     }
     
 }

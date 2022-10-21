@@ -69,5 +69,28 @@ public class CriteriaRepositoryImpl implements CriteriaRepository{
         }
         return false;
     }
-    
+
+    @Override
+    public Criteria getCriteriaByName(String name) {
+        Session s = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Criteria> query = builder.createQuery(Criteria.class);
+        Root root = query.from(Criteria.class);
+        
+        query = query.select(root);
+        
+        if(!name.isEmpty() && name!=null){
+            Predicate p1 = builder.like(root.get("name").as(String.class),name);
+            query = query.where(p1);
+        }
+        
+        Query q = s.createQuery(query);
+        
+        if(q.getResultList().size()>0){
+            return (Criteria)q.getSingleResult();
+        }
+        else{
+            return null;
+        }
+    }
 }

@@ -4,14 +4,19 @@
  */
 package com.ltjava.controllers;
 
+import com.ltjava.pojo.Student;
+import com.ltjava.pojo.Teacher;
 import com.ltjava.pojo.User;
 import com.ltjava.pojo.UserRole;
 import com.ltjava.pojo.Word;
 import com.ltjava.service.MajorService;
 import com.ltjava.service.StatsService;
+import com.ltjava.service.StudentService;
+import com.ltjava.service.TeacherService;
 import com.ltjava.service.UserRoleService;
 import com.ltjava.service.UserService;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,13 +52,18 @@ public class UserController {
     @Autowired
     private StatsService statsService;
     
+    @Autowired
+    private StudentService studentService;
+    
+    @Autowired
+    private TeacherService teacherService;
+    
     
     @ModelAttribute
     public void commonAttr(Model model){
         model.addAttribute("listUserRole", this.userRoleService.getUserRoles());
         model.addAttribute("listMajor", this.majorService.getMajors(""));
         model.addAttribute("userStats", this.statsService.countUserByUserRole());
-        
     }
     
     @GetMapping("/login")
@@ -62,10 +72,11 @@ public class UserController {
     }
     
     @RequestMapping("/user")
-    public String user(Model model, @ModelAttribute("userInfo") User userInfo, 
-            @RequestParam(value = "kw", required = false, defaultValue ="") String kw){
-        model.addAttribute("user",userService.getUsers(kw));
-        System.out.println(kw);
+    public String user(Model model, @ModelAttribute("userInfo") User userInfo,
+            @RequestParam(value = "kw", required = false, defaultValue = "") String kw,
+            @RequestParam(value = "userRoleName", required = false, defaultValue = "") String userRoleName){
+        model.addAttribute("user",userService.getUsers(kw, userRoleName));
+        System.out.println(kw+ userRoleName);
         return "user";
     }
     
@@ -109,20 +120,52 @@ public class UserController {
     
     @GetMapping("/user/account/edit/{userId}")
     public String userEdit(Model model, @PathVariable(value = "userId") String id, @ModelAttribute(value = "userInfo") User u){
-        model.addAttribute("userEdit", userService.getUserById(id));
+        User user = this.userService.getUserById(id);
+        model.addAttribute("userEdit", user );
         return "useritem";
     }
     
     @PostMapping("/user/account/edit/{userId}")
-    public String edit(Model model, @PathVariable(value = "userId") String id, @ModelAttribute(value = "userInfo") User u){
+    public String edit(Model model, @PathVariable(value = "userId") String id, @RequestParam Map<String, String> params){
         try{
-            System.out.println(u.getId());
-            System.out.println(u.getUserRole());
-            userService.updateUser(userService.getUserById(id), u);
+            String firstName = params.get("urFirstName");
+            String lastName = params.get("urLastName");
+            String email = params.get("urEmail");
+            String phoneNumber = params.get("urPhoneNumber");
+            UserRole userRole = this.userRoleService.getUserRole(Integer.parseInt(params.get("urUserRoleId")));
+            String username = params.get("urUsername");
+            User user = this.userService.getUserById(id);
+            if(user.getUserRole().getId()<4){
+                System.out.println("LÀ GIẢNG VIÊN");
+                Teacher teacher = user.getTeacherId();
+                teacher.setFirstName(firstName);
+                teacher.setLastName(lastName);
+                teacher.setPhoneNumber(phoneNumber);
+                teacher.setEmail(email);
+                teacher.setMajorId(this.majorService.getMajorById(Integer.parseInt(params.get("urMajorId"))));
+                this.teacherService.addOrUpdateTeacher(teacher);
+                System.out.println("GIẢNG VIÊNNN");
+            }
+            else{
+                System.out.println("LÀ SINH VIÊNN");
+                Student student = user.getStudentId();
+                student.setFirstName(firstName);
+                student.setLastName(lastName);
+                student.setEmail(email);
+                student.setPhoneNumber(phoneNumber);
+                this.studentService.addOrUpdateStudent(student);
+                System.out.println("SINH VIÊNN");
+            }
+            user.setUserRole(userRole);
+            user.setUsername(username);
+            if(this.userService.addOrUpdate(user)){
+                model.addAttribute("msgSuccess", "CAP NHAT THONG TIN THANH CONG");
+            }
         }catch(Exception e){
             System.out.print(e.getMessage());
+            model.addAttribute("msgErr", "CAP NHAT THAT BAII");
         }
-        return "redirect:/user";
+        return "redirect:/user/account/edit/"+id;
     }
     
     @GetMapping("/user/account/remove/{userId}")
@@ -133,5 +176,53 @@ public class UserController {
             System.out.print(e.getMessage());
         }
         return "redirect:/user";
+    }
+    
+    @GetMapping("/user/lock/{userId}")
+    public String lockUser(Model model, @PathVariable(value = "userId") String id){
+        try{
+            User user = this.userService.getUserById(id);
+            user.setActive(false);
+            if(this.userService.addOrUpdate(user)){
+                model.addAttribute("msgSuccess", "Khoa tai khoan thanh cong");
+            }
+        }catch(Exception e){
+            System.out.print(e.getMessage());
+            model.addAttribute("msgErr", "Khoa tai khoan that bai");
+        }
+        return "redirect:/user/account/edit/"+id;
+    }
+    
+    @GetMapping("/user/unlock/{userId}")
+    public String unlockUser(Model model, @PathVariable(value = "userId") String id){
+        try{
+            User user = this.userService.getUserById(id);
+            user.setActive(true);
+            if(this.userService.addOrUpdate(user)){
+                model.addAttribute("msgSuccess", "Mo khoa tai khoan thanh cong");
+            }
+        }catch(Exception e){
+            System.out.print(e.getMessage());
+            model.addAttribute("msgSuccess", "Mo khoa tai khoan that bai");
+        }
+        return "redirect:/user/account/edit/"+id;
+    }
+    
+    @GetMapping(value = "/user/resetPassword/{userId}")
+    public String resetPassword(Model model, @PathVariable(value = "userId") String userId){
+        try{
+            User user = this.userService.getUserById(userId);
+            user.setPassword("00000000");
+            if(this.userService.addOrUpdate(user)){
+                System.out.println("RESET MK THÀNH CÔNG");
+                model.addAttribute("msgSuccess", "Password is reseted! Please check your email ~~");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("RESET MK THẤT BẠI");
+            model.addAttribute("msgErr", "Error! Something went wrong ~~");
+        }
+        return "redirect:/user/account/edit/"+userId;
     }
 }

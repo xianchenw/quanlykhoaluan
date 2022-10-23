@@ -28,8 +28,8 @@ public class ThesisInstructorServiceImpl implements ThesisInstructorService{
     }
 
     @Override
-    public boolean addThesisInstructor(Thesis thesis, User user) {
-        return this.thesisInstructorRepository.addThesisInstructor(thesis, user);
+    public boolean addOrUpdateThesisInstructor(ThesisInstructor ts) {
+        return this.thesisInstructorRepository.addOrUpdateThesisInstructor(ts);
     }
 
     @Override

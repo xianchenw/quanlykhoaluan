@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 function addCouncil(name, president, secretary, reviewer, member1, member2){
+    document.getElementById('addCouncilLoading').style.display = "block";
     fetch('/baitaplon/api/council/add',{
         method:'post',
         body: JSON.stringify({
@@ -55,6 +56,7 @@ function checkMember(id,name){
 }
 
 function editCouncil(id, president, secretary, reviewer, members){
+    document.getElementById('memberCouncilLoading').style.display = "block";
     console.log(id);
     var member1Id = "";
     var member2Id = "";
@@ -170,13 +172,15 @@ function checkCriteria(name, table){
     return isValid;
 }
 
-function addCriteria(thesisId, inputCriteria){
+function addCriteria(thesisId, inputCriteria, inputMaxscore, loading){
     console.log(thesisId, inputCriteria.value);
+    loading.style.display = "block";
     fetch('/baitaplon/api/council/addThesisCriteria',{
         method:'post',
         body: JSON.stringify({
             "thesisId": thesisId,
-            "criteriaName": inputCriteria.value
+            "criteriaName": inputCriteria.value,
+            "maxScore": inputMaxscore.value
         }),
         headers:{
             'Content-Type':'application/json'

@@ -7,8 +7,10 @@ package com.ltjava.controllers;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.ThesisCriteria;
+import com.ltjava.pojo.ThesisInstructor;
 import com.ltjava.pojo.ThesisScore;
 import com.ltjava.pojo.User;
+import com.ltjava.service.CouncilService;
 import com.ltjava.service.StudentService;
 import com.ltjava.service.ThesisCriteriaService;
 import com.ltjava.service.ThesisInstructorService;
@@ -16,6 +18,7 @@ import com.ltjava.service.ThesisScoreService;
 import com.ltjava.service.ThesisService;
 import com.ltjava.service.UserService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +58,9 @@ public class ThesisController {
     @Autowired
     private ThesisCriteriaService thesisCriteriaService;
     
+    @Autowired
+    private CouncilService councilService;
+    
     public List<Student> thesisStudents = new ArrayList<>(); 
     
     public List<User> thesisTeachers = new ArrayList<>(); 
@@ -63,7 +69,7 @@ public class ThesisController {
     public void commonAttr(Model model){
         model.addAttribute("listThesis", this.thesisService.getThesises(""));
         model.addAttribute("listTeacher", this.userService.getUsers("", "TEACHER"));
-        model.addAttribute("listStudent", this.studentService.getStudents(""));
+        model.addAttribute("listStudent", this.studentService.getStudents(new HashMap<String,String>()));
     }
     
     @RequestMapping("/thesis")
@@ -82,7 +88,7 @@ public class ThesisController {
             thesisStudents.clear();
             if(thesisTeachers.size()>0){
                 for (User thesisTeacher : thesisTeachers) {
-                    thesisInstructorService.addThesisInstructor(thesisInfo, thesisTeacher);
+                    thesisInstructorService.addOrUpdateThesisInstructor(new ThesisInstructor(thesisInfo, thesisTeacher));
                 }
             }
             thesisStudents.clear();
@@ -155,22 +161,23 @@ public class ThesisController {
     }
     
     
-    @RequestMapping("/thesis/score/{user}")
-    public String score(Model model, @PathVariable(value = "user") String u){
+    @RequestMapping("/thesis/score/{user}/{councilId}")
+    public String score(Model model, @PathVariable(value = "user") String u, @PathVariable(value = "councilId") Integer councilId){
         model.addAttribute("user", this.userService.getUserById(u));
+        model.addAttribute("council", this.councilService.getCouncilById(councilId));
         return "score";
     }
     
     @PostMapping("/thesis/score/{user}/addScore/{thesisCriteriaId}")
     public String addScore(Model model,@PathVariable(value = "user") String userId,
             @PathVariable(value = "thesisCriteriaId") Integer thesisCriteriaId,
-            @RequestParam(value="score") Integer score){
+            @RequestParam(value="score") Float score){
         try{
             ThesisCriteria thesisC = this.thesisCriteriaService.getThesisCriteriaById(thesisCriteriaId);
             User user = this.userService.getUserById(userId);
             ThesisScore ts = new ThesisScore(score, thesisC, user);
             if(thesisScoreService.addOrUpdate(ts)){
-                return "redirect:/thesis/score/"+userId;
+                return "redirect:/thesis/score/"+userId+"/"+thesisC.getThesisId().getCouncilId().getId();
             }
         }
         catch(Exception e){
@@ -182,12 +189,12 @@ public class ThesisController {
     @PostMapping("/thesis/score/{user}/editScore/{thesisCriteriaId}")
     public String editScore(Model model,@PathVariable(value = "user") String userId,
             @PathVariable(value = "thesisCriteriaId") Integer thesisCriteriaId,
-            @RequestParam(value="score") Integer score){
+            @RequestParam(value="score") Float score){
         try{
             ThesisScore ts = this.thesisScoreService.getThesisScoreByUTC(thesisCriteriaId, userId);
             ts.setScore(score);
             if(thesisScoreService.addOrUpdate(ts)){
-                return "score";
+                return "redirect:/thesis/score/"+userId+"/"+ts.getThesisCriteriaId().getThesisId().getCouncilId().getId();
             }
         }
         catch(Exception e){

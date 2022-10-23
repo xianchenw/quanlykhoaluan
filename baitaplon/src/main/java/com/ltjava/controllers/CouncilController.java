@@ -129,16 +129,16 @@ public class CouncilController {
                 System.out.println(ex.getStackTrace());
             }
         }
-        List<Object[]> list = new ArrayList<>();
-        list = thesisScoreService.getThesisScores(1);
-        for (Object[] objects : list) {
-            System.out.println("Mã khóa luận: "+ objects[0]);
-            System.out.println("Chủ đề: "+ objects[1]);
-            System.out.println("Tiêu chí: "+objects[2]);
-            System.out.println("Điểm: "+objects[3]);
-            System.out.println("Người chấm: "+objects[4]);
-            System.out.println("Thời gian chấm: "+ objects[5]);
-        }
+//        List<Object[]> list = new ArrayList<>();
+//        list = thesisScoreService.getThesisScores(1);
+//        for (Object[] objects : list) {
+//            System.out.println("Mã khóa luận: "+ objects[0]);
+//            System.out.println("Chủ đề: "+ objects[1]);
+//            System.out.println("Tiêu chí: "+objects[2]);
+//            System.out.println("Điểm: "+objects[3]);
+//            System.out.println("Người chấm: "+objects[4]);
+//            System.out.println("Thời gian chấm: "+ objects[5]);
+//        }
         model.addAttribute("thesisScoreInfo", new ThesisScore());
         model.addAttribute("criteriaInfo", new Criteria());
         model.addAttribute("listThesis", thesises);

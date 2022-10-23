@@ -43,7 +43,7 @@ public class ThesisScoreServiceImpl implements ThesisScoreService{
     }
 
     @Override
-    public List<Object[]> getListAvgScoreOfCriteria(Integer councilId) {
-        return this.thesisScoreRepository.getListAvgScoreOfCriteria(councilId);
+    public List<Object[]> getListAvgScoreOfCriteria(Integer thesisId) {
+        return this.thesisScoreRepository.getListAvgScoreOfCriteria(thesisId);
     }
 }

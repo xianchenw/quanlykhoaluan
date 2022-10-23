@@ -5,6 +5,7 @@
 package com.ltjava.repository.impl;
 
 import com.ltjava.pojo.Major;
+import com.ltjava.pojo.MajorYear;
 import com.ltjava.pojo.Student;
 import com.ltjava.pojo.Thesis;
 import com.ltjava.pojo.User;
@@ -43,23 +44,53 @@ public class StudentRepositoryImpl implements StudentRepository{
     
     
     @Override
-    public List<Student> getStudents(String kw) {
+    public List<Student> getStudents(Map<String, String> params) {
         Session s = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery<Student> query = builder.createQuery(Student.class);
-        Root root = query.from(Student.class);
-        
-        query = query.select(root);
-        
-        if(!kw.isEmpty() && kw!=null){
-            Predicate p1 = builder.like(root.get("firstName").as(String.class),kw);
-            Predicate p2 = builder.like(root.get("lastName").as(String.class),kw);
-            query = query.where(builder.or(p1,p2));
+        try{
+            CriteriaBuilder builder = s.getCriteriaBuilder();
+            CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+            Root root = query.from(Student.class);
+                            
+            List<Predicate> predicates = new ArrayList<>();
+            if(!params.isEmpty()){
+                System.out.println("KHÔNG RỖNG");
+                if(!params.get("kw").isEmpty() && params.get("kw")!=null){
+                    System.out.println(params.get("kw"));
+                    Predicate p1 = builder.like(root.get("firstName").as(String.class),params.get("kw"));
+                    Predicate p2 = builder.like(root.get("lastName").as(String.class),params.get("kw"));
+                    predicates.add(builder.or(p1,p2));
+                }
+                
+                System.out.println(predicates.size());
+    
+                if(!params.get("yearId").isEmpty() && params.get("yearId")!=null){
+                    Root rootMajorYear = query.from(MajorYear.class);
+                    Predicate p1 = builder.like(rootMajorYear.get("yearId").get("id").as(String.class), params.get("yearId"));
+                    Predicate p2 = builder.like(root.get("classId").get("majorId").get("id"), rootMajorYear.get("majorId").get("id"));
+                    predicates.add(builder.and(p1, p2));
+                }
+                System.out.println(predicates.size());
+    
+                if(!params.get("majorId").isEmpty() && params.get("majorId")!=null){
+                    predicates.add(builder.like(root.get("classId").get("majorId").get("id").as(String.class),params.get("majorId")));
+                }
+                System.out.println(predicates.size());
+    
+                if(!params.get("classId").isEmpty() && params.get("classId")!=null){
+                    predicates.add(builder.like(root.get("classId").get("id").as(String.class),params.get("classId")));
+                }
+                System.out.println(predicates.size());
+                query.where(builder.and(predicates.toArray(new Predicate[]{})));
+            }
+            
+            query = query.multiselect(root);
+            Query q = s.createQuery(query);
+            System.out.println(q.getResultList().size());
+            return q.getResultList();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
-        
-        Query q = s.createQuery(query);
-        
-        return q.getResultList();
     }
 
     @Override

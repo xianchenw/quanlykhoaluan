@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -48,6 +49,7 @@ public class Student implements Serializable{
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
+    
     
     /**
      * @return the classId
@@ -119,6 +121,10 @@ public class Student implements Serializable{
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
     }
 
     /**

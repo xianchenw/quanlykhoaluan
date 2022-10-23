@@ -26,6 +26,7 @@ function loadClass(e, classSelected, note){
         else{
             note.innerHTML = ``;
         }
+        
         for(var item in data){
             var option = document.createElement("option");
             option.text = data[item].name;

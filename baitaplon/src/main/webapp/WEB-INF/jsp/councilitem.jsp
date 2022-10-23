@@ -66,7 +66,7 @@
                 <h3 class="text-center">QUẢN LÝ HỘI ĐỒNG</h3>
                 <div style="padding: 10px">
                     <a href="<c:url value="/council"/>"<p class="text-left text-dark">Danh sách hội đồng</p></a>
-                    <a href="<c:url value="/council/criteria"/>"><p class="text-left text-dark">Điểm khóa luận</p></a>
+<!--                    <a href="/baitaplon/council/criteria"><p class="text-left text-dark">Điểm khóa luận</p></a>-->
                 </div>
             </div>
             <div class="col-xl-10 ">
@@ -168,7 +168,11 @@
                         <c:if test="${councilPage.active==false}">
                             <a href="<c:url value="/council/unlock/${councilPage.id}" />"><button class="btn btn-info" >Mở khóa hội đồng</button></a>
                         </c:if>
+                        <c:if test="${councilPage.active == true}">
+                            <a href="<c:url value="/council/lock/${councilPage.id}"/>"><button class="btn btn-danger">Khóa hội đồng</button></a>
+                        </c:if>
                         <button onclick="editCouncil('${councilPage.id}', document.getElementById('PRESIDENT'), document.getElementById('SECRETARY'), document.getElementById('REVIEWER'), document.getElementsByName('MEMBER'))" class="btn btn-success" >Cập nhật</button>
+                        <div id="memberCouncilLoading" style="margin: 5px;display: none" class="spinner-border text-dark"></div>
                     </div>
                 </div>
                 <br>
@@ -221,7 +225,9 @@
                                                         </c:forEach>
                                                     </div>
                                                 </div>
-                                                    <button onclick="addCriteria('${thes.id}', document.getElementById('myInputCriteria${thes.id}'))" class="btn btn-info input-group-append">Thêm</button>
+                                                <input id="myInputMaxScore${thes.id}" class="form-control" placeholder="Điểm tối đa" value="2.0" type="text" name="addMaxScore" />
+                                                <button onclick="addCriteria('${thes.id}', document.getElementById('myInputCriteria${thes.id}'), document.getElementById('myInputMaxScore${thes.id}'), document.getElementById('criteriaLoading${thes.id}'))" class="btn btn-info">Thêm</button>
+                                                <div id="criteriaLoading${thes.id}" style="margin: 5px;display: none" class="spinner-border text-dark"></div>
                                             </div>
                                         </div>
                                     </div>

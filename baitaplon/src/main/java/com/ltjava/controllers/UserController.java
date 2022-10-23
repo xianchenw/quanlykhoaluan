@@ -136,7 +136,6 @@ public class UserController {
             String username = params.get("urUsername");
             User user = this.userService.getUserById(id);
             if(user.getUserRole().getId()<4){
-                System.out.println("LÀ GIẢNG VIÊN");
                 Teacher teacher = user.getTeacherId();
                 teacher.setFirstName(firstName);
                 teacher.setLastName(lastName);
@@ -144,17 +143,14 @@ public class UserController {
                 teacher.setEmail(email);
                 teacher.setMajorId(this.majorService.getMajorById(Integer.parseInt(params.get("urMajorId"))));
                 this.teacherService.addOrUpdateTeacher(teacher);
-                System.out.println("GIẢNG VIÊNNN");
             }
             else{
-                System.out.println("LÀ SINH VIÊNN");
                 Student student = user.getStudentId();
                 student.setFirstName(firstName);
                 student.setLastName(lastName);
                 student.setEmail(email);
                 student.setPhoneNumber(phoneNumber);
                 this.studentService.addOrUpdateStudent(student);
-                System.out.println("SINH VIÊNN");
             }
             user.setUserRole(userRole);
             user.setUsername(username);

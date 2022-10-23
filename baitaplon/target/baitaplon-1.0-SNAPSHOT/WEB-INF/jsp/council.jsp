@@ -19,7 +19,7 @@
                 <h3 class="text-center">QUẢN LÝ HỘI ĐỒNG</h3>
                 <div style="padding: 10px">
                     <a href="<c:url value="/council"/>"<p class="text-left text-dark">Danh sách hội đồng</p></a>
-                    <a href="<c:url value="/council/criteria"/>"><p class="text-left text-dark">Điểm khóa luận</p></a>
+<!--                    <a href="/baitaplon/council/criteria"/>"><p class="text-left text-dark">Điểm khóa luận</p></a>-->
                 </div>
             </div>
             <div class="col-xl-10">
@@ -42,6 +42,7 @@
 
                             <div class="modal-header">
                               <h4 class="modal-title">Thêm hội đồng</h4>
+                              <div id="addCouncilLoading" style="margin: 5px;display: none" class="spinner-border text-dark"></div>
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
@@ -162,11 +163,13 @@
                                             <td></td>
                                         </c:if>
                                         <c:if test="${cM[0].active == true}">
-                                            <td><a href="<c:url value="/council/lock/${cM[0].id}"/>"><button class="btn btn-danger">Khóa hội đồng</button></a></td>
+                                            <td>
+                                                <small class="badge badge-pill badge-success">Active</small>
+                                            </td>
                                         </c:if>
                                         <c:if test="${cM[0].active == false}">
                                             <td>
-                                                <small class="badge badge-pill badge-danger">Đã khóa</small>
+                                                <small class="badge badge-pill badge-danger">Locked</small>
                                             </td>
                                         </c:if>
                                             <td>

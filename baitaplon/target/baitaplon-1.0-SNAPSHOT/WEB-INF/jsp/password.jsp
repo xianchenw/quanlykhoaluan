@@ -44,9 +44,11 @@
                     </form>
                 </div>
             </div>
-            <div class="alert alert-success">
-                <strong>${msg}</strong>
-            </div>
+            <c:if test="${msg!=null}">
+                <div class="alert alert-success">
+                    <strong>${msg}</strong>
+                </div>
+            </c:if>
             <!-- /form card change password -->
             <script>
                 function checkPassword(){

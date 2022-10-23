@@ -31,12 +31,30 @@
             <div class="col-xl-9">
                 <div class="d-flex flex-row-reverse">
                     <div class="p-2">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search">
+                        <form method="get" action="" class="input-group mb-3">
+                            <select name="yearId" class="form-control">
+                                <option value="">Niên khóa</option>
+                                <c:forEach items="${listYear}" var="year">
+                                    <option value="${year.id}">${year.year}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="majorId" class="form-control">
+                                <option value="" >Khoa</option>
+                                <c:forEach items="${listMajor}" var="major" >
+                                    <option value="${major.id}">${major.name}</option>
+                                </c:forEach>
+                            </select>
+                            <select id="classKw" name="classId" class="form-control">
+                                <option value="">Lớp</option>
+                                <c:forEach items="${listClass}" var="cs">
+                                    <option value="${cs.id}">${cs.name}</option>
+                                </c:forEach>
+                            </select>
+                            <input type="text" name="kw" class="form-control" placeholder="Từ khóa">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="submit">Tìm</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="p-2">
                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#addStudent">Thêm sinh viên</button>
@@ -106,6 +124,9 @@
 
                             </div>
                         </div>
+                    </div>
+                    <div id="kwNote" class="p-2">
+                        
                     </div>
                 </div>
                 <div>

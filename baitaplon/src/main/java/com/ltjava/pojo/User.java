@@ -31,10 +31,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 public class User implements Serializable{
-    private static String ADMIN = "ADMIN";
-    private static String TEACHER = "TEACHER";
-    private static String MANAGER = "MANAGER";
-    private static String STUDENT = "STUDENT";
+    public static final String ADMIN = "ADMIN";
+    public static final String MANAGER = "MANAGER";
+    public static final String TEACHER = "TEACHER";
+    public static final String STUDENT = "STUDENT";
     
     @Id
     private String id;
@@ -60,6 +60,9 @@ public class User implements Serializable{
     @JsonIgnore
     @OneToOne(mappedBy = "userId")
     private Teacher teacherId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "userId")
+    private Set<UserNotification> userNotifications;
 
     public User(){
         
@@ -163,61 +166,6 @@ public class User implements Serializable{
         return this.username;
     }
 
-    /**
-     * @return the ADMIN
-     */
-    public static String getADMIN() {
-        return ADMIN;
-    }
-
-    /**
-     * @param aADMIN the ADMIN to set
-     */
-    public static void setADMIN(String aADMIN) {
-        ADMIN = aADMIN;
-    }
-
-    /**
-     * @return the TEACHER
-     */
-    public static String getTEACHER() {
-        return TEACHER;
-    }
-
-    /**
-     * @param aTEACHER the TEACHER to set
-     */
-    public static void setTEACHER(String aTEACHER) {
-        TEACHER = aTEACHER;
-    }
-
-    /**
-     * @return the MANAGER
-     */
-    public static String getMANAGER() {
-        return MANAGER;
-    }
-
-    /**
-     * @param aMANAGER the MANAGER to set
-     */
-    public static void setMANAGER(String aMANAGER) {
-        MANAGER = aMANAGER;
-    }
-
-    /**
-     * @return the STUDENT
-     */
-    public static String getSTUDENT() {
-        return STUDENT;
-    }
-
-    /**
-     * @param aSTUDENT the STUDENT to set
-     */
-    public static void setSTUDENT(String aSTUDENT) {
-        STUDENT = aSTUDENT;
-    }
 
     /**
      * @return the members
@@ -273,6 +221,20 @@ public class User implements Serializable{
      */
     public void setTeacherId(Teacher teacherId) {
         this.teacherId = teacherId;
+    }
+
+    /**
+     * @return the userNotifications
+     */
+    public Set<UserNotification> getUserNotifications() {
+        return userNotifications;
+    }
+
+    /**
+     * @param userNotifications the userNotifications to set
+     */
+    public void setUserNotifications(Set<UserNotification> userNotifications) {
+        this.userNotifications = userNotifications;
     }
 
 

@@ -60,12 +60,12 @@ public class ThesisServiceImpl implements ThesisService{
         return false;
     }
 
-    @Override
-    public boolean updateThesis(Integer intgr, String string, String string1, User user, Set<Student> set) {
-        Thesis thesis = this.thesisRepository.getThesisById(intgr);
-        this.thesisRepository.removeStudents(thesis);
-        return this.thesisRepository.updateThesis(intgr, string, string1, user, set);
-    }
+//    @Override
+//    public boolean updateThesis(Integer intgr, String string, String string1, User user, Set<Student> set) {
+//        Thesis thesis = this.thesisRepository.getThesisById(intgr);
+//        this.thesisRepository.removeStudents(thesis);
+//        return this.thesisRepository.updateThesis(intgr, string, string1, user, set);
+//    }
 
     @Override
     public boolean removeStudents(Thesis thesis) {

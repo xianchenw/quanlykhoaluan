@@ -4,6 +4,7 @@
  */
 
 function changeReviewer(reviewerId){
+    document.getElementById('addReviewerLoading').style.display = "block";
     console.log(reviewerId);
     fetch(`/baitaplon/api/thesis/user`,{
         method:'put',
@@ -19,10 +20,12 @@ function changeReviewer(reviewerId){
         console.log(data);
         document.getElementById('reviewerIdLabel').innerText = data.id;
         document.getElementById('reviewerNameLabel').innerText = data.firstName + " " + data.lastName;
+        document.getElementById('addReviewerLoading').style.display = "none";
     })
 }
 
 function addReviewer(reviewerId){
+    document.getElementById('addReviewerLoading').style.display = "block";
     console.log(reviewerId)
     fetch(`/baitaplon/api/thesis/user`,{
         method:'put',
@@ -39,10 +42,12 @@ function addReviewer(reviewerId){
         document.getElementById('reviewerLabel').innerHTML = `
             <span id="reviewerIdLabel">${data.id}</span> 
             - <span id="reviewerNameLabel">${data.firstName} ${data.lastName}</span>`;
+        document.getElementById('addReviewerLoading').style.display = "none";
     })
 }
 
-function changeStudent(studentId, cellId, cellName){
+function changeStudent(studentId, cellId, cellName, loading){
+    loading.style.display = "block";
     console.log(studentId);
     console.log(cellId.innerText);
     console.log(cellName.innerText);
@@ -60,14 +65,16 @@ function changeStudent(studentId, cellId, cellName){
         console.log(data);
         cellId.innerText = data.id;
         cellName.innerText = data.firstName + " " + data.lastName;
+        loading.style.display = "none";
     })
 }
 
-function addStudent(studentId, cellId, cellName){
-    changeStudent(studentId, cellId, cellName);
+function addStudent(studentId, cellId, cellName, loading){
+    changeStudent(studentId, cellId, cellName, loading);
 }
 
-function changeInstructor(instructorId, cellId, cellName){
+function changeInstructor(instructorId, cellId, cellName, loading){
+    loading.style.display = "block";
     console.log(instructorId)
     fetch(`/baitaplon/api/thesis/user`,{
         method:'put',
@@ -83,14 +90,16 @@ function changeInstructor(instructorId, cellId, cellName){
         console.log(data);
         cellId.innerText = data.id;
         cellName.innerText = data.firstName + " " + data.lastName;
+        loading.style.display = "none";
     })
 }
 
-function addInstructor(instructorId, cellId, cellName){
-    changeInstructor(instructorId, cellId, cellName);
+function addInstructor(instructorId, cellId, cellName, loading){
+    changeInstructor(instructorId, cellId, cellName, loading);
 }
 
-function editThesis(thesisId, topic, description, reviewer, students, instructors){
+function editThesis(thesisId, topic, description, reviewer, students, instructors, loading){
+    loading.style.display = "block";
     console.log(thesisId, topic, description, reviewer);
     for(let i=0;i<instructors.rows.length-1;i++){
         console.log(instructors.rows[i+1].cells.item(0).innerText);
@@ -128,4 +137,11 @@ function refr(a, b){
     b.innerHTML = "";
 }
 
+function showCouncilChoose(){
+    var councilChoose = document.getElementById('councilChoose');
+    if(councilChoose.style.visibility == "hidden")
+        councilChoose.style.visibility = "visible";
+    else
+        councilChoose.style.visibility = "hidden";
+}
 

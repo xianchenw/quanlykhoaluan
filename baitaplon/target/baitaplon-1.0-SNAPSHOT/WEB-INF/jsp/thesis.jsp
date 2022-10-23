@@ -11,13 +11,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="<c:url value="/js/thesis.js" />"></script>
     </head>
     <body>
-        <script >
-            function addStudent(id){
-                console.log(id);
-            }
-        </script>
         <div class="col-xl-12 row container-fluid content ">
             <div class="col-xl-3 border-right">
                 <h3 class="text-left">QUẢN LÝ KHÓA LUẬN</h3>
@@ -25,9 +21,28 @@
                     <a href="<c:url value="/thesis"/>"><p class="text-left text-dark">Danh sách khóa luận</p></a>
                     <a href="<c:url value="/stats"/>"><p class="text-left text-dark">Thống kê</p></a>
                     
-                    <a href="<c:url value="/thesis/score/${currentUser.id}"/>"><p class="text-left text-dark">Chấm điểm</p></a>
+                    <a onclick="showCouncilChoose()" href="javascript:;"><p class="text-left text-dark">Chấm điểm</p></a>
                 </div>
             </div>
+                <div onclick="showCouncilChoose()" id="councilChoose" style="position: absolute;z-index: 2;display: flex;align-items: center;width: 100%;height: 100%;visibility: hidden">
+                    <div style="width: 35%;"></div>
+                    <div style="width: 30%">
+                        <div style="width: 100%;">
+                            <div style="border: 1px solid gray; border-radius: 10px;padding: 10px;background-color: #e9f3f7; margin: 20px">
+                                <div style="">
+                                    <h4 class="text-center">Chọn hội đồng</h4>
+                                </div>
+                                <c:forEach items="${currentUser.members}" var="member">
+                                    <hr>
+                                    <a href="<c:url value="/thesis/score/${currentUser.id}/${member.councilId.id}"/>">
+                                        <h6 class="text-dark text-center">${member.councilId.name}</h6>
+                                    </a>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 35%;"></div>
+                </div>
             <div class="col-xl-9">
                 <div class="d-flex flex-row-reverse">
                     <div class="p-2 ">

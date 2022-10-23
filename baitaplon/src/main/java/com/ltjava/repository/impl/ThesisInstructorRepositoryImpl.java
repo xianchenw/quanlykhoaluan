@@ -54,13 +54,10 @@ public class ThesisInstructorRepositoryImpl implements ThesisInstructorRepositor
     }
 
     @Override
-    public boolean addThesisInstructor(Thesis thesis, User user) {
+    public boolean addOrUpdateThesisInstructor(ThesisInstructor ts) {
         Session s = sessionFactory.getObject().getCurrentSession();
         try{
-            ThesisInstructor t = new ThesisInstructor();
-            t.setThesisId(thesis);
-            t.setInstructorId(user);
-            s.save(t);
+            s.saveOrUpdate(ts);
             System.out.println("THÊM THÀNH CÔNGGG");
             return true;
         }

@@ -82,30 +82,36 @@ public class ApiThesisController {
     public ResponseEntity<Thesis> editThesis(@RequestBody Map<String,String> params){
         try{
             Thesis thesis = this.thesisService.getThesisById(Integer.parseInt(params.get("thesisId")));
-            Set<Student> students = new HashSet<>();
-            Set<User> instructors = new HashSet<>();
             User reviewer = this.userService.getUserById(params.get("reviewerId"));
-            thesisInstructorService.removeThesisInstructors(thesis);
-            if(studentService.getStudentById(params.get("student1"))!=null){
-                students.add(studentService.getStudentById(params.get("student1")));
+            Student s1 = this.studentService.getStudentById(params.get("student1"));
+            Student s2 = this.studentService.getStudentById(params.get("student2"));
+            User ins1 = this.userService.getUserById(params.get("instructor1"));
+            User ins2 = this.userService.getUserById(params.get("instructor2"));
+            this.thesisInstructorService.removeThesisInstructors(thesis);
+            for(Student student:thesis.getStudents()){
+                student.setThesisId(null);
+                this.studentService.addOrUpdateStudent(student);
             }
-            if(studentService.getStudentById(params.get("student2"))!=null){
-                students.add(studentService.getStudentById(params.get("student2")));
+            if(s1!=null){
+                s1.setThesisId(thesis);
+                this.studentService.addOrUpdateStudent(s1);
             }
-            if(userService.getUserById(params.get("instructor1"))!=null){
-                instructors.add(userService.getUserById(params.get("instructor1")));
+            if(s2!=null){
+                s2.setThesisId(thesis);
+                this.studentService.addOrUpdateStudent(s2);
             }
-            if(userService.getUserById(params.get("instructor2"))!=null){
-                instructors.add(userService.getUserById(params.get("instructor2")));
+            if(ins1!=null){
+                this.thesisInstructorService.addOrUpdateThesisInstructor(new ThesisInstructor(thesis, ins1));
             }
-            this.thesisService.updateThesis(Integer.parseInt(params.get("thesisId")), params.get("topic"), params.get("description"), reviewer, students);
-            for(User user:instructors){
-                this.thesisInstructorService.addThesisInstructor(thesis, user);
+            if(ins2!=null){
+                this.thesisInstructorService.addOrUpdateThesisInstructor(new ThesisInstructor(thesis, ins2));
             }
-            Thesis newThesis = this.thesisService.getThesisById(Integer.parseInt(params.get("thesisId")));
-            System.out.println("IUHKGHJNKNUG");
-            System.out.println(newThesis.getTopic());
-            return new ResponseEntity<>(newThesis, HttpStatus.OK);
+            thesis.setTopic(params.get("topic"));
+            thesis.setDescription(params.get("description"));
+            thesis.setReviewerId(reviewer);
+            if(this.thesisService.addOrUpdateThesis(thesis)){
+                return new ResponseEntity<>(thesis, HttpStatus.OK);
+            }
         }
         catch(Exception e){
             System.out.print(e.getMessage());

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author HIEN
  */
 public interface StudentRepository {
-    List<Student> getStudents(String kw);
+    List<Student> getStudents(Map<String,String> params);
     Student getStudentById(String id);
     boolean addOrUpdateStudent(Student s);
     boolean addThesis(Student s, Thesis t);

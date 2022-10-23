@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -32,6 +34,8 @@ public class Thesis implements Serializable{
     private String description;
     @Column(name = "file_url")
     private String fileUrl;
+    @Transient
+    private MultipartFile file;
     @Column(name = "created_date")
     private String createdDate;
     @ManyToOne
@@ -181,6 +185,34 @@ public class Thesis implements Serializable{
      */
     public void setThesisCriterias(Set<ThesisCriteria> thesisCriterias) {
         this.thesisCriterias = thesisCriterias;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

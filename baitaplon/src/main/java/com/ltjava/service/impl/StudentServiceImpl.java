@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService{
     private StudentRepository studentRepository;
 
     @Override
-    public List<Student> getStudents(String kw) {
+    public List<Student> getStudents(Map<String, String> kw) {
         return this.studentRepository.getStudents(kw);
     }
 

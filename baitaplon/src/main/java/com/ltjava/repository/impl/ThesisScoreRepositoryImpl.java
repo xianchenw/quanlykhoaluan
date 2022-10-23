@@ -107,7 +107,7 @@ public class ThesisScoreRepositoryImpl implements ThesisScoreRepository{
     }
 
     @Override
-    public List<Object[]> getListAvgScoreOfCriteria(Integer councilId) {
+    public List<Object[]> getListAvgScoreOfCriteria(Integer thesisId) {
         Session s = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -115,13 +115,12 @@ public class ThesisScoreRepositoryImpl implements ThesisScoreRepository{
         Root criteriaRoot = query.from(ThesisCriteria.class);
         Root thesisRoot = query.from(Thesis.class);
         
-        Predicate p1 = builder.equal(thesisRoot.get("councilId"), councilId);
-        Predicate p2 = builder.equal(criteriaRoot.get("thesisId").get("id"), thesisRoot.get("id"));
+        Predicate p2 = builder.equal(criteriaRoot.get("thesisId").get("id"), thesisId);
         Predicate p3 = builder.equal(scoreRoot.get("thesisCriteriaId"), criteriaRoot.get("id"));
-        query = query.where(builder.and(p1,p2,p3));
+        query = query.where(builder.and(p2,p3));
         
-        query.multiselect(thesisRoot.get("id"),criteriaRoot.get("criteriaId").get("name"), builder.avg(scoreRoot.get("score")));
-        query.groupBy(thesisRoot.get("id"),criteriaRoot.get("criteriaId").get("name")).orderBy(builder.asc(thesisRoot.get("id")));
+        query.multiselect(thesisRoot.get("id"),criteriaRoot.get("criteriaId").get("name"), criteriaRoot.get("maxScore"),builder.avg(scoreRoot.get("score")));
+        query.groupBy(criteriaRoot.get("criteriaId").get("name")).orderBy(builder.asc(thesisRoot.get("id")));
         
         Query q = s.createQuery(query);
         return q.getResultList();

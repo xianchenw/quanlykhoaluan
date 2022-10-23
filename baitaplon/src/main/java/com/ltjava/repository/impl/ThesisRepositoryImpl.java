@@ -152,31 +152,26 @@ public class ThesisRepositoryImpl implements ThesisRepository{
 //        return list;
 //    }
 
-    @Override
-    public boolean updateThesis(Integer id, String topic, String description, User reviewer, Set<Student> students) {
-        Session s = sessionFactory.getObject().getCurrentSession();
-        Thesis thesis = getThesisById(id);
-        try{
-            System.out.println("KHSGOJMGLKDG");
-            thesis.setTopic(topic);
-            thesis.setDescription(description);
-            thesis.setReviewerId(reviewer);
-            for(Student st : students){
-                st.setThesisId(thesis);
-                s.update(st);
-            }
-            
-            s.update(thesis);
-            System.out.println("CẬP NHẬT THÀNH CÔNGGG");
-            return true;
-        }
-        catch(Exception ex){
-            System.out.println("LỖI RỒIIIII");
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getStackTrace());
-        }
-        return false;
-    }
+//    @Override
+//    public boolean updateThesis(Integer id, String topic, String description, User reviewer) {
+//        Session s = sessionFactory.getObject().getCurrentSession();
+//        Thesis thesis = getThesisById(id);
+//        try{
+//            System.out.println("KHSGOJMGLKDG");
+//            thesis.setTopic(topic);
+//            thesis.setDescription(description);
+//            thesis.setReviewerId(reviewer);
+//            s.update(thesis);
+//            System.out.println("CẬP NHẬT THÀNH CÔNGGG");
+//            return true;
+//        }
+//        catch(Exception ex){
+//            System.out.println("LỖI RỒIIIII");
+//            System.out.println(ex.getMessage());
+//            System.out.println(ex.getStackTrace());
+//        }
+//        return false;
+//    }
 
     @Override
     public boolean removeStudents(Thesis thesis) {

@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface ThesisInstructorRepository {
     List<ThesisInstructor> getThesisInstructors(Thesis thesis, User user);
-    boolean addThesisInstructor(Thesis thesis, User user);
+    boolean addOrUpdateThesisInstructor(ThesisInstructor ts);
     boolean removeThesisInstructors(Thesis thesis);
 }

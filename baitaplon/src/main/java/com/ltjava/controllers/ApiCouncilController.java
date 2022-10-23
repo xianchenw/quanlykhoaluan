@@ -141,11 +141,12 @@ public class ApiCouncilController {
         try{
             Thesis thesis = this.thesisService.getThesisById(Integer.parseInt(params.get("thesisId")));
             Criteria criteria = this.criteriaService.getCriteriaByName(params.get("criteriaName"));
+            Float maxSCore = Float.valueOf(params.get("maxScore"));
             if(criteria==null){
                 criteria = new Criteria(params.get("criteriaName"));
                 this.criteriaService.addCriteria(criteria);
             }
-            ThesisCriteria thesisCriteria = new ThesisCriteria(thesis, criteria);
+            ThesisCriteria thesisCriteria = new ThesisCriteria(thesis, criteria, maxSCore);
             if(this.thesisCriteriaService.addOrUpdate(thesisCriteria)){
                 return new ResponseEntity<>(thesisCriteria, HttpStatus.OK);
             }

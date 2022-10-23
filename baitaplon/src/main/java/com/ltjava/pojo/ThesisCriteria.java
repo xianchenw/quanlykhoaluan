@@ -6,6 +6,7 @@ package com.ltjava.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,8 @@ public class ThesisCriteria {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="criteria_id", referencedColumnName = "id")
     private Criteria criteriaId;
+    @Column(name = "max_score")
+    private Float maxScore;
     @JsonIgnore
     @OneToMany(mappedBy = "thesisCriteriaId", fetch = FetchType.EAGER)
     private Set<ThesisScore> thesisScores;
@@ -41,9 +44,10 @@ public class ThesisCriteria {
         
     }
     
-    public ThesisCriteria(Thesis thesis, Criteria criteria){
+    public ThesisCriteria(Thesis thesis, Criteria criteria, Float maxScore){
         this.thesisId = thesis;
         this.criteriaId = criteria;
+        this.maxScore = maxScore;
     }
     
     /**
@@ -100,6 +104,20 @@ public class ThesisCriteria {
      */
     public void setThesisScores(Set<ThesisScore> thesisScores) {
         this.thesisScores = thesisScores;
+    }
+
+    /**
+     * @return the maxScore
+     */
+    public Float getMaxScore() {
+        return maxScore;
+    }
+
+    /**
+     * @param maxScore the maxScore to set
+     */
+    public void setMaxScore(Float maxScore) {
+        this.maxScore = maxScore;
     }
     
 }

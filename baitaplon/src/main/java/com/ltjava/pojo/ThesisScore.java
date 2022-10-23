@@ -26,7 +26,7 @@ public class ThesisScore implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer score;
+    private Float score;
     @Column(name = "created_date")
     private Date createdDate;
     @ManyToOne
@@ -40,7 +40,7 @@ public class ThesisScore implements Serializable{
         
     }
     
-    public ThesisScore(Integer score, ThesisCriteria thesisCriteria, User user){
+    public ThesisScore(Float score, ThesisCriteria thesisCriteria, User user){
         this.score = score;
         this.createdDate = Date.from(Instant.now());
         this.thesisCriteriaId = thesisCriteria;
@@ -50,14 +50,14 @@ public class ThesisScore implements Serializable{
     /**
      * @return the score
      */
-    public Integer getScore() {
+    public Float getScore() {
         return score;
     }
 
     /**
      * @param score the score to set
      */
-    public void setScore(Integer score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 

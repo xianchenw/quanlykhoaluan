@@ -86,5 +86,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="tittle" value="Chi tiết hội đồng" />
         <put-attribute name="content" value="/WEB-INF/jsp/councilitem.jsp" />
     </definition>
+    <definition name="accessDenied" extends="baseLayout">
+        <put-attribute name="tittle" value="Không thề truy cập" />
+        <put-attribute name="content" value="/WEB-INF/jsp/accessDenied.jsp" />
+    </definition>
+    <definition name="studentThesis" extends="baseLayout">
+        <put-attribute name="tittle" value="Khóa luận" />
+        <put-attribute name="content" value="/WEB-INF/jsp/studentThesis.jsp" />
+    </definition>
 </tiles-definitions>
 

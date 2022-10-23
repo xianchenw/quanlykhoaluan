@@ -22,6 +22,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name="major")
 public class Major implements Serializable{
+
+    /**
+     * @return the majorYears
+     */
+    public Set<MajorYear> getMajorYears() {
+        return majorYears;
+    }
+
+    /**
+     * @param majorYears the majorYears to set
+     */
+    public void setMajorYears(Set<MajorYear> majorYears) {
+        this.majorYears = majorYears;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,6 +47,9 @@ public class Major implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "majorId", fetch = FetchType.EAGER)
     private Set<Teacher> teachers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "majorId", fetch = FetchType.EAGER)
+    private Set<MajorYear> majorYears;
     
     /**
      * @return the id
